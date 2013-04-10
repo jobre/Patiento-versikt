@@ -1,0 +1,189 @@
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe.config
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Interop.Garp.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.ResolveComReference.cache
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\ResolveAssemblyReference.cache
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagIO.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagThord.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagChooseErrand.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagDiagnos.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagFkn.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagLevDat.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOrderHuvud.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagPatient.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagProduct.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagReceipt.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagUnboundErrand.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmOwnFeeList.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmProgress.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAbout.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAddCust.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmDeliver.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmErrorReport.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmMain.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmOwnFee.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmSettings.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Properties.Resources.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Thord.frmDiagThord.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.sah-RU.resources
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\GenerateResource.read.1.tlog
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\GenerateResource.write.1.tlog
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\configure.xml
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.pdb
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\sah-RU\Ortoped.resources.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\log4net.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Kennedy.ManagedHooks.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.pdb
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.pdb
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.pdb
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Interop.Garp.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\sah-RU\Ortoped.resources.dll
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.exe
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.pdb
+C:\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\SystemHookCore.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe.config
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Interop.Garp.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.ResolveComReference.cache
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.exe
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.pdb
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\SystemHookCore.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\configure.xml
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.pdb
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\sah-RU\Ortoped.resources.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Microsoft.Web.Services3.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\log4net.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Kennedy.ManagedHooks.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.pdb
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.pdb
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.pdb
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Interop.Garp.dll
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagIO.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagThord.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagChooseErrand.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagDiagnos.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagFkn.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagLevDat.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOrderHuvud.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagPatient.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagProduct.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagReceipt.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagUnboundErrand.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmOwnFeeList.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmProgress.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAbout.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAddCust.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmDeliver.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmErrorReport.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmMain.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmOwnFee.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmSettings.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Properties.Resources.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Thord.frmDiagThord.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.sah-RU.resources
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\joakim.brenevik\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\sah-RU\Ortoped.resources.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe.config
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Interop.Garp.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.ResolveComReference.cache
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.exe
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.pdb
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\SystemHookCore.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\configure.xml
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.pdb
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\sah-RU\Ortoped.resources.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Microsoft.Web.Services3.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\log4net.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Kennedy.ManagedHooks.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.pdb
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.pdb
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.pdb
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Interop.Garp.dll
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagIO.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagThord.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagChooseErrand.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagDiagnos.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagFkn.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagLevDat.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOrderHuvud.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagPatient.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagProduct.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagReceipt.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagUnboundErrand.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmOwnFeeList.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmProgress.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAbout.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAddCust.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmDeliver.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmErrorReport.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmMain.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmOwnFee.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmSettings.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Properties.Resources.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Thord.frmDiagThord.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.sah-RU.resources
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.GenerateResource.Cache
+\\vmware-host\Shared Folders\Documents\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\sah-RU\Ortoped.resources.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\SystemHookCore.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\configure.xml
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe.config
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.exe
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Ortoped.pdb
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\sah-RU\Ortoped.resources.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Microsoft.Web.Services3.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\log4net.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Kennedy.ManagedHooks.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_BaseFunctions.pdb
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\GCS_GarpFunctions.pdb
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\KeyboardSpyDll.pdb
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\bin\Debug\Interop.Garp.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csprojResolveAssemblyReference.cache
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Interop.Garp.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.ResolveComReference.cache
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagIO.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagThord.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagChooseErrand.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagDiagnos.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagFkn.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagLevDat.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOrderHuvud.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagPatient.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagProduct.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagReceipt.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagUnboundErrand.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmOwnFeeList.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmProgress.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAbout.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmAddCust.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmDeliver.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmErrorReport.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmMain.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmOwnFee.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.frmSettings.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Properties.Resources.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Thord.frmDiagThord.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.Dialogs.frmDiagOH.sah-RU.resources
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.csproj.GenerateResource.Cache
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\sah-RU\Ortoped.resources.dll
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.exe
+C:\Users\Joakim\SkyDrive\Arbete\GC-Solution\Aktiv Ortopedteknik\GEM\Patientöversikt\obj\Debug\Ortoped.pdb

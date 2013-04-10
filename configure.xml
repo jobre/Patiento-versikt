@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configure>
+  <MailConfig Smtp="192.168.90.4" User="hjalp" Password="peking011" FromAddress="hjalp@aktivortopedteknik.se" SupportAddress="joakim.brenevik@gcsolutions.se"/>
+  <Bolag ID="110" DiagnosFil="ostediag.skv" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="O" Kst="3120"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="O"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-OA" Namn="Skor hämta"/>
+          <Kallelse DokumentId="265-OB" Namn="Tid utprovning"/>
+          <Kallelse DokumentId="265-OC" Namn="Uteblivna besök"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="O"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+  <Bolag ID="160" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J">
+
+    <Anvandare>
+      <AnvKod ID="D" Kst="3410"  BetVillkEaKont="D" BetVillkEaFakt="01" Thord="J" VisaProduktGrupper="J">
+        <PatientKod ID="D"/>
+        <PatientKod ID="1"/>
+        <Serie ID="D"/>
+
+        <Thord>
+          <User Id="susand" Password="chevr0let"/>
+        </Thord>
+
+        <Dokument>
+
+          <Kallelse DokumentId="265-DA" Namn="Skor klara för hämtning"/>
+          <Kallelse DokumentId="265-DB" Namn="Hjälpmedel klart för hämtning"/>
+          <Kallelse DokumentId="265-DC" Namn="Rekvisition skor barn"/>
+          <Kallelse DokumentId="265-DD" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-DE" Namn="Rekvisition handskar"/>
+          <Kallelse DokumentId="265-DF" Namn="Rekvisition stora skor"/>
+          <Kallelse DokumentId="265-DG" Namn="Befintlig remist"/>
+          <Kallelse DokumentId="265-DH" Namn="Påminnelse hjälpmedel"/>
+          <Kallelse DokumentId="265-DI" Namn="Ny remiss"/>
+          <Kallelse DokumentId="265-DJ" Namn="Följesedel sits"/>
+          <Kallelse DokumentId="265-DK" Namn="Beställningsunderlag sits"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="D"/>
+          <BetVillk ID="D"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+      <AnvKod ID="S" Kst="3410"  BetVillkEaKont="D" BetVillkEaFakt="01" Thord="J">
+        <PatientKod ID="D"/>
+        <PatientKod ID="1"/>
+        <Serie ID="D"/>
+
+        <Thord>
+          <User Id="susand" Password="chevr0let"/>
+        </Thord>
+
+        <Dokument>
+
+          <Kallelse DokumentId="265-AO" Namn="Arbetsorder test"/>
+          <Kallelse DokumentId="265-DA" Namn="Skor klara för hämtning"/>
+          <Kallelse DokumentId="265-DB" Namn="Hjälpmedel klart för hämtning"/>
+          <Kallelse DokumentId="265-DC" Namn="Rekvisition skor barn"/>
+          <Kallelse DokumentId="265-DD" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-DE" Namn="Rekvisition handskar"/>
+          <Kallelse DokumentId="265-DF" Namn="Rekvisition stora skor"/>
+          <Kallelse DokumentId="265-DG" Namn="Befintlig remiss"/>
+          <Kallelse DokumentId="265-DH" Namn="Påminnelse hjälpmedel"/>
+          <Kallelse DokumentId="265-DI" Namn="Ny remiss"/>
+          <Kallelse DokumentId="265-DJ" Namn="Följesedel sits"/>
+          <Kallelse DokumentId="265-DK" Namn="Beställningsunderlag sits"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="D"/>
+          <BetVillk ID="D"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+      <AnvKod ID="H"  Kst="3430"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="J">
+        <PatientKod ID="H"/>
+        <PatientKod ID="2"/>
+        <Serie ID="B"/>
+
+
+        <Thord>
+          <User Id="sushudd" Password="chevr0let"/>
+        </Thord>
+        <Dokument>
+          <Kallelse DokumentId="265-HA" Namn="Skor klara för hämtning"/>
+          <Kallelse DokumentId="265-HB" Namn="Hjälpmedel klart för hämtning"/>
+          <Kallelse DokumentId="265-HC" Namn="Rekvisition skor barn"/>
+          <Kallelse DokumentId="265-HD" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-HE" Namn="Rekvisition handskar"/>
+          <Kallelse DokumentId="265-HF" Namn="Rekvisition stora skor"/>
+          <Kallelse DokumentId="265-HG" Namn="Befintlig remiss"/>
+          <Kallelse DokumentId="265-HH" Namn="Påminnelse hjälpmedel"/>
+          <Kallelse DokumentId="265-HI" Namn="Ny remiss"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-07" Namn="HKontantnota"/>
+          <Faktura DokumentId="295-01" Namn="HFaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="H"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+      <AnvKod ID="R"  Kst="3420"  BetVillkEaKont="C" BetVillkEaFakt="02" Thord="J">
+        <PatientKod ID="R"/>
+        <PatientKod ID="2"/>
+        <Serie ID="C"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-02" Namn="Faktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="R"/>
+          <BetVillk ID="C"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+
+    </Anvandare>
+  </Bolag>
+  <Bolag ID="030" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J">
+    <Anvandare>
+      <AnvKod ID="K" Kst="3180"  BetVillkEaKont="00" BetVillkEaFakt="01" Thord="J">
+        <PatientKod ID="K"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+
+        <Thord>
+          <User Id="susand" Password="chevr0let"/>
+        </Thord>
+
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-KA" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-KB" Namn="Rekvisition skor barn"/>
+          <Kallelse DokumentId="265-KC" Namn="Skoändring"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="K"/>
+          <BetVillk ID="00"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+      <AnvKod ID="S" Kst=" "  BetVillkEaKont="90" BetVillkEaFakt="01">
+        <PatientKod ID="K"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-KA" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-KB" Namn="Rekvisition skor barn"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="K"/>
+          <BetVillk ID="00"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+
+      <AnvKod ID="D" Kst="3410"  BetVillkEaKont="D" BetVillkEaFakt="01" Thord="J">
+        <PatientKod ID="D"/>
+        <PatientKod ID="1"/>
+        <Serie ID="D"/>
+
+        <Thord>
+          <User Id="joabre" Password="joabre"/>
+        </Thord>
+
+
+        <Dokument>
+
+          <Kallelse DokumentId="265-DA" Namn="Skor klara för hämtning"/>
+          <Kallelse DokumentId="265-DB" Namn="Hjälpmedel klart för hämtning"/>
+          <Kallelse DokumentId="265-DC" Namn="Rekvisition skor barn"/>
+          <Kallelse DokumentId="265-DD" Namn="Rekvisition skor vuxen"/>
+          <Kallelse DokumentId="265-DE" Namn="Rekvisition handskar"/>
+          <Kallelse DokumentId="265-DF" Namn="Rekvisition stora skor"/>
+          <Kallelse DokumentId="265-DG" Namn="Befintlig remist"/>
+          <Kallelse DokumentId="265-DH" Namn="Påminnelse hjälpmedel"/>
+          <Kallelse DokumentId="265-DI" Namn="Ny remiss"/>
+          <Kallelse DokumentId="265-DJ" Namn="Följesedel sits"/>
+          <Kallelse DokumentId="265-DK" Namn="Beställningsunderlag sits"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="D"/>
+          <BetVillk ID="D"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+    </Anvandare>
+
+  </Bolag>
+
+  <Bolag ID="210" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J">
+    <Anvandare>
+      <AnvKod ID="E" Kst="3260"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="E"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-EA" Namn="Påbyggnad skor"/>
+          <Kallelse DokumentId="265-EB" Namn="Hjälpmedel hämta med EA"/>
+          <Kallelse DokumentId="265-EC" Namn="Hjälpmedel hämta utan EA"/>
+          <Kallelse DokumentId="265-ED" Namn="Makulera remiss"/>
+          <Kallelse DokumentId="265-EE" Namn="Vilande remiss"/>
+          <Kallelse DokumentId="265-KA" Namn="Lästning/Påbyggnad skor Katrineholm"/>
+          <Kallelse DokumentId="265-KB" Namn="Hjälpmedel hämta med EA Katrineholm"/>
+          <Kallelse DokumentId="265-KC" Namn="Hjälpmedel hämta utan EA Katrineholm"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="E"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+      <AnvKod ID="N" Kst="3210"  BetVillkEaKont="C" BetVillkEaFakt="01">
+        <PatientKod ID="N"/>
+        <PatientKod ID="1"/>
+        <Serie ID="C"/>
+        <Dokument>
+          <Kallelse DokumentId="265-NA" Namn="Påbyggnad skor"/>
+          <Kallelse DokumentId="265-NB" Namn="Hjälpmedel hämta med EA"/>
+          <Kallelse DokumentId="265-NC" Namn="Hjälpmedel hämta utan EA"/>
+          <Kallelse DokumentId="265-ND" Namn="Uteblivna besök"/>
+          <Kallelse DokumentId="265-NE" Namn="Vilande remiss"/>
+          <Kallelse DokumentId="265-NF" Namn="Skor hämta"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="N"/>
+          <BetVillk ID="C"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+
+
+    </Anvandare>
+
+  </Bolag>
+
+  <Bolag ID="300" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J">
+    <CopDoc Path="\\app01\CopDoc\CopDoc\CopDOc.exe" Arguments="/nounicodeprefix /start=3 /patientssearchorderno={OGA;ONR}" ButtonText="Order" />
+    <CopDoc Path="\\app01\CopDoc\CopDoc\CopDOc.exe" Arguments="/nounicodeprefix /start=3 /patientssearchorderno={KA;KNR}" ButtonText="Patient" />
+
+    <Anvandare>
+      <AnvKod ID="A" Kst="3395"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="A"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-AA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-AB" Namn="Skojustering hämta"/>
+          <Kallelse DokumentId="265-AC" Namn="Uteblivna besök"/>
+          <Kallelse DokumentId="265-AD" Namn="Meddelande"/>
+          <Kallelse DokumentId="265-AF" Namn="Rekvisition skor"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="A"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+      <AnvKod ID="S" Kst="3395"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="A"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-AA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-AB" Namn="Skojustering hämta"/>
+          <Kallelse DokumentId="265-AC" Namn="Uteblivna besök"/>
+          <Kallelse DokumentId="265-AD" Namn="Meddelande"/>
+          <Kallelse DokumentId="265-AF" Namn="Rekvisition skor"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="A"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+  <Bolag ID="130" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="F" Kst="3150"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="F"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-FA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-FB" Namn="Fakturaunderlag"/>
+          <Kallelse DokumentId="265-BG" Namn="Butiken Remiss"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="F"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+      <AnvKod ID="B" Kst="3155"  BetVillkEaKont="BU" BetVillkEaFakt="02">
+        <PatientKod ID="F"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-BF" Namn="Butik hjm hämta"/>
+          <Kallelse DokumentId="265-BG" Namn="Butiken Remiss"/>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-06" Namn="Faktura"/>
+
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="F"/>
+          <BetVillk ID="BU"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+
+
+
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="310" DiagnosFil="UPPS.skv" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+      <!--<CopDoc Path="\\asan01\CopDoc$\Upps\CopDOc.exe" Arguments="/nounicodeprefix /start=3 /patientsearchorderno={OGA;ONR}" ButtonText="Order" />
+    <CopDoc Path="\\asan01\CopDoc$\Upps\CopDOc.exe" Arguments="/nounicodeprefix /start=3 /patientsearchpersonalno={KA;NAM}" ButtonText="Patient" />-->
+
+    <CopDoc Path="C:\Program Files (x86)\Copdoc\Upps\CoPDoc.exe" Arguments="/docpath=\\asan01\copdoc$\Upps\Documents /filepath=\\asan01\copdoc$\Upps\Files /formpath=\\asan01\copdoc$\Upps\Forms /nounicodeprefix /start=3 /patientsearchorderno={OGA;ONR}" ButtonText="Order" />
+    <CopDoc Path="C:\Program Files (x86)\Copdoc\Upps\CoPDoc.exe" Arguments="/docpath=\\asan01\copdoc$\Upps\Documents /filepath=\\asan01\copdoc$\Upps\Files /formpath=\\asan01\copdoc$\Upps\Forms /nounicodeprefix /start=3 /patientsearchpersonalno={KA;NAM}" ButtonText="Patient" />
+
+    <Anvandare>
+      <AnvKod ID="M" Kst="3370"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="J">
+        <Thord>
+          <User Id="test" Password="qweQWE123"/>
+        </Thord>
+        <PatientKod ID="M"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-MA" Namn="Malmö hämta bandage"/>
+          <Kallelse DokumentId="265-MB" Namn="Malmö leverans inlägg"/>
+          <Kallelse DokumentId="265-MC" Namn="Malmö hämta protes"/>
+          <Kallelse DokumentId="265-MD" Namn="Malmö Zia"/>
+          <Kallelse DokumentId="265-ME" Namn="Malmö lämna in skor"/>
+          <Kallelse DokumentId="265-MF" Namn="Malmö hämta skor"/>
+          <Kallelse DokumentId="265-MJ" Namn="Malmö hämta hjm"/>
+          <Kallelse DokumentId="265-MG" Namn="Trelleborg leverans inlägg"/>
+          <Kallelse DokumentId="265-MH" Namn="Trelleborg inlämn skor"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="M"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="100" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="S" Kst="3170"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="S"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-OA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-OB" Namn="Vilande remiss"/>
+          <Kallelse DokumentId="265-OC" Namn="Skorekvisition"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="S"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="110" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="O" Kst="3120"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="O"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-OA" Namn="Skor hämta"/>
+          <Kallelse DokumentId="265-OB" Namn="Tid utprovning"/>
+          <Kallelse DokumentId="265-OC" Namn="Uteblivna besök"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="O"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="140" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="U" Kst="3440"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="J">
+        <Thord>
+          <User Id="test" Password="qweQWE123"/>
+        </Thord>
+        <PatientKod ID="S"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-UA" Namn="Giltig remiss"/>
+          <Kallelse DokumentId="265-UB" Namn="Omgående leverans"/>
+          <Kallelse DokumentId="265-UC" Namn="Missad tid"/>
+          <Kallelse DokumentId="265-UD" Namn="Påminnelse nr 1"/>
+          <Kallelse DokumentId="265-UE" Namn="Påminnelse nr 2"/>
+          <Kallelse DokumentId="265-UF" Namn="Rekvisition olika"/>
+          <Kallelse DokumentId="265-UG" Namn="Rekvisition"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="U"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+
+ <Bolag ID="400" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="S" Kst="3440"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="U"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-UA" Namn="Giltig remiss"/>
+          <Kallelse DokumentId="265-UB" Namn="Omgående leverans"/>
+          <Kallelse DokumentId="265-UC" Namn="Missad tid"/>
+          <Kallelse DokumentId="265-UD" Namn="Påminnelse nr 1"/>
+          <Kallelse DokumentId="265-UE" Namn="Påminnelse nr 2"/>
+          <Kallelse DokumentId="265-UF" Namn="Rekvisition olika"/>
+          <Kallelse DokumentId="265-UG" Namn="Rekvisition"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="U"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+  <Bolag ID="200" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="V" Kst="3270"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="V"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-VA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-VB" Namn="Skor lämna"/>
+          <Kallelse DokumentId="265-VC" Namn="Skor hämta"/>
+          <Kallelse DokumentId="265-VD" Namn="Uteblivna besök"/>
+          <Kallelse DokumentId="265-VE" Namn="Köpe rekvisition"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="V"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="120" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="G" Kst="3130"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="G"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-GA" Namn="Hjälpmedel hämta"/>
+          <Kallelse DokumentId="265-GB" Namn="Uteblivet besök ortekn hjm"/>
+          <Kallelse DokumentId="265-GC" Namn="Uteblivet besök rekv"/>
+          <Kallelse DokumentId="265-GD" Namn="Skorekvisition"/>
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="G"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+      </AnvKod>
+    </Anvandare>
+  </Bolag>
+</Configure>
+
+
+

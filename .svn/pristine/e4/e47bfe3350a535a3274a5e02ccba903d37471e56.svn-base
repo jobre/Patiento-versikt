@@ -1,0 +1,50 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ortoped", "Ortoped.csproj", "{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardSpyDll", "..\KeyboardSpyDll\KeyboardSpyDll.csproj", "{D82FCD01-11A7-4AFF-9623-DA451803A35A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCS_BaseFunctions", "..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_BaseFunctions\GCS_BaseFunctions.csproj", "{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCS_GarpFunctions", "..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_GarpFunctions\GCS_GarpFunctions.csproj", "{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Documentation|Any CPU = Documentation|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D82FCD01-11A7-4AFF-9623-DA451803A35A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

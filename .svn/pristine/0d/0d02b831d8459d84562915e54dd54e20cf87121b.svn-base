@@ -1,0 +1,862 @@
+using System;
+using System.Collections;
+using Ortoped;
+using Ortoped.HelpClasses;
+using Ortoped.Definitions;
+using GCS;
+
+namespace Ortoped.GarpGEM
+{
+	/// <summary>
+	/// Summary description for OrderRowCOM.
+	/// </summary>
+	public class OrderRowCOM : GarpGEM.GarpCOM
+	{
+    private OrderRowText oText = new OrderRowText();
+		private string mInvoiceNo, mInvoiceDate, mDeliverDate;
+		private Garp.ITable mOGR, mOGR2, mOGR_Search, mOGA, mAGA, mHKA, mHKR, mKR;
+		private DeliveryMode oDelM = new DeliveryMode();
+		private Garp.ITabField	mONR, mRDC, mOSE, mNX1, mDIM, mANR, mORA, mPRI, mLDT, mRES, mBNX, mLVF, mX1F,
+								mX2F, mINK, mBRA, mADE, mENH, mRAB, mRBK, mEXT, mAGA_KD1, mOGA_FRY, mOGA_LSE, mOGA_BVK, mHKR_LDT, mHKA_FNR, mHKA_ONR,
+                mHKA_HNR, mHKA_BVK, mKR_FAD, mHKR_RDC, mHKR_ONR, mOGR2_ONR, mOGR2_OSE, mOGR2_RDC, mOGR2_C2A, mOGR2_NU5, mOGR2_NU6, mOGR2_C1A;
+
+	
+		public OrderRowCOM()
+		{
+			mOGR = app.Tables.Item("OGR");
+      mOGR2 = app.Tables.Item("OGR2");
+      mOGA = app.Tables.Item("OGA");
+			mAGA = app.Tables.Item("AGA");
+			mHKA = app.Tables.Item("HKA");
+			mHKR = app.Tables.Item("HKR");
+      mKR = app.Tables.Item("KR");
+			mOGR_Search = app.Tables.Item("OGR");
+
+			mONR = mOGR.Fields.Item("ONR");
+			mRDC = mOGR.Fields.Item("RDC");
+			mOSE = mOGR.Fields.Item("OSE");
+			mNX1 = mOGR.Fields.Item("NX1");
+			mDIM = mOGR.Fields.Item("DIM");
+			mANR = mOGR.Fields.Item("ANR");
+			mORA = mOGR.Fields.Item("ORA");
+			mPRI = mOGR.Fields.Item("PRI");
+			mLDT = mOGR.Fields.Item("LDT");
+			mRES = mOGR.Fields.Item("RES");
+			mBNX = mOGR.Fields.Item("BNX");
+			mLVF = mOGR.Fields.Item("LVF");
+			mX1F = mOGR.Fields.Item("X1F");
+			mX2F = mOGR.Fields.Item("X2F");
+			mINK = mOGR.Fields.Item("INK");
+			mBRA = mOGR.Fields.Item("BRA");
+			mADE = mOGR.Fields.Item("ADE");
+      mENH = mOGR.Fields.Item("ENH");
+      mRAB = mOGR.Fields.Item("RAB");
+      mRBK = mOGR.Fields.Item("RBK");
+      mEXT = mOGR.Fields.Item("EXT");
+
+      mOGR2_ONR = mOGR2.Fields.Item("ONR");
+      mOGR2_RDC = mOGR2.Fields.Item("RDC");
+      mOGR2_OSE = mOGR2.Fields.Item("OSE");
+      mOGR2_C2A = mOGR2.Fields.Item("C2A");
+      mOGR2_NU5 = mOGR2.Fields.Item("NU5");
+      mOGR2_NU6 = mOGR2.Fields.Item("NU6");
+      mOGR2_C1A = mOGR2.Fields.Item("C1A");
+
+      mOGA_FRY = mOGA.Fields.Item("FRY");
+			mOGA_LSE = mOGA.Fields.Item("LSE");
+      mOGA_BVK = mOGA.Fields.Item("BVK");
+
+			mAGA_KD1 = mAGA.Fields.Item("KD1");
+
+			mHKA_FNR = mHKA.Fields.Item("FNR");
+			mHKA_ONR = mHKA.Fields.Item("ONR");
+			mHKA_HNR = mHKA.Fields.Item("HNR");
+      mHKA_BVK = mHKA.Fields.Item("BVK");
+
+			mHKR_RDC = mHKR.Fields.Item("RDC");
+			mHKR_ONR = mHKR.Fields.Item("ONR");
+			mHKR_LDT = mHKR.Fields.Item("LDT");
+
+			mKR_FAD = mKR.Fields.Item("FAD");
+
+			mHKA.IndexNo = 2;
+		}
+
+		protected bool doInsert(string onr, string aidId, string artnr)
+		{
+			string srow;
+			
+			mOGR.Find(onr.PadRight(6) + "254");
+			mOGR.Prior();
+
+			if(ONR.Trim() == onr.Trim())
+				srow = Convert.ToString(Convert.ToInt32(mRDC.Value) + 1);
+			else
+				if(mOGR.Find(onr.PadRight(6) + "  1"))
+					srow = "2";
+				else
+					srow = "1";
+
+			try
+			{
+				mOGR.Insert();
+				mONR.Value = onr;
+				mRDC.Value = srow;
+				mOSE.Value = "K";
+				mANR.Value = artnr;
+				mOGR.Post();
+				mOGR.Next();
+				if(mOGR.Find(onr.PadRight(6) + srow.PadLeft(3)))
+					AidID = aidId;
+				mOGR.Post();
+
+        if(!mOGR2.Find(mONR.Value.PadRight(6) + mRDC.Value.PadLeft(2)))
+        {
+          createOGR2Row(mONR.Value,mRDC.Value);
+        }
+
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		protected void doPost()
+		{
+			try
+			{
+				mOGR.Post();
+        mOGR2.Post();
+			}
+			catch{}
+		}
+
+		protected void doDelete(string onr, string row)
+		{
+      if (mOGR.Find(onr.PadRight(6) + row) & LVF.Equals("0"))
+      {
+        mOGR.Delete();
+        if (mOGR2.Find(onr.PadRight(6) + row.PadLeft(3)))
+          mOGR2.Delete();
+      }
+		}
+
+		protected bool findFirstRow(string onr)
+		{
+			mOGR.Find(onr);
+			mOGR.Next();
+
+      if (ONR.Trim() == onr.Trim())
+      {
+        // Om OGR2 inte finns, skapa posten
+        if (!mOGR2.Find(mONR.Value.PadRight(6) + mRDC.Value.PadLeft(3)))
+          createOGR2Row(mONR.Value, mRDC.Value);
+        
+        return true;
+      }
+      else
+        return false;
+		}
+
+		/// <summary>
+		/// Hitta sista raden på ordern
+		/// </summary>
+		/// <param name="onr"></param>
+		/// <returns></returns>
+		protected bool findLastRow(string onr)
+		{
+			mOGR.Find(onr.PadRight(6) + "254");
+			mOGR.Prior();
+
+
+      if (ONR.Trim() == onr.Trim())
+      {
+        // Om OGR2 inte finns, skapa posten
+        if (!mOGR2.Find(mONR.Value.PadRight(6) + mRDC.Value.PadLeft(3)))
+          createOGR2Row(mONR.Value, mRDC.Value); 
+
+        return true;
+      }
+      else
+        return false;
+		}
+
+		/// <summary>
+		/// Hitta raden
+		/// </summary>
+		/// <param name="onr"></param>
+		/// <param name="row"></param>
+		/// <returns></returns>
+		protected bool findRow(string onr, string row)
+		{
+			string s1 = onr.PadRight(6);
+			string s2 = row.PadLeft(3);
+			string s3 = s1 + s2;
+			mOGR.Find(s1 + "  2");
+			bool b = mOGR.Find(s1 + s2);
+
+      if (b)
+      {
+        // Om OGR2 inte finns, skapa posten
+        if (!mOGR2.Find(mONR.Value.PadRight(6) + mRDC.Value.PadLeft(3)))
+          createOGR2Row(mONR.Value, mRDC.Value);
+      }
+			return b;
+		}
+
+		/// <summary>
+		/// Hämtar nästa rad. Returnerar en typ av EOF:
+		/// "true" Om det inte finns fler rader
+		/// "false" Om det finns fler rader
+		/// </summary>
+		/// <returns></returns>
+		protected bool nextRow()
+		{
+			string s = ONR;
+			
+			mOGR.Next();
+      if ((mOGR.Eof) || (s.Trim() != ONR.Trim()))
+        return true;
+      else
+      {
+        // Om OGR2 inte finns, skapa posten
+        if (!mOGR2.Find(mONR.Value.PadRight(6) + mRDC.Value.PadLeft(3)))
+          createOGR2Row(mONR.Value, mRDC.Value); 
+
+        return false;
+      }
+		}
+
+		protected bool findOH(string onr)
+		{
+			return mOGA.Find(onr);
+		}
+
+		protected string getNextAidId(string onr)
+		{
+			int i = 0;
+
+			mOGR.Find(onr);
+			mOGR.Next();
+
+			// Loopa igenom och spara det högsta hjälmedelsnumret som används
+			while(ONR.Trim().Equals(onr.Trim()) && !mOGR.Eof)
+			{
+				if(int.Parse(AidID) > i)
+					i = int.Parse(AidID);
+				mOGR.Next();
+			}
+
+			i++;
+			return i.ToString();
+		}
+
+    private void createOGR2Row(string onr, string row)
+    {
+      mOGR2.Insert();
+      mOGR2_ONR.Value = onr;
+      mOGR2_RDC.Value = row;
+      mOGR2_OSE.Value = "K";
+      mOGR2.Post();
+    }
+
+		public void fillFieldsFromOtherTables(string onr, string row)
+		{
+			mInvoiceNo = "";
+			mInvoiceDate = "";
+			mDeliverDate = "";
+
+      mHKA.IndexNo = 2;
+			mHKA.Find(onr.PadRight(6));
+			mHKA.Next();
+
+			try
+			{
+				while (mHKA_ONR.Value.Trim().Equals(onr.Trim()) && !mHKA.Eof)
+				{
+					if (mHKR.Find(mHKA_HNR.Value.PadRight(6) + "  1" + row.PadLeft(3)))
+					{
+						if (mHKR_ONR.Value.Trim().Equals(onr.Trim()))
+						{
+							mDeliverDate = mHKR_LDT.Value;
+							mInvoiceNo = mHKA_FNR.Value;
+
+							if (mKR.Find(app.Bolag + mHKA_FNR.Value))
+							{
+								mInvoiceDate = mKR_FAD.Value;
+							}
+							break;
+						}
+					}
+					mHKA.Next();
+				}
+			}
+			catch { }
+		}
+
+    public void updateOid(string onr, string row, string aidoid, string partoid)
+    {
+      // Save status as updated in Thord
+      try
+      {
+        if (mOGR.Find(onr.PadRight(6) + row.PadLeft(3)))
+        {
+          mX2F.Value = "1";
+          mOGR.Post();
+        }
+      }
+      catch (Exception ex)
+      {
+        Log4Net.Logger.loggError(ex, "THORD: Vid postning av OGR (UpdatedInThord)", Config.User, "OrderRowCOM.updateOid");
+        throw new Exception("Hittade inte orderrad" + onr + " - " + row);
+      }
+
+      // Saves Thord unik values to row
+      if (mOGR2.Find(onr.PadRight(6) + row.PadLeft(3)))
+      {
+        try
+        {
+          mOGR2_NU5.Value = aidoid;
+          mOGR2_NU6.Value = partoid;
+          mOGR2.Post();
+        }
+        catch (Exception ex)
+        {
+          Log4Net.Logger.loggError(ex, "THORD: Vid postning av OGR2 (aidoid)", Config.User, "OrderRowCOM.updateOid");
+          throw new Exception("Hittade inte orderrad" + onr + " - " + row);
+        }
+
+      }
+      else
+      {
+        Log4Net.Logger.loggError(new Exception("THORD: Hittade inte orderrad"), "Hittade inte orderrad" + onr + " - " + row, Config.User, "");
+//        throw new Exception("Hittade inte orderrad" + onr + " - " + row);
+      }
+    }
+
+    protected OrderRowDefinitions.OwnFee[] getAllOwnFee(string onr, string aid)
+    {
+      OrderRowDefinitions.OwnFee ord = new OrderRowDefinitions.OwnFee();
+      ArrayList al = new ArrayList();
+      
+      findFirstRow(onr);
+
+      do
+      {
+        if (GCF.noNULL(ANR).Equals("EA"))
+        {
+          ord.AidId = AidID;
+          ord.OrderNo = ONR;
+          ord.RowNo = RDC;
+          if (LVF.Equals("5"))
+            ord.Delivered = true;
+          else
+            ord.Delivered = false;
+          ord.Amount = GCF.stringToDouble(PRI);
+          oText.findOwnFeeConnection(onr, RDC, ref ord);
+          findOH(ord.PatientsOrderNo);
+          ord.PaymentTerms = PaymentTerms;
+          al.Add(ord);
+        }
+
+      }
+      while (!nextRow());
+
+      return (OrderRowDefinitions.OwnFee[])al.ToArray(typeof(OrderRowDefinitions.OwnFee));
+    }
+
+
+		# region Propertys
+
+		protected string ONR
+		{
+			get
+			{
+				return (mONR.Value == null ? "" : mONR.Value);
+			}
+			set
+			{
+				mONR.Value = value;
+			}
+		}
+
+		protected string RDC
+		{
+			get
+			{
+				return (mRDC.Value == null ? "" : mRDC.Value);
+			}
+			set
+			{
+				mRDC.Value = value;
+			}
+		}
+
+		/// <summary>
+		/// Hjälpmedel
+		/// 
+		/// </summary>
+		protected string AidID
+		{
+			get
+			{
+				string s = mNX1.Value == null ? "1" : mNX1.Value.Trim().Replace(".",",");
+				
+				// Om det är ett decimaltal måste vi formatera detta för att få fram rätt AidID
+				if(s.IndexOf(",") > -1)
+				{
+					// Det finns två varianter.
+					// 1. Talet större än 0. Dett är alla tal från konverterad data. Numer är även patientöversikten
+					//		anpassad till detta format. 
+					//
+					// 2. Talet är mindre än noll, AidID sparas då i decimaldelan av talet. Detta var standard i 
+					//		begynnelsen av Patientöversikten, detta har nu ändrats på grund av att konverteringen
+					//		inte var gjord på detta vis .
+					//
+					// 3. Talet är större än noll men är ändå en variant två. Detta kan ske när man har fyllt 
+					//		decimaldelen med variant två tal (t ex 100 om ant.dec. är två).
+					if(double.Parse(s) > 0)
+					{
+						// SPlitta strängen
+            string[] s2 = s.Split(',');
+
+						// Är det en variant tre tal
+						if(int.Parse(s2[1]) > 0)
+							s = s2[0] + s2[1];
+						else
+							s = s2[0];
+					}
+					else
+					{
+						s = s.Split(',')[1];
+					}
+				}
+				return (s.Trim().PadLeft(3,'0'));
+			}
+			set
+			{
+        if(ADE > 0)
+					mNX1.Value = value.TrimStart('0') + ".".PadRight(ADE + 1,'0');
+				else
+					mNX1.Value = value;
+			}
+		}
+
+		protected string AidDate 
+		{
+			get
+			{
+				string s = mDIM.Value == null ? "0" : mDIM.Value.Trim();
+				if(s.IndexOf(".") > 0)
+				{
+					s = s.Split('.')[0];
+				}
+				if(double.Parse(s) == 0)
+					return DateTime.Now.ToString("yyMMdd");
+				else
+					return double.Parse(s.Substring(1)).ToString().PadLeft(6,'0');
+			}
+			set
+			{
+				if(value == null)
+					value = "";
+
+				if(value.Trim() != "")
+					mDIM.Value = "1" + value;
+				else 	
+					mDIM.Value = value;
+			}
+		}
+
+		protected string ANR
+		{
+			get
+			{
+        return GCF.noNULL(mANR.Value);
+			}
+			set
+			{
+				mANR.Value = value;
+			}
+		}
+
+		protected int ADE
+		{
+			get
+			{
+        return GCF.noNULL(mADE.Value) == "" ? 0 : int.Parse(GCF.noNULL(mADE.Value));
+			}
+		}
+
+		/// <summary>
+		/// Antal
+		/// </summary>
+		protected string ORA
+		{
+			get
+			{
+        return GCF.noNULL(mORA.Value);
+			}
+			set
+			{
+				mORA.Value = value.Replace(",",".");
+			}
+		}
+
+		/// <summary>
+		/// Apris
+		/// </summary>
+		protected string PRI
+		{
+			get
+			{
+        return GCF.noNULL(mPRI.Value);
+			}
+			set
+			{
+				// Spara bara om ett nytt pris skickats med
+				if(!value.Equals(""))
+					mPRI.Value = value.Replace(",",".");
+			}
+		}
+
+		protected string LDT
+		{
+			get
+			{
+        return GCF.noNULL(mLDT.Value);
+			}
+			set
+			{
+				mLDT.Value = value;
+			}
+		}
+
+		protected string RES
+		{
+			get
+			{
+        return GCF.noNULL(mRES.Value);
+			}
+			set
+			{
+				mRES.Value = value;
+			}
+		}
+
+		protected string BNX
+		{
+			get
+			{
+        return GCF.noNULL(mBNX.Value).Trim();
+			}
+			set
+			{
+				mBNX.Value = value;
+			}
+		}
+
+		protected string LVF
+		{
+			get
+			{
+        return GCF.noNULL(mLVF.Value);
+			}
+			set
+			{
+				mLVF.Value = value;
+			}
+		}
+
+		/// <summary>
+		/// Inköpsflagga
+		/// </summary>
+		protected string INK
+		{
+			get
+			{
+        return GCF.noNULL(mINK.Value);
+			}
+			set
+			{
+				mINK.Value = value;
+			}
+		}
+
+        protected string ENH
+        {
+            get
+            {
+              return GCF.noNULL(mENH.Value);
+            }
+            set
+            {
+                mENH.Value = value;
+            }
+        }
+
+		/// <summary>
+		/// Leveranssätt
+		/// 
+		/// </summary>
+		protected string DeliverMode
+		{
+			get
+			{
+        if (GCF.noNULL(mOGA_LSE.Value).Equals(""))
+          return oDelM.getNameByKey(GCF.noNULL(mOGA_LSE.Value));
+				else
+					return "";
+			}
+			set
+			{
+				if(value != null)
+					mOGA_LSE.Value = oDelM.getKeyByName(value);
+				else
+					mOGA_LSE.Value = "";
+			}
+		}
+
+		/// <summary>
+		/// Skall denna artikel visas i översiktslistan. Detta värde sparas
+		/// i X1F flaggan.
+		/// </summary>
+		protected bool ViewStat
+		{
+			get
+			{
+        if (GCF.noNULL(mX1F.Value).Equals("x"))
+					return true;
+				else
+					return false;
+			}
+			set
+			{
+				if(value)
+					mX1F.Value = "x";
+				else
+					mX1F.Value = "0";
+			}
+		}
+
+    protected bool CreatedInThord
+    {
+      get
+      {
+        if (GCF.noNULL(mX2F.Value).Equals("1"))
+          return true;
+        else
+          return false;
+      }
+      set
+      {
+        if (value)
+          mX2F.Value = "1";
+        else
+          mX2F.Value = "0";
+      }
+    }
+
+		protected bool Warranty
+		{
+			get
+			{
+        if (GCF.noNULL(mRBK.Value).Equals("G"))
+					return true;
+				else
+					return false;
+			}
+			set
+			{
+        if (value)
+        {
+          mRAB.Value = "-100";
+          mRBK.Value = "G";
+        }
+        else
+        {
+          mRAB.Value = "";
+          mRBK.Value = "";
+        }
+			}
+		}
+
+		protected bool Beloppsrad
+		{
+			get
+			{
+        if (GCF.noNULL(mBRA.Value).Equals("*"))
+					return true;
+				else
+					return false;
+			}
+			set
+			{
+				if(value)
+					mBRA.Value = "*";
+				else
+					mBRA.Value = "";
+			}
+		}
+
+		protected string NeedStep
+		{
+			get
+			{
+        return GCF.noNULL(mOGR2_C2A.Value);
+			}
+			set
+			{
+        mOGR2_C2A.Value = value;
+			}
+		}
+
+    protected string ProductGroup
+    {
+      get
+      {
+        return GCF.noNULL(mEXT.Value);
+      }
+      set
+      {
+        mEXT.Value = GCF.noNULL(value);
+      }
+    }
+
+    protected bool FirstTimePatient
+    {
+      get
+      {
+        if (GCF.noNULL(mOGR2_C1A.Value).Equals("1"))
+          return true;
+        else
+          return false;
+      }
+      set
+      {
+        if (value)
+          mOGR2_C1A.Value = "1";
+        else
+          mOGR2_C1A.Value = "0";
+      }
+    }
+
+    protected int AidOid
+    {
+      get
+      {
+        return int.Parse(GCF.noNULL(mOGR2_NU5.Value));
+      }
+      set
+      {
+        mOGR2_NU5.Value = value.ToString();
+      }
+    }
+
+    protected int PartOid
+    {
+      get
+      {
+        return int.Parse(GCF.noNULL(mOGR2_NU6.Value));
+      }
+      set
+      {
+        mOGR2_NU6.Value = value.ToString();
+      }
+    }
+
+    protected string _deliverAid(OrderRowDefinitions.OrderRow[] or, string levdate, string bvk)
+    {
+      string sFSNr = "";
+      HelpClasses.Table oProdStat = new HelpClasses.Table("1R");
+
+      for (int i = 0; i < or.Length; i++)
+      {
+        // Fösta raden levereras på ny FS och de nästkommande på samma FS
+        if (sFSNr.Equals(""))
+          sFSNr = deliverRow(or[i].OrderNo, or[i].Rad, or[i].Antal, levdate, "A");
+        else
+          sFSNr = deliverRow(or[i].OrderNo, or[i].Rad, or[i].Antal, levdate, sFSNr);
+      }
+
+      // Set paymentterms on FS if bvk is not ""
+      mHKA.IndexNo = 1;
+      mHKA.Find(sFSNr);
+      mHKA.Next();
+      if (GCF.noNULL(mHKA_HNR.Value).Trim().Equals(sFSNr.Trim()) && !bvk.Equals(""))
+      {
+        mHKA_BVK.Value = bvk;
+        mHKA.Post();
+      }
+      return sFSNr;
+    }
+    
+		protected string deliverRow(string onr, string row, string antal, string datum, string fsnr)
+		{
+			Garp.IOrderRowDeliver deliver = app.OrderRowDeliver;
+			
+			deliver.FSedel = fsnr;
+			deliver.Ordernr = onr;
+			deliver.Radnr = row;
+			deliver.Antal = antal;
+			deliver.Date = datum;
+			deliver.Deliver();
+
+			return deliver.FSedel;
+		}
+
+		/// <summary>
+		/// Är artikeln på orderraden en egenavgift?
+		/// </summary>
+		protected bool isEgenAvgift
+		{
+			get
+			{
+				if(mAGA.Find(ANR))
+				{
+          if (GCF.noNULL(mAGA_KD1.Value).Equals("E"))
+						return true;
+					else
+						return false;
+				} else return false;
+			}
+		}
+
+		protected bool Closed
+		{
+			get
+			{
+        if (GCF.noNULL(mOGA_FRY.Value).Equals("z"))
+					return true;
+				else
+					return false;
+			}
+		}
+
+    protected string PaymentTerms
+    {
+      get
+      {
+        return GCF.noNULL(mOGA_BVK.Value);
+      }
+    }
+    
+    public string InvoiceDate
+		{
+      get { return GCF.noNULL(mInvoiceDate); }
+		}
+
+		public string InvoiceNo
+		{
+      get { return GCF.noNULL(mInvoiceNo); }
+		}
+
+		public string DeliverDate
+		{
+      get { return GCF.noNULL(mDeliverDate); }
+		}
+		#endregion
+	}
+}

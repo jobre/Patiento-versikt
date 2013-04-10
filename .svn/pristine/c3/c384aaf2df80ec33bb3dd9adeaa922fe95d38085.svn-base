@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://thord.bkv.sll.se/2005/03/08/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://thord.bkv.sll.se/2005/03/08/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema targetNamespace="http://thord.bkv.sll.se/2005/03/08/wsdl">
+      <s:include schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema1" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema2" namespace="http://thord.bkv.sll.se/2005/03/08/commands" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema3" namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema4" namespace="http://thord.bkv.sll.se/2005/03/08/base" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema5" namespace="http://thord.bkv.sll.se/2005/03/08/persontypes" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema6" namespace="http://thord.bkv.sll.se/2005/03/08/invoicetypes" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema7" namespace="http://thord.bkv.sll.se/2005/03/08/mappingtypes" />
+      <s:import schemaLocation="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema8" namespace="http://thord.bkv.sll.se/2005/03/08/referencetypes" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloThordSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloThord" />
+  </wsdl:message>
+  <wsdl:message name="HelloThordSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloThordResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloThordExceptionSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloThordException" />
+  </wsdl:message>
+  <wsdl:message name="HelloThordExceptionSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloThordExceptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloSecretThordSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloSecretThord" />
+  </wsdl:message>
+  <wsdl:message name="HelloSecretThordSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloSecretThordResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateReferralsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateReferrals" />
+  </wsdl:message>
+  <wsdl:message name="UpdateReferralsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateReferralsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferralsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrals" />
+  </wsdl:message>
+  <wsdl:message name="GetReferralsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferralsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRepair" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRepairResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRepair" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRepairResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:SendInvoice" />
+  </wsdl:message>
+  <wsdl:message name="SendInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:SendInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreditInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CreditInvoice" />
+  </wsdl:message>
+  <wsdl:message name="CreditInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CreditInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransferReferralSoapIn">
+    <wsdl:part name="parameters" element="tns:TransferReferral" />
+  </wsdl:message>
+  <wsdl:message name="TransferReferralSoapOut">
+    <wsdl:part name="parameters" element="tns:TransferReferralResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOIDByExternalIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOIDByExternalID" />
+  </wsdl:message>
+  <wsdl:message name="GetOIDByExternalIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOIDByExternalIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllISOCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllISOCode" />
+  </wsdl:message>
+  <wsdl:message name="GetAllISOCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllISOCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAidTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllAidTypes" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAidTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllAidTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllNeedStepsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllNeedSteps" />
+  </wsdl:message>
+  <wsdl:message name="GetAllNeedStepsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllNeedStepsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllReducedfunctionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllReducedfunction" />
+  </wsdl:message>
+  <wsdl:message name="GetAllReducedfunctionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllReducedfunctionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ThordIntegration20050308">
+    <wsdl:operation name="HelloThord">
+      <wsdl:input message="tns:HelloThordSoapIn" />
+      <wsdl:output message="tns:HelloThordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HelloThordException">
+      <wsdl:input message="tns:HelloThordExceptionSoapIn" />
+      <wsdl:output message="tns:HelloThordExceptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HelloSecretThord">
+      <wsdl:input message="tns:HelloSecretThordSoapIn" />
+      <wsdl:output message="tns:HelloSecretThordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReferrals">
+      <wsdl:input message="tns:UpdateReferralsSoapIn" />
+      <wsdl:output message="tns:UpdateReferralsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrals">
+      <wsdl:input message="tns:GetReferralsSoapIn" />
+      <wsdl:output message="tns:GetReferralsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonInformation">
+      <wsdl:input message="tns:GetPersonInformationSoapIn" />
+      <wsdl:output message="tns:GetPersonInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepair">
+      <wsdl:input message="tns:UpdateRepairSoapIn" />
+      <wsdl:output message="tns:UpdateRepairSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepair">
+      <wsdl:input message="tns:GetRepairSoapIn" />
+      <wsdl:output message="tns:GetRepairSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoice">
+      <wsdl:input message="tns:SendInvoiceSoapIn" />
+      <wsdl:output message="tns:SendInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreditInvoice">
+      <wsdl:input message="tns:CreditInvoiceSoapIn" />
+      <wsdl:output message="tns:CreditInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferReferral">
+      <wsdl:input message="tns:TransferReferralSoapIn" />
+      <wsdl:output message="tns:TransferReferralSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOIDByExternalID">
+      <wsdl:input message="tns:GetOIDByExternalIDSoapIn" />
+      <wsdl:output message="tns:GetOIDByExternalIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllISOCode">
+      <wsdl:input message="tns:GetAllISOCodeSoapIn" />
+      <wsdl:output message="tns:GetAllISOCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAidTypes">
+      <wsdl:input message="tns:GetAllAidTypesSoapIn" />
+      <wsdl:output message="tns:GetAllAidTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNeedSteps">
+      <wsdl:input message="tns:GetAllNeedStepsSoapIn" />
+      <wsdl:output message="tns:GetAllNeedStepsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReducedfunction">
+      <wsdl:input message="tns:GetAllReducedfunctionSoapIn" />
+      <wsdl:output message="tns:GetAllReducedfunctionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ThordIntegration20050308" type="tns:ThordIntegration20050308">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloThord">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloThord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloThordException">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloThordException" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloSecretThord">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloSecretThord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReferrals">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/UpdateReferrals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrals">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetReferrals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonInformation">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetPersonInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepair">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/UpdateRepair" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepair">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetRepair" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoice">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/SendInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditInvoice">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/CreditInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferReferral">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/TransferReferral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOIDByExternalID">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetOIDByExternalID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllISOCode">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllISOCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAidTypes">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllAidTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNeedSteps">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllNeedSteps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReducedfunction">
+      <soap:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllReducedfunction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ThordIntegration200503081" type="tns:ThordIntegration20050308">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloThord">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloThord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloThordException">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloThordException" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloSecretThord">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/HelloSecretThord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReferrals">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/UpdateReferrals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrals">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetReferrals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonInformation">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetPersonInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepair">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/UpdateRepair" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepair">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetRepair" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoice">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/SendInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreditInvoice">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/CreditInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferReferral">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/TransferReferral" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOIDByExternalID">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetOIDByExternalID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllISOCode">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllISOCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAidTypes">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllAidTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNeedSteps">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllNeedSteps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReducedfunction">
+      <soap12:operation soapAction="http://thord.bkv.sll.se/2005/03/08/webservice/GetAllReducedfunction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

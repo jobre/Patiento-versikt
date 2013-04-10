@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OrderService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IOrderService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="600000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <cdp:CompositeDuplex xmlns:cdp="http://schemas.microsoft.com/net/2006/06/duplex" />
+        <ow:OneWay xmlns:ow="http://schemas.microsoft.com/ws/2005/05/routing/policy" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Common.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IOrderService_GetProductionAidList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionAidList" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_GetProductionAidList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionAidListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_UpdateAid_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAid" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_UpdateAid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAidResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_ReturnAidToBox_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnAidToBox" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_ReturnAidToBox_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnAidToBoxResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_SetProductionAidHolder_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetProductionAidHolder" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_SetProductionAidHolder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetProductionAidHolderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_Subscribe_InputMessage">
+    <wsdl:part name="parameters" element="tns:Subscribe" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_Subscribe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_UnSubscribe_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribe" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_UnSubscribe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_TestService_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestService" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_TestService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_OnMessageAdded_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnMessageAdded" />
+  </wsdl:message>
+  <wsdl:portType name="IOrderService">
+    <wsdl:operation name="GetProductionAidList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/GetProductionAidList" message="tns:IOrderService_GetProductionAidList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/GetProductionAidListResponse" message="tns:IOrderService_GetProductionAidList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAid">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/UpdateAid" message="tns:IOrderService_UpdateAid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/UpdateAidResponse" message="tns:IOrderService_UpdateAid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReturnAidToBox">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/ReturnAidToBox" message="tns:IOrderService_ReturnAidToBox_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/ReturnAidToBoxResponse" message="tns:IOrderService_ReturnAidToBox_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetProductionAidHolder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/SetProductionAidHolder" message="tns:IOrderService_SetProductionAidHolder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/SetProductionAidHolderResponse" message="tns:IOrderService_SetProductionAidHolder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/SendMessage" message="tns:IOrderService_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/SendMessageResponse" message="tns:IOrderService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Subscribe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/Subscribe" message="tns:IOrderService_Subscribe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/SubscribeResponse" message="tns:IOrderService_Subscribe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/UnSubscribe" message="tns:IOrderService_UnSubscribe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/UnSubscribeResponse" message="tns:IOrderService_UnSubscribe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestService">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/TestService" message="tns:IOrderService_TestService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/TestServiceResponse" message="tns:IOrderService_TestService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnMessageAdded">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/OnMessageAdded" message="tns:IOrderService_OnMessageAdded_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSDualHttpBinding_IOrderService" type="tns:IOrderService">
+    <wsp:PolicyReference URI="#WSDualHttpBinding_IOrderService_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductionAidList">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/GetProductionAidList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAid">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/UpdateAid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnAidToBox">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/ReturnAidToBox" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetProductionAidHolder">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/SetProductionAidHolder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Subscribe">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/Subscribe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribe">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/UnSubscribe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestService">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/TestService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnMessageAdded">
+      <soap12:operation soapAction="http://tempuri.org/IOrderService/OnMessageAdded" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderService">
+    <wsdl:port name="WSDualHttpBinding_IOrderService" binding="tns:WSDualHttpBinding_IOrderService">
+      <soap12:address location="http://localhost:8732/ProductionService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost:8732/ProductionService/</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>localhost</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

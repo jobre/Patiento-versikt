@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/mappingtypes" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/mappingtypes" id="schema7" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="customids" type="tns:customids" />
+  <xs:complexType name="customids">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="customid" type="tns:CustomIDDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustomIDDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OID" type="tns:OID" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="id" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="OID">
+    <xs:simpleContent>
+      <xs:extension base="xs:int">
+        <xs:attribute form="unqualified" name="oidtype" type="tns:OIDTypeValues" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="OIDTypeValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AID" />
+      <xs:enumeration value="REPARATION" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

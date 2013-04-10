@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e0ae55e2-0fdc-409a-b103-9338a44d4dd3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ThordIntegration2.wsdl" MetadataType="Wsdl" ID="74208db9-b918-429d-a339-35d0389eefea" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?wsdl=wsdl1" />
+    <MetadataFile FileName="schema7.xsd" MetadataType="Schema" ID="4245720c-2468-4991-b88e-cf6c8f172952" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema7" />
+    <MetadataFile FileName="schema6.xsd" MetadataType="Schema" ID="5b10df57-aeb0-4cab-96c7-4e3c063b8b42" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema6" />
+    <MetadataFile FileName="ThordIntegration21.wsdl" MetadataType="Wsdl" ID="5d32e73f-676c-4b9e-8bed-0fb594e89370" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?wsdl" />
+    <MetadataFile FileName="schema4.xsd" MetadataType="Schema" ID="0d510a07-199b-4c39-9480-4cab67bc9ce5" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema4" />
+    <MetadataFile FileName="schema5.xsd" MetadataType="Schema" ID="a47c1c2c-b72b-41e8-8a77-0a5914e0a3c4" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema5" />
+    <MetadataFile FileName="ThordIntegration2.disco" MetadataType="Disco" ID="cab7903a-91f8-4c54-ad05-1eaa1e899e98" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?disco" />
+    <MetadataFile FileName="schema8.xsd" MetadataType="Schema" ID="70ef0af3-4dfe-44f9-99fd-d8397f58ecaf" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema8" />
+    <MetadataFile FileName="schema3.xsd" MetadataType="Schema" ID="14f3bdf2-d333-4373-9e06-58b896c69a07" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema3" />
+    <MetadataFile FileName="schema2.xsd" MetadataType="Schema" ID="5495a2d6-23c5-4144-b111-42674633dcf4" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema2" />
+    <MetadataFile FileName="schema1.xsd" MetadataType="Schema" ID="2cf36a7a-36d4-43ec-8276-810e73707fc9" SourceId="1" SourceUrl="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

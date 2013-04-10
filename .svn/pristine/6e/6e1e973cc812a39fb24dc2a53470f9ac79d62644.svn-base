@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?wsdl" filename="Thordintegration2.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema8" filename="schema8.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema7" filename="schema7.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema6" filename="schema6.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema5" filename="schema5.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema4" filename="schema4.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?disco" filename="Thordintegration2.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema2" filename="schema2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema3" filename="schema3.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?wsdl=wsdl1" filename="Thordintegration20.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx?schema=schema1" filename="schema1.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>

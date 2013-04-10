@@ -1,0 +1,444 @@
+using System;
+using System.Collections;
+using System.Windows.Forms;
+using Ortoped.HelpClasses;
+using Ortoped.Definitions;
+
+namespace Ortoped.GarpFunctions
+{
+    /// <summary>
+    /// Summary description for CustomerFunc.
+    /// </summary>
+    public class CustomerFunc : GarpGEM.CustomerCOM
+    {
+        private static string PNR_MALL = "ÅÅÅÅMMDD-NNNN";
+
+        public CustomerFunc()
+        {
+
+        }
+
+        public struct Klinik
+        {
+            public string CustNr;
+            public string Name;
+            public string PoCity;
+            public string InvoiceCustNr;
+            public string InvoiceCustName;
+
+            /// <summary>
+            /// Konvertera en ArrayList till Fakturakund object.
+            /// </summary>
+            /// <param name="arr"></param>
+            /// <returns></returns>
+            public static Klinik[] convertFromArray(ArrayList arr)
+            {
+                Klinik[] p = new Klinik[arr.Count];
+
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    string[] s = arr[i].ToString().Split(";".ToCharArray(), 5);
+                    p[i].CustNr = s[0];
+                    p[i].Name = s[1];
+                    p[i].PoCity = s[2];
+                    p[i].InvoiceCustNr = s[3];
+                    p[i].InvoiceCustName = s[4];
+                }
+                return p;
+            }
+
+            public static ListViewItem[] convertToFkn(Klinik[] p)
+            {
+                ListViewItem[] lw = new ListViewItem[p.Length];
+
+                for (int i = 0; i < lw.Length; i++)
+                {
+                    lw[i] = new ListViewItem(p[i].CustNr);
+                    lw[i].SubItems.Add(p[i].Name);
+                    lw[i].SubItems.Add(p[i].PoCity);
+                }
+
+                return lw;
+            }
+        }
+
+        public struct Fakturakund
+        {
+            public string CustNr;
+            public string Name;
+            public string PoCity;
+            public string PriceList;
+            public string Category;
+            public bool JointInvoicing;
+
+            /// <summary>
+            /// Konvertera en ArrayList till Fakturakund object.
+            /// </summary>
+            /// <param name="arr"></param>
+            /// <returns></returns>
+            public static Fakturakund[] convertFromArray(ArrayList arr)
+            {
+                Fakturakund[] p = new Fakturakund[arr.Count];
+
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    string[] s = arr[i].ToString().Split(";".ToCharArray(), 5);
+                    p[i].CustNr = s[0];
+                    p[i].Name = s[1];
+                    p[i].PoCity = s[2];
+                    p[i].PriceList = s[3];
+                }
+                return p;
+            }
+
+            public static ListViewItem[] convertToFkn(Fakturakund[] p)
+            {
+                //				ArrayList al = new ArrayList();
+                ListViewItem[] lw = new ListViewItem[p.Length];
+
+                for (int i = 0; i < lw.Length; i++)
+                {
+                    lw[i] = new ListViewItem(p[i].CustNr);
+                    lw[i].SubItems.Add(p[i].Name);
+                    lw[i].SubItems.Add(p[i].PoCity);
+                }
+
+                return lw;
+            }
+
+        }
+
+        /// <summary>
+        /// Visa kundformuläret
+        /// </summary>
+        public void showCustomerForm()
+        {
+            app.SelectMenuItem(220);
+            //app.Visible = true;
+        }
+
+        /// <summary>
+        /// Visa kundreskontraformulär
+        /// </summary>
+        public void showAccountForm()
+        {
+            app.SelectMenuItem(630);
+            //app.Visible = true;
+        }
+
+        /// <summary>
+        /// Söker på personnummer(fält NAM)Returnerar en Patient (struct) 
+        /// som består av ett record för en patient.
+        /// </summary>
+        /// <param name="pnr"></param>
+        public PatientDefenition[] getPatientByPnr(String pnr, bool ExactMatch, bool UseViewCode)
+        {
+            string sValue = "";
+
+            ArrayList arr = new ArrayList();
+
+            if (pnr.Length > 8)
+            {
+                if (pnr.IndexOf('-') == -1)
+                    pnr = pnr.Insert(8, "-");
+            }
+
+            if (!findByIdx2(pnr))
+                next();
+
+            // Om exakt match skall sökas fram eller alla som börjar med samma värde.
+            if (ExactMatch)
+            {
+                // Skapa jämförelsevärde
+                if (pnr.Length > 10)
+                    sValue = pnr.Substring(0, 10);
+                else
+                    sValue = pnr;
+
+                while ((!EOF) && (PNR.ToLower().StartsWith(sValue.ToLower())) && (!pnr.Equals("")))
+                {
+                    if (PNR.ToLower().Equals(pnr.ToLower()) && KAT.Equals("07") && (Config.viewPatient(ViewCode) || !UseViewCode))
+                    {
+                        arr.Add(fillStruct());
+                        break;
+                    }
+                    next();
+                }
+            }
+            else
+            {
+                while ((!EOF) && (PNR.ToLower().StartsWith(pnr.ToLower())) && (!pnr.Equals("")))
+                {
+                    if (Config.viewPatient(ViewCode) && IsValid)
+                        arr.Add(fillStruct());
+                    next();
+                }
+            }
+
+            return PatientDefenition.convertFromArray(arr);
+        }
+
+        /// <summary>
+        /// Söker på kundnummer och Returnerar en Patient (struct).
+        /// </summary>
+        /// <param name="cust"></param>
+        /// <returns></returns>
+        public PatientDefenition getPatientByCust(string cust)
+        {
+            PatientDefenition p = new PatientDefenition();
+
+            if (findByCust(cust))
+            {
+                fillStruct(ref p);
+            }
+            else
+            {
+                p.PatientNo = cust;
+                p.DoesExist = false;
+            }
+            return p;
+        }
+
+        public Klinik[] getKlinikByName(String nam)
+        {
+            ArrayList arr = new ArrayList();
+
+            if (!findByIdx2(nam))
+                next();
+
+            while ((!EOF) && (PNR.ToLower().StartsWith(nam.ToLower())))
+            {
+                // Kategori 05 är kliniker
+                if (KAT.Equals("05"))
+                    arr.Add(KNR + ";" + PNR + ";" + ORT + ";" + FKN + ";" + getFknName(FKN));
+                next();
+            }
+            return Klinik.convertFromArray(arr);
+        }
+
+        /// <summary>
+        /// Söker på kundnummer och Returnerar en Klinik (struct).
+        /// </summary>
+        /// <param name="cust"></param>
+        /// <returns></returns>
+        public Klinik[] getKlinikByCust(string cust)
+        {
+            Klinik[] p = new Klinik[0];
+            p.Initialize();
+
+            if (findByCust(cust))
+            {
+                p = new Klinik[1];
+                p[0].CustNr = KNR;
+                p[0].Name = PNR;	// PNR är egentligen fältet NAM (där personnummer sparas på patienter)
+                p[0].PoCity = ORT;
+                p[0].InvoiceCustNr = FKN;
+                if (findByCust(FKN))
+                    p[0].InvoiceCustName = PNR;	// PNR är egentligen fältet NAM (där personnummer sparas på patienter)
+            }
+            else
+            {
+                //				p[0].CustNr = "";
+            }
+            return p;
+        }
+
+        /// <summary>
+        /// Söker på kundnummer och Returnerar en Fakturakund (struct).
+        /// </summary>
+        /// <param name="cust"></param>
+        /// <returns></returns>
+        public Fakturakund getFakturakundByCust(string cust)
+        {
+            Fakturakund p = new Fakturakund();
+
+            if (findByCust(cust))
+            {
+                //				p = new Fakturakund[1];
+                p.CustNr = KNR;
+                p.Name = PNR;	// PNR är egentligen fältet NAM (där personnummer sparas på patienter)
+                p.PoCity = ORT;
+                p.PriceList = PriceListName;
+                p.JointInvoicing = JointInvoicing;
+                p.Category = KAT;
+            }
+
+            return p;
+        }
+
+        public Fakturakund[] getFakturakundByName(String nam)
+        {
+            ArrayList arr = new ArrayList();
+
+            if (!findByIdx2(nam))
+                next();
+
+            while ((!EOF) && (PNR.ToLower().StartsWith(nam.ToLower())))
+            {
+                // Landsting har kategori 01
+                if (KAT.Equals("01"))
+                    arr.Add(KNR + ";" + PNR + ";" + ORT + ";" + PriceListName);
+                next();
+            }
+            return Fakturakund.convertFromArray(arr);
+        }
+
+        public bool checkNextCustomerNo()
+        {
+            return base.checkNextCustomerNo();
+        }
+
+        public PatientDefenition addCustomer(PatientDefenition p)
+        {
+            p.PatientNo = doInsert();
+            fillFields(ref p);
+
+            try
+            {
+                doPost();
+            }
+            catch
+            {
+                throw new Exception("Faield to add customer " + p.PatientNo);
+            }
+
+            return p;
+        }
+
+        public void updateCustomer(PatientDefenition p)
+        {
+            findByCust(p.PatientNo);
+            fillFields(ref p);
+            doPost();
+        }
+
+        public string checkPnr(string pnr)
+        {
+            string s = "";
+
+            // Kontrollera längden
+            if (pnr.Length != 13)
+                s = "* Personnummret innehåller fel antal tecken. Totalt skall strängen vara på 13 tecken, " + PNR_MALL;
+
+            // Kontrollera att - tecknet finns med
+            if (pnr.IndexOf('-') == -1)
+                s += "\n Personnummret saknar - tecknet. Personnummret skall skrivas enligt följande " + PNR_MALL;
+
+            // Kontrollera att personnummret inte redan finns
+            //if(findByIdx2(pnr))
+            //	s += "\n Patient finns redan upplaggd på kundnummer " + KNR;
+
+            // Om fel hittades addera en inledande text
+            if (s.Length > 0)
+                s = s.Insert(0, "Upplägg nekades på grund nedanstående fel. Rätta dessa och försök igen: \n\n");
+
+            return s;
+        }
+
+        /// <summary>
+        /// Spara CopDoc val
+        /// </summary>
+        /// <param name="value"></param>
+        public void setCopDoc(string knr, bool value)
+        {
+            findByCust(knr);
+            CopDok = value;
+            doPost();
+        }
+
+        /// <summary>
+        /// Spara Journal val
+        /// </summary>
+        /// <param name="value"></param>
+        public void setJournal(string knr, bool value)
+        {
+            findByCust(knr);
+            Journal = value;
+            doPost();
+        }
+
+        public void setDeceased(string knr, bool value)
+        {
+            findByCust(knr);
+            Deceased = value;
+            doPost();
+        }
+
+        public bool doLogin(string user, string pwd)
+        {
+            return connectToGarp(user, pwd);
+        }
+
+        public string bolagId()
+        {
+            return app.Bolag;
+        }
+
+        /// <summary>
+        /// Function som fyller på den returnerande struct som används bl a
+        /// vid find metoderna.
+        /// </summary>
+        /// <param name="p"></param>
+        private void fillStruct(ref PatientDefenition p)
+        {
+            p.PatientNo = KNR;
+            p.SSN = PNR;
+            p.LastName = LastNAM;
+            p.SureName = SureNAM;
+            p.Address = AD2;
+            p.PoCity = ORT;
+            p.Remark = Remark;
+            p.TelHome = TelHome;
+            p.TelWork = TelWork;
+            p.TelMobile = TelMobile;
+            p.TelSMS = TelSMS;
+            p.Deceased = Deceased;
+            p.OpenBalance = OpenBalance;
+            p.PaymentTerms = PaymentTerms;
+            p.DeliverTerms = DeliverTerms;
+            p.WayOfDeliver = WayOfDeliver;
+            p.VATCode = VATCode;
+            p.Category = KAT;
+            p.Journal = Journal;
+            p.CopDok = CopDok;
+            p.DoesExist = true;
+            p.ViewCode = ViewCode;
+            p.IsValid = IsValid;
+            p.InterestInvoice = InterestInvoice;
+            p.PaymentReminder = PaymentReminder;
+        }
+
+        private PatientDefenition fillStruct()
+        {
+            PatientDefenition p = new PatientDefenition();
+            fillStruct(ref p);
+            return p;
+        }
+
+        private void fillFields(ref PatientDefenition p)
+        {
+            KNR = p.PatientNo;
+            PNR = p.SSN;
+            LastNAM = p.LastName;
+            SureNAM = p.SureName;
+            AD2 = p.Address;
+            ORT = p.PoCity;
+            TelHome = p.TelHome;
+            TelWork = p.TelWork;
+            TelMobile = p.TelMobile;
+            TelSMS = p.TelSMS;
+            PaymentTerms = p.PaymentTerms;
+            DeliverTerms = p.DeliverTerms;
+            WayOfDeliver = p.WayOfDeliver;
+            VATCode = p.VATCode;
+            PriceListCode = p.PriceList;
+            Deceased = p.Deceased;
+            KAT = p.Category;
+            Journal = p.Journal;
+            CopDok = p.CopDok;
+            ViewCode = p.ViewCode;
+            InterestInvoice = p.InterestInvoice;
+            PaymentReminder = p.PaymentReminder;
+        }
+    }
+}

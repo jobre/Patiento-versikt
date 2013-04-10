@@ -1,0 +1,47 @@
+////using System;
+////using System.Collections.Generic;
+////using System.Collections;
+////using System.Text;
+////using NUnit.Framework;
+////using Ortoped.Thord;
+
+////namespace Ortoped.Tests
+////{
+////  [TestFixture]
+////  class TestClass
+////  {
+////    [Test]
+////    [ExpectedException(typeof(Exception))]
+////    public void test_createCustomer()
+////    {
+////      GarpReferrals gr = new GarpReferrals();
+////      ArrayList al = new ArrayList();
+
+////      al.Add("00366");
+////      gr.createCustomer(al);
+////    }
+
+////    [Test]
+////    public void test_updateTables()
+////    {
+////      GarpReferrals gr = new GarpReferrals();
+////      ArrayList al = new ArrayList();
+////      Referral[] before, after;
+
+////      for(int i=0;i<2;i++)
+////      {
+////        Referral r = new Referral();
+////        r.personnr = "197011015677";
+////        r.datum = DateTime.Now;
+////        r.remissid = "TEST";
+////        r.notering = "TestUnit";
+////      }
+
+////      before = (Referral[]) al.ToArray(typeof(Referral));
+////      after = gr.updateTables(before,"D");
+////      Assert.AreNotEqual(after, before);
+////    }
+
+////  }
+////}
+

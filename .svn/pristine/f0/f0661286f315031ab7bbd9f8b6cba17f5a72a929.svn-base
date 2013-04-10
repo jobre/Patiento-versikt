@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:i0="http://thord.bkv.sll.se/2005/03/08/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://thord.bkv.sll.se/2005/03/08/webservice" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://thord.bkv.sll.se/2005/03/08/webservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://thord.bkv.sll.se/2005/03/08/wsdl" location="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?wsdl=wsdl1" />
+  <wsdl:types>
+    <s:schema targetNamespace="http://thord.bkv.sll.se/2005/03/08/webservice">
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema1" namespace="http://thord.bkv.sll.se/2005/03/08/wsdl" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema2" namespace="http://thord.bkv.sll.se/2005/03/08/commands" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema3" namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema4" namespace="http://thord.bkv.sll.se/2005/03/08/base" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema5" namespace="http://thord.bkv.sll.se/2005/03/08/persontypes" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema6" namespace="http://thord.bkv.sll.se/2005/03/08/invoicetypes" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema7" namespace="http://thord.bkv.sll.se/2005/03/08/mappingtypes" />
+      <s:import schemaLocation="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx?schema=schema8" namespace="http://thord.bkv.sll.se/2005/03/08/referencetypes" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:service name="ThordIntegration2">
+    <wsdl:port name="ThordIntegration20050308" binding="i0:ThordIntegration20050308">
+      <soap:address location="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ThordIntegration200503081" binding="i0:ThordIntegration200503081">
+      <soap12:address location="http://194.14.70.34/ThordWebService/ThordIntegration2.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configure>
+	<Bolag ID="161" DiagnosFil="diag.skv" VisaDetaljer="J" AlltidVersaler="J">
+		<Anvandare>
+			<AnvKod ID="D" Kst="1002"  BetVillkEaKont="01" BetVillkEaFakt="31" Thord="J">
+				<PatientKod ID="D"/>
+				<PatientKod ID="1"/>
+				<Serie ID="B"/>
+
+        <Thord>
+          <User Id="susand" Password="chevr0let"/>
+        </Thord>
+        
+        <Dokument>
+					<Kallelse DokumentId="265-14" Namn="Enkel"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+
+					<ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+					<ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+					<ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+					
+					<Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+					<Faktura DokumentId="295-31" Namn="Faktura"/>
+				</Dokument>
+
+        <Kundmall>
+          <BetVillk ID="30"/>
+          <LevVillk ID="10"/>
+          <LevSatt ID="10"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="1"/>
+          <Typ ID="3"/>
+          <Prislista ID="1"/>
+          <PatientKod ID="D"/>
+          <Betalningspåminnelse ID="J"/>
+          <Räntefaktura ID="J"/>
+        </Kundmall>
+			</AnvKod>
+	
+			<AnvKod ID="H"  Kst="1003"  BetVillkEaKont="02" BetVillkEaFakt="32">
+				<PatientKod ID="H"/>
+				<PatientKod ID="2"/>
+				<Serie ID="C"/>
+				<Dokument>
+					<Kallelse DokumentId="265-14" Namn="Enkel"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+
+					<ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+					<ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+					<ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+					
+					<Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+					<Faktura DokumentId="295-11" Namn="Faktura"/>
+				</Dokument>
+			</AnvKod>
+		</Anvandare>
+	</Bolag>
+
+<Bolag ID="100" DiagnosFil="diag.skv" VisaDetaljer="J">
+		<Anvandare>
+			<AnvKod ID="D" Kst="1002"  BetVillkEaKont="02" BetVillkEaFakt="32">
+				<PatientKod ID="D"/>
+				<PatientKod ID="1"/>
+				<Serie ID="B"/>
+				<Dokument>
+					<Kallelse DokumentId="265-14" Namn="Enkel"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+
+					<ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+					<ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+					<ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+					
+					<Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+					<Faktura DokumentId="295-11" Namn="Faktura"/>
+				</Dokument>
+			</AnvKod>
+	
+			<AnvKod ID="H"  Kst="1001"  BetVillkEaKont="03" BetVillkEaFakt="33">
+				<PatientKod ID="H"/>
+				<PatientKod ID="2"/>
+				<Serie ID="C"/>
+				<Dokument>
+					<Kallelse DokumentId="265-14" Namn="Enkel"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+					<Kallelse DokumentId="265-15" Namn="Svår"/>
+
+					<ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+					<ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+					<ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+					
+					<Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+					<Faktura DokumentId="295-11" Namn="Faktura"/>
+				</Dokument>
+			</AnvKod>
+		</Anvandare>
+	</Bolag>
+
+  <Bolag ID="300" DiagnosFil="diag.skv" VisaDetaljer="J">
+    <Anvandare>
+      <AnvKod ID="D" Kst="1002"  BetVillkEaKont="01" BetVillkEaFakt="31" Thord="J">
+        <PatientKod ID="D"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+
+        <Thord>
+          <User Id="joabre" Password="joabre"/>
+        </Thord>
+
+        <Dokument>
+          <Kallelse DokumentId="265-14" Namn="Enkel"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+
+          <ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+          <ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+          <ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+
+          <Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-11" Namn="Faktura"/>
+        </Dokument>
+
+        <Kundmall>
+          <PatientKod ID="H"/>
+          <BetVillk ID="30"/>
+          <LevVillk ID="10"/>
+          <LevSatt ID="10"/>
+          <Kategori ID="07"/>
+          <ViewCode ID="D"/>
+          <MomsKod ID="1"/>
+          <Prislista ID="1"/>
+        </Kundmall>
+      </AnvKod>
+
+      <AnvKod ID="H"  Kst="1003"  BetVillkEaKont="02" BetVillkEaFakt="32">
+        <PatientKod ID="H"/>
+        <PatientKod ID="2"/>
+        <Serie ID="C"/>
+        <Dokument>
+          <Kallelse DokumentId="265-14" Namn="Enkel"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+
+          <ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+          <ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+          <ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+
+          <Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-11" Namn="Faktura"/>
+        </Dokument>
+      </AnvKod>
+    </Anvandare>
+  </Bolag>
+
+  <Bolag ID="030" DiagnosFil="diag.skv" VisaDetaljer="J" AlltidVersaler="J">
+    <Anvandare>
+      <AnvKod ID="K" Kst="1002"  BetVillkEaKont="01" BetVillkEaFakt="31" Thord="J">
+        <PatientKod ID="D"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+
+        <Thord>
+          <User Id="susand" Password="chevr0let"/>
+        </Thord>
+
+        <Dokument>
+          <Kallelse DokumentId="265-14" Namn="Enkel"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+
+          <ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+          <ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+          <ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+
+          <Kontantkvitto DokumentId="295-09" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-01" Namn="Faktura"/>
+        </Dokument>
+
+        <Kundmall>
+          <BetVillk ID="30"/>
+          <LevVillk ID="10"/>
+          <LevSatt ID="10"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="1"/>
+          <Typ ID="3"/>
+          <Prislista ID="1"/>
+          <PatientKod ID="D"/>
+          <Betalningspåminnelse ID="J"/>
+          <Räntefaktura ID="J"/>
+        </Kundmall>
+      </AnvKod>
+
+      <AnvKod ID="H"  Kst="1003"  BetVillkEaKont="02" BetVillkEaFakt="32">
+        <PatientKod ID="H"/>
+        <PatientKod ID="2"/>
+        <Serie ID="C"/>
+        <Dokument>
+          <Kallelse DokumentId="265-14" Namn="Enkel"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+          <Kallelse DokumentId="265-15" Namn="Svår"/>
+
+          <ArbetsOrder DokumentId="283-11" Namn="Tillverkning 01"/>
+          <ArbetsOrder DokumentId="283-12" Namn="Tillverkning 02"/>
+          <ArbetsOrder DokumentId="283-13" Namn="Tillverkning 03"/>
+
+          <Kontantkvitto DokumentId="295-43" Namn="Kontantnota"/>
+          <Faktura DokumentId="295-11" Namn="Faktura"/>
+        </Dokument>
+      </AnvKod>
+    </Anvandare>
+  </Bolag>
+
+</Configure>	

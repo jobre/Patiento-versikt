@@ -1,0 +1,4658 @@
+using System;
+using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Globalization;
+using System.Configuration;
+using Ortoped.GarpFunctions;
+using Ortoped.HelpClasses;
+using Ortoped.Dialogs;
+using Ortoped.Definitions;
+using GarpActivate;
+using System.Xml;
+using Microsoft.Win32;
+
+
+namespace Ortoped
+{
+	/// <summary>
+	/// Static class to handle configurationfile (configure.xml)
+	/// 
+	/// </summary>
+	public class frmMain : System.Windows.Forms.Form
+	{
+		private CustomerFunc oCust;
+		private orderFunc oOH;
+		private OrderRowFunc oOR;
+		private ErrandFunc oErr;
+		private Contacts oCon;
+		private Diagnos oDiagnos;
+		private Prislista oPrislista;
+		private DeliveryMode oDelM;
+		private bool	ignoreItemCheckEvent = false, ignorePnrLeaveEvent = false, ignoreSave = false,
+									ignoreTabSwitch = false, ignoreDetailEvents = false;
+		private string sVersion = "";
+		private int iCurrentTab = 0;
+
+
+		#region Tjafs
+
+		private System.Windows.Forms.Panel pnlBottom;
+		private System.Windows.Forms.StatusBar statusBar1;
+		private System.Windows.Forms.Panel pnlMainLeft;
+		private System.Windows.Forms.Panel pnlLeft;
+		private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtONR;
+		private System.Windows.Forms.ContextMenu mnuOrderRow;
+		private System.Windows.Forms.MenuItem menuItem12;
+        private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.PictureBox picNew;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.MenuItem mnuNewAid;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.Button btnOrderList;
+		private System.Windows.Forms.Label labClose;
+        private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem menuItem3;
+		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem menuItem5;
+        private System.Windows.Forms.MenuItem menuItem6;
+		private System.Windows.Forms.MenuItem menuItem7;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.MenuItem menuItem8;
+		private System.Windows.Forms.StatusBarPanel pnlBol;
+		private System.Windows.Forms.StatusBarPanel pnlKst;
+		private System.Windows.Forms.StatusBarPanel pnlUser;
+		private System.Windows.Forms.StatusBarPanel pnlGroup;
+		private System.Windows.Forms.StatusBarPanel pnlOrderStat;
+		private System.Windows.Forms.StatusBarPanel pnlCustomConfig;
+        private GroupBox grbOr;
+        private PictureBox pictureBox7;
+        private TabControl tabctrlRow;
+        private TabPage tabPage1;
+        private ListView lwOr;
+        private ColumnHeader colAidNr;
+        private ColumnHeader colArt;
+        private ColumnHeader colBen;
+        private ColumnHeader colAnt;
+        private ColumnHeader colApris;
+        private ColumnHeader colEgenAvgift;
+        private ColumnHeader colHandl;
+        private ColumnHeader colProdstatus;
+        private ColumnHeader colLevtid;
+        private TabPage tabNew;
+        private GroupBox grbAid;
+        private ComboBox cboLevsatt;
+        private TextBox txtOrDatum;
+        private CheckBox chkGaranti;
+        private Label label28;
+        private TextBox txtAidId;
+        private DateTimePicker dtpLevtid;
+        private Label label27;
+        private Label label26;
+        private ComboBox cboProdStatus;
+        private Label label25;
+        private ComboBox cboHandler;
+        private Label label3;
+        private Label label18;
+        private GroupBox grbArtList;
+        private ListView lwAidRows;
+        private ColumnHeader colAidRowsArtNo;
+        private ColumnHeader colAidRowsBen;
+        private GroupBox grbArt;
+        private GroupBox groupBox1;
+        private RadioButton rdBestalld;
+        private RadioButton rdBestallEj;
+        private RadioButton rdBestall;
+        private CheckBox chkViewState;
+        private TextBox txtRDC;
+        private Button btnDelete;
+        private Button btnAdd;
+        private TextBox txtORA;
+        private Label labORA;
+        private Label label22;
+        private TextBox txtPRI;
+        private TextBox txtBEN;
+        private Label label21;
+        private Label label1;
+        private TextBox txtANR;
+        private TabPage tabPage2;
+        private RichTextBox txtOrText;
+        private GroupBox grbTid;
+        private PictureBox pictureBox6;
+        private ListView lwErrand;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader1;
+		private ColumnHeader columnHeader6;
+        private GroupBox grbPatient;
+        private PictureBox pictureBox10;
+        private CheckBox chkCopDok;
+        private Label label16;
+        private Label label15;
+        private TextBox txtTelMobil;
+        private TextBox txtTelArbete;
+        private TextBox txtKNR;
+        private PictureBox pictureBox4;
+        private Label labANM;
+        private TextBox txtANM;
+        private CheckBox chkJournal;
+        private TextBox txtTelBostad;
+        private TextBox txtORT;
+        private TextBox txtADD;
+        private TextBox txtSN;
+        private TextBox txtLN;
+        private TextBox txtPNR;
+        private Label labTEL;
+        private Label labORT;
+        private Label labADD;
+        private Label labSN;
+        private Label labLN;
+		private Label labPnr;
+        private ColumnHeader colAidRowsPcs;
+		private ColumnHeader columnHeader9;
+		private TabControl tabctrlOH;
+		private TabPage tabOH;
+		private Panel grbOH;
+		private Label label31;
+		private ComboBox cboPrislista;
+		private Label label32;
+		private TextBox txtEndDate;
+		private TextBox txtAidCount;
+		private TextBox txtYears;
+		private Label label29;
+		private DateTimePicker dtpGilltigFrom;
+		private ComboBox cboSignature;
+		private TextBox txtODT;
+		private Label label23;
+		private TextBox txtKlinikNamn;
+		private TextBox txtKlinik;
+		private Label label20;
+		private PictureBox pictureBox5;
+		private Button btnDiagUppslag;
+		private TextBox txtFKN_NAM;
+		private TextBox txtFKN;
+		private Label label12;
+		private Label label11;
+		private Label label10;
+		private TextBox txtNotering;
+		private Label label9;
+		private Label label8;
+		private TextBox txtOrdination;
+		private Label label7;
+		private Label label5;
+		private Label label4;
+		private Label label2;
+		private TextBox txtTillagg;
+		private TextBox txtDiagTxt;
+		private TextBox txtDiagID;
+		private TextBox txtERF;
+		private ComboBox cboOrdinator;
+		private Label label6;
+		private Label label30;
+		private TextBox txtLevDate;
+		private RichTextBox txtAidText;
+		private Label label34;
+		private TextBox txtLabAidTexter;
+		private TextBox txtLabArtTexter;
+		private MenuItem menuItem9;
+		private ColumnHeader colFakNr;
+		private ColumnHeader colFakDat;
+		private ComboBox cboNeedStep;
+		private Label label24;
+    private ComboBox cboAidType;
+    private Label label33;
+    private MenuStrip mnuMain;
+    private ToolStripMenuItem toolStripMenuItem1;
+    private ToolStripMenuItem avslutaToolStripMenuItem;
+    private ToolStripMenuItem hjälpToolStripMenuItem;
+    private ToolStripMenuItem omToolStripMenuItem;
+    private ToolStripMenuItem toolStripMenuItem2;
+    private ToolStripSeparator toolStripSeparator1;
+    private CheckBox chkDeceased;
+    private ToolTip toolTip1;
+    private MenuItem menuItem10;
+    private MenuItem menuItem11;
+    private MenuItem menuItem13;
+    private IContainer components;
+
+		public frmMain()
+		{
+      createRegistryPost();
+      InitializeComponent();
+		}
+
+		protected override void Dispose( bool disposing )
+		{
+			if( disposing )
+			{
+				if(components != null)
+				{
+					components.Dispose();
+				}
+			}
+			base.Dispose( disposing );
+		}
+
+
+
+		#region Windows Form Designer generated code
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+      this.components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+      this.pnlBottom = new System.Windows.Forms.Panel();
+      this.tabctrlOH = new System.Windows.Forms.TabControl();
+      this.tabOH = new System.Windows.Forms.TabPage();
+      this.btnOrderList = new System.Windows.Forms.Button();
+      this.txtONR = new System.Windows.Forms.TextBox();
+      this.grbOH = new System.Windows.Forms.Panel();
+      this.cboAidType = new System.Windows.Forms.ComboBox();
+      this.label31 = new System.Windows.Forms.Label();
+      this.cboPrislista = new System.Windows.Forms.ComboBox();
+      this.label32 = new System.Windows.Forms.Label();
+      this.txtEndDate = new System.Windows.Forms.TextBox();
+      this.txtAidCount = new System.Windows.Forms.TextBox();
+      this.txtYears = new System.Windows.Forms.TextBox();
+      this.label29 = new System.Windows.Forms.Label();
+      this.dtpGilltigFrom = new System.Windows.Forms.DateTimePicker();
+      this.cboSignature = new System.Windows.Forms.ComboBox();
+      this.txtODT = new System.Windows.Forms.TextBox();
+      this.label23 = new System.Windows.Forms.Label();
+      this.txtKlinikNamn = new System.Windows.Forms.TextBox();
+      this.txtKlinik = new System.Windows.Forms.TextBox();
+      this.label20 = new System.Windows.Forms.Label();
+      this.pictureBox5 = new System.Windows.Forms.PictureBox();
+      this.btnDiagUppslag = new System.Windows.Forms.Button();
+      this.txtFKN_NAM = new System.Windows.Forms.TextBox();
+      this.txtFKN = new System.Windows.Forms.TextBox();
+      this.label12 = new System.Windows.Forms.Label();
+      this.label11 = new System.Windows.Forms.Label();
+      this.label10 = new System.Windows.Forms.Label();
+      this.txtNotering = new System.Windows.Forms.TextBox();
+      this.label9 = new System.Windows.Forms.Label();
+      this.label8 = new System.Windows.Forms.Label();
+      this.txtOrdination = new System.Windows.Forms.TextBox();
+      this.label7 = new System.Windows.Forms.Label();
+      this.label5 = new System.Windows.Forms.Label();
+      this.label4 = new System.Windows.Forms.Label();
+      this.label2 = new System.Windows.Forms.Label();
+      this.txtTillagg = new System.Windows.Forms.TextBox();
+      this.txtDiagTxt = new System.Windows.Forms.TextBox();
+      this.txtDiagID = new System.Windows.Forms.TextBox();
+      this.txtERF = new System.Windows.Forms.TextBox();
+      this.cboOrdinator = new System.Windows.Forms.ComboBox();
+      this.label6 = new System.Windows.Forms.Label();
+      this.label30 = new System.Windows.Forms.Label();
+      this.label33 = new System.Windows.Forms.Label();
+      this.grbOr = new System.Windows.Forms.GroupBox();
+      this.pictureBox7 = new System.Windows.Forms.PictureBox();
+      this.tabctrlRow = new System.Windows.Forms.TabControl();
+      this.tabPage1 = new System.Windows.Forms.TabPage();
+      this.lwOr = new System.Windows.Forms.ListView();
+      this.colAidNr = new System.Windows.Forms.ColumnHeader();
+      this.colArt = new System.Windows.Forms.ColumnHeader();
+      this.colBen = new System.Windows.Forms.ColumnHeader();
+      this.colAnt = new System.Windows.Forms.ColumnHeader();
+      this.colApris = new System.Windows.Forms.ColumnHeader();
+      this.colEgenAvgift = new System.Windows.Forms.ColumnHeader();
+      this.colHandl = new System.Windows.Forms.ColumnHeader();
+      this.colProdstatus = new System.Windows.Forms.ColumnHeader();
+      this.colLevtid = new System.Windows.Forms.ColumnHeader();
+      this.colFakNr = new System.Windows.Forms.ColumnHeader();
+      this.colFakDat = new System.Windows.Forms.ColumnHeader();
+      this.mnuOrderRow = new System.Windows.Forms.ContextMenu();
+      this.mnuNewAid = new System.Windows.Forms.MenuItem();
+      this.menuItem12 = new System.Windows.Forms.MenuItem();
+      this.menuItem1 = new System.Windows.Forms.MenuItem();
+      this.menuItem2 = new System.Windows.Forms.MenuItem();
+      this.menuItem9 = new System.Windows.Forms.MenuItem();
+      this.menuItem10 = new System.Windows.Forms.MenuItem();
+      this.menuItem11 = new System.Windows.Forms.MenuItem();
+      this.menuItem13 = new System.Windows.Forms.MenuItem();
+      this.menuItem5 = new System.Windows.Forms.MenuItem();
+      this.menuItem3 = new System.Windows.Forms.MenuItem();
+      this.menuItem8 = new System.Windows.Forms.MenuItem();
+      this.menuItem6 = new System.Windows.Forms.MenuItem();
+      this.menuItem4 = new System.Windows.Forms.MenuItem();
+      this.menuItem7 = new System.Windows.Forms.MenuItem();
+      this.tabNew = new System.Windows.Forms.TabPage();
+      this.cboProdStatus = new System.Windows.Forms.ComboBox();
+      this.grbAid = new System.Windows.Forms.GroupBox();
+      this.txtLevDate = new System.Windows.Forms.TextBox();
+      this.cboLevsatt = new System.Windows.Forms.ComboBox();
+      this.txtOrDatum = new System.Windows.Forms.TextBox();
+      this.chkGaranti = new System.Windows.Forms.CheckBox();
+      this.label28 = new System.Windows.Forms.Label();
+      this.txtAidId = new System.Windows.Forms.TextBox();
+      this.dtpLevtid = new System.Windows.Forms.DateTimePicker();
+      this.label27 = new System.Windows.Forms.Label();
+      this.label26 = new System.Windows.Forms.Label();
+      this.cboHandler = new System.Windows.Forms.ComboBox();
+      this.label3 = new System.Windows.Forms.Label();
+      this.label18 = new System.Windows.Forms.Label();
+      this.label25 = new System.Windows.Forms.Label();
+      this.grbArtList = new System.Windows.Forms.GroupBox();
+      this.lwAidRows = new System.Windows.Forms.ListView();
+      this.colAidRowsArtNo = new System.Windows.Forms.ColumnHeader();
+      this.colAidRowsBen = new System.Windows.Forms.ColumnHeader();
+      this.colAidRowsPcs = new System.Windows.Forms.ColumnHeader();
+      this.grbArt = new System.Windows.Forms.GroupBox();
+      this.label24 = new System.Windows.Forms.Label();
+      this.cboNeedStep = new System.Windows.Forms.ComboBox();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.rdBestalld = new System.Windows.Forms.RadioButton();
+      this.rdBestallEj = new System.Windows.Forms.RadioButton();
+      this.rdBestall = new System.Windows.Forms.RadioButton();
+      this.chkViewState = new System.Windows.Forms.CheckBox();
+      this.txtRDC = new System.Windows.Forms.TextBox();
+      this.btnDelete = new System.Windows.Forms.Button();
+      this.btnAdd = new System.Windows.Forms.Button();
+      this.txtORA = new System.Windows.Forms.TextBox();
+      this.labORA = new System.Windows.Forms.Label();
+      this.txtPRI = new System.Windows.Forms.TextBox();
+      this.txtBEN = new System.Windows.Forms.TextBox();
+      this.label21 = new System.Windows.Forms.Label();
+      this.txtANR = new System.Windows.Forms.TextBox();
+      this.label22 = new System.Windows.Forms.Label();
+      this.label1 = new System.Windows.Forms.Label();
+      this.tabPage2 = new System.Windows.Forms.TabPage();
+      this.txtLabAidTexter = new System.Windows.Forms.TextBox();
+      this.txtLabArtTexter = new System.Windows.Forms.TextBox();
+      this.label34 = new System.Windows.Forms.Label();
+      this.txtAidText = new System.Windows.Forms.RichTextBox();
+      this.txtOrText = new System.Windows.Forms.RichTextBox();
+      this.grbTid = new System.Windows.Forms.GroupBox();
+      this.pictureBox6 = new System.Windows.Forms.PictureBox();
+      this.lwErrand = new System.Windows.Forms.ListView();
+      this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+      this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+      this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+      this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+      this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+      this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+      this.grbPatient = new System.Windows.Forms.GroupBox();
+      this.chkDeceased = new System.Windows.Forms.CheckBox();
+      this.pictureBox10 = new System.Windows.Forms.PictureBox();
+      this.chkCopDok = new System.Windows.Forms.CheckBox();
+      this.label16 = new System.Windows.Forms.Label();
+      this.label15 = new System.Windows.Forms.Label();
+      this.txtTelMobil = new System.Windows.Forms.TextBox();
+      this.txtTelArbete = new System.Windows.Forms.TextBox();
+      this.txtKNR = new System.Windows.Forms.TextBox();
+      this.pictureBox4 = new System.Windows.Forms.PictureBox();
+      this.labANM = new System.Windows.Forms.Label();
+      this.txtANM = new System.Windows.Forms.TextBox();
+      this.chkJournal = new System.Windows.Forms.CheckBox();
+      this.txtTelBostad = new System.Windows.Forms.TextBox();
+      this.txtORT = new System.Windows.Forms.TextBox();
+      this.txtADD = new System.Windows.Forms.TextBox();
+      this.txtSN = new System.Windows.Forms.TextBox();
+      this.txtLN = new System.Windows.Forms.TextBox();
+      this.txtPNR = new System.Windows.Forms.TextBox();
+      this.labTEL = new System.Windows.Forms.Label();
+      this.labORT = new System.Windows.Forms.Label();
+      this.labADD = new System.Windows.Forms.Label();
+      this.labSN = new System.Windows.Forms.Label();
+      this.labLN = new System.Windows.Forms.Label();
+      this.labPnr = new System.Windows.Forms.Label();
+      this.pnlMainLeft = new System.Windows.Forms.Panel();
+      this.pnlLeft = new System.Windows.Forms.Panel();
+      this.label17 = new System.Windows.Forms.Label();
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.labClose = new System.Windows.Forms.Label();
+      this.pictureBox9 = new System.Windows.Forms.PictureBox();
+      this.pictureBox8 = new System.Windows.Forms.PictureBox();
+      this.pictureBox3 = new System.Windows.Forms.PictureBox();
+      this.picNew = new System.Windows.Forms.PictureBox();
+      this.label19 = new System.Windows.Forms.Label();
+      this.label14 = new System.Windows.Forms.Label();
+      this.label13 = new System.Windows.Forms.Label();
+      this.statusBar1 = new System.Windows.Forms.StatusBar();
+      this.pnlBol = new System.Windows.Forms.StatusBarPanel();
+      this.pnlGroup = new System.Windows.Forms.StatusBarPanel();
+      this.pnlUser = new System.Windows.Forms.StatusBarPanel();
+      this.pnlKst = new System.Windows.Forms.StatusBarPanel();
+      this.pnlCustomConfig = new System.Windows.Forms.StatusBarPanel();
+      this.pnlOrderStat = new System.Windows.Forms.StatusBarPanel();
+      this.mnuMain = new System.Windows.Forms.MenuStrip();
+      this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.avslutaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.hjälpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.omToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+      this.pnlBottom.SuspendLayout();
+      this.tabctrlOH.SuspendLayout();
+      this.tabOH.SuspendLayout();
+      this.grbOH.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+      this.grbOr.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+      this.tabctrlRow.SuspendLayout();
+      this.tabPage1.SuspendLayout();
+      this.tabNew.SuspendLayout();
+      this.grbAid.SuspendLayout();
+      this.grbArtList.SuspendLayout();
+      this.grbArt.SuspendLayout();
+      this.groupBox1.SuspendLayout();
+      this.tabPage2.SuspendLayout();
+      this.grbTid.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+      this.grbPatient.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+      this.pnlMainLeft.SuspendLayout();
+      this.pnlLeft.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.picNew)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlBol)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlGroup)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlUser)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlKst)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlCustomConfig)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlOrderStat)).BeginInit();
+      this.mnuMain.SuspendLayout();
+      this.SuspendLayout();
+      // 
+      // pnlBottom
+      // 
+      this.pnlBottom.Controls.Add(this.tabctrlOH);
+      this.pnlBottom.Controls.Add(this.grbOr);
+      this.pnlBottom.Controls.Add(this.grbTid);
+      this.pnlBottom.Controls.Add(this.grbPatient);
+      this.pnlBottom.Controls.Add(this.pnlMainLeft);
+      this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.pnlBottom.Location = new System.Drawing.Point(0, 24);
+      this.pnlBottom.Name = "pnlBottom";
+      this.pnlBottom.Size = new System.Drawing.Size(1010, 706);
+      this.pnlBottom.TabIndex = 0;
+      this.pnlBottom.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBottom_Paint);
+      // 
+      // tabctrlOH
+      // 
+      this.tabctrlOH.Controls.Add(this.tabOH);
+      this.tabctrlOH.Location = new System.Drawing.Point(542, 12);
+      this.tabctrlOH.Name = "tabctrlOH";
+      this.tabctrlOH.SelectedIndex = 0;
+      this.tabctrlOH.Size = new System.Drawing.Size(465, 399);
+      this.tabctrlOH.TabIndex = 42;
+      // 
+      // tabOH
+      // 
+      this.tabOH.BackColor = System.Drawing.Color.Transparent;
+      this.tabOH.Controls.Add(this.btnOrderList);
+      this.tabOH.Controls.Add(this.txtONR);
+      this.tabOH.Controls.Add(this.grbOH);
+      this.tabOH.Location = new System.Drawing.Point(4, 22);
+      this.tabOH.Name = "tabOH";
+      this.tabOH.Padding = new System.Windows.Forms.Padding(3);
+      this.tabOH.Size = new System.Drawing.Size(457, 373);
+      this.tabOH.TabIndex = 0;
+      this.tabOH.Text = "Orderhuvud";
+      this.tabOH.UseVisualStyleBackColor = true;
+      // 
+      // btnOrderList
+      // 
+      this.btnOrderList.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.btnOrderList.Location = new System.Drawing.Point(157, 12);
+      this.btnOrderList.Name = "btnOrderList";
+      this.btnOrderList.Size = new System.Drawing.Size(80, 20);
+      this.btnOrderList.TabIndex = 37;
+      this.btnOrderList.Text = "Visa tidigare";
+      this.btnOrderList.Click += new System.EventHandler(this.btnOrderList_Click);
+      // 
+      // txtONR
+      // 
+      this.txtONR.Location = new System.Drawing.Point(86, 12);
+      this.txtONR.Name = "txtONR";
+      this.txtONR.Size = new System.Drawing.Size(64, 20);
+      this.txtONR.TabIndex = 0;
+      this.txtONR.TabStop = false;
+      this.txtONR.Enter += new System.EventHandler(this.txtONR_Enter);
+      this.txtONR.Leave += new System.EventHandler(this.txtONR_Leave);
+      // 
+      // grbOH
+      // 
+      this.grbOH.BackColor = System.Drawing.SystemColors.Control;
+      this.grbOH.Controls.Add(this.cboAidType);
+      this.grbOH.Controls.Add(this.label31);
+      this.grbOH.Controls.Add(this.cboPrislista);
+      this.grbOH.Controls.Add(this.label32);
+      this.grbOH.Controls.Add(this.txtEndDate);
+      this.grbOH.Controls.Add(this.txtAidCount);
+      this.grbOH.Controls.Add(this.txtYears);
+      this.grbOH.Controls.Add(this.label29);
+      this.grbOH.Controls.Add(this.dtpGilltigFrom);
+      this.grbOH.Controls.Add(this.cboSignature);
+      this.grbOH.Controls.Add(this.txtODT);
+      this.grbOH.Controls.Add(this.label23);
+      this.grbOH.Controls.Add(this.txtKlinikNamn);
+      this.grbOH.Controls.Add(this.txtKlinik);
+      this.grbOH.Controls.Add(this.label20);
+      this.grbOH.Controls.Add(this.pictureBox5);
+      this.grbOH.Controls.Add(this.btnDiagUppslag);
+      this.grbOH.Controls.Add(this.txtFKN_NAM);
+      this.grbOH.Controls.Add(this.txtFKN);
+      this.grbOH.Controls.Add(this.label12);
+      this.grbOH.Controls.Add(this.label11);
+      this.grbOH.Controls.Add(this.label10);
+      this.grbOH.Controls.Add(this.txtNotering);
+      this.grbOH.Controls.Add(this.label9);
+      this.grbOH.Controls.Add(this.label8);
+      this.grbOH.Controls.Add(this.txtOrdination);
+      this.grbOH.Controls.Add(this.label7);
+      this.grbOH.Controls.Add(this.label5);
+      this.grbOH.Controls.Add(this.label4);
+      this.grbOH.Controls.Add(this.label2);
+      this.grbOH.Controls.Add(this.txtTillagg);
+      this.grbOH.Controls.Add(this.txtDiagTxt);
+      this.grbOH.Controls.Add(this.txtDiagID);
+      this.grbOH.Controls.Add(this.txtERF);
+      this.grbOH.Controls.Add(this.cboOrdinator);
+      this.grbOH.Controls.Add(this.label6);
+      this.grbOH.Controls.Add(this.label30);
+      this.grbOH.Controls.Add(this.label33);
+      this.grbOH.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.grbOH.Location = new System.Drawing.Point(3, 3);
+      this.grbOH.Name = "grbOH";
+      this.grbOH.Size = new System.Drawing.Size(451, 367);
+      this.grbOH.TabIndex = 0;
+      // 
+      // cboAidType
+      // 
+      this.cboAidType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboAidType.DropDownWidth = 150;
+      this.cboAidType.FormattingEnabled = true;
+      this.cboAidType.Items.AddRange(new object[] {
+            "",
+            "1 - Inlägg / Fotbädd",
+            "2 - Ortopediska skor / bekvämskor",
+            "3 - Ortos",
+            "4 - Protes",
+            "5 - Behandlingsskor",
+            "6 - Övrigt",
+            "7 - Behandlande ortos",
+            "8 - Bråckband",
+            "9 - Olikstora skor",
+            "10 - Ändring av egna skor"});
+      this.cboAidType.Location = new System.Drawing.Point(311, 130);
+      this.cboAidType.Name = "cboAidType";
+      this.cboAidType.Size = new System.Drawing.Size(132, 21);
+      this.cboAidType.TabIndex = 85;
+      this.cboAidType.Visible = false;
+      // 
+      // label31
+      // 
+      this.label31.Location = new System.Drawing.Point(257, 341);
+      this.label31.Name = "label31";
+      this.label31.Size = new System.Drawing.Size(52, 16);
+      this.label31.TabIndex = 84;
+      this.label31.Text = "Prislista:";
+      // 
+      // cboPrislista
+      // 
+      this.cboPrislista.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboPrislista.Location = new System.Drawing.Point(311, 338);
+      this.cboPrislista.Name = "cboPrislista";
+      this.cboPrislista.Size = new System.Drawing.Size(128, 21);
+      this.cboPrislista.TabIndex = 83;
+      this.cboPrislista.Enter += new System.EventHandler(this.cboPrislista_Enter);
+      // 
+      // label32
+      // 
+      this.label32.Location = new System.Drawing.Point(240, 267);
+      this.label32.Name = "label32";
+      this.label32.Size = new System.Drawing.Size(32, 16);
+      this.label32.TabIndex = 82;
+      this.label32.Text = "Till:";
+      // 
+      // txtEndDate
+      // 
+      this.txtEndDate.Location = new System.Drawing.Point(273, 264);
+      this.txtEndDate.Name = "txtEndDate";
+      this.txtEndDate.ReadOnly = true;
+      this.txtEndDate.Size = new System.Drawing.Size(64, 20);
+      this.txtEndDate.TabIndex = 81;
+      this.txtEndDate.TabStop = false;
+      // 
+      // txtAidCount
+      // 
+      this.txtAidCount.Location = new System.Drawing.Point(411, 264);
+      this.txtAidCount.Name = "txtAidCount";
+      this.txtAidCount.Size = new System.Drawing.Size(32, 20);
+      this.txtAidCount.TabIndex = 62;
+      this.txtAidCount.Enter += new System.EventHandler(this.txtAidCount_Enter);
+      // 
+      // txtYears
+      // 
+      this.txtYears.Location = new System.Drawing.Point(202, 264);
+      this.txtYears.Name = "txtYears";
+      this.txtYears.Size = new System.Drawing.Size(32, 20);
+      this.txtYears.TabIndex = 61;
+      this.txtYears.Enter += new System.EventHandler(this.txtYears_Enter);
+      this.txtYears.Leave += new System.EventHandler(this.txtYears_Leave);
+      // 
+      // label29
+      // 
+      this.label29.Location = new System.Drawing.Point(151, 265);
+      this.label29.Name = "label29";
+      this.label29.Size = new System.Drawing.Size(48, 16);
+      this.label29.TabIndex = 79;
+      this.label29.Text = "Antal år:";
+      this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // dtpGilltigFrom
+      // 
+      this.dtpGilltigFrom.CustomFormat = "yyMMdd";
+      this.dtpGilltigFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+      this.dtpGilltigFrom.Location = new System.Drawing.Point(83, 263);
+      this.dtpGilltigFrom.Name = "dtpGilltigFrom";
+      this.dtpGilltigFrom.Size = new System.Drawing.Size(68, 20);
+      this.dtpGilltigFrom.TabIndex = 59;
+      this.dtpGilltigFrom.Value = new System.DateTime(2005, 4, 21, 0, 0, 0, 0);
+      this.dtpGilltigFrom.Enter += new System.EventHandler(this.dtpGilltigFrom_Enter);
+      this.dtpGilltigFrom.Leave += new System.EventHandler(this.dtpGilltigFrom_Enter);
+      // 
+      // cboSignature
+      // 
+      this.cboSignature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboSignature.Location = new System.Drawing.Point(83, 338);
+      this.cboSignature.Name = "cboSignature";
+      this.cboSignature.Size = new System.Drawing.Size(168, 21);
+      this.cboSignature.TabIndex = 66;
+      this.cboSignature.Enter += new System.EventHandler(this.cboSignature_Enter);
+      this.cboSignature.SelectedIndexChanged += new System.EventHandler(this.cboSignature_SelectedIndexChanged);
+      // 
+      // txtODT
+      // 
+      this.txtODT.Location = new System.Drawing.Point(287, 10);
+      this.txtODT.Name = "txtODT";
+      this.txtODT.ReadOnly = true;
+      this.txtODT.Size = new System.Drawing.Size(64, 20);
+      this.txtODT.TabIndex = 78;
+      this.txtODT.TabStop = false;
+      // 
+      // label23
+      // 
+      this.label23.Location = new System.Drawing.Point(236, 11);
+      this.label23.Name = "label23";
+      this.label23.Size = new System.Drawing.Size(48, 16);
+      this.label23.TabIndex = 77;
+      this.label23.Text = "Datum:";
+      this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtKlinikNamn
+      // 
+      this.txtKlinikNamn.Location = new System.Drawing.Point(187, 58);
+      this.txtKlinikNamn.Name = "txtKlinikNamn";
+      this.txtKlinikNamn.ReadOnly = true;
+      this.txtKlinikNamn.Size = new System.Drawing.Size(168, 20);
+      this.txtKlinikNamn.TabIndex = 76;
+      this.txtKlinikNamn.TabStop = false;
+      // 
+      // txtKlinik
+      // 
+      this.txtKlinik.Location = new System.Drawing.Point(83, 58);
+      this.txtKlinik.Name = "txtKlinik";
+      this.txtKlinik.Size = new System.Drawing.Size(100, 20);
+      this.txtKlinik.TabIndex = 51;
+      this.txtKlinik.Enter += new System.EventHandler(this.txtKlinik_Enter);
+      this.txtKlinik.Leave += new System.EventHandler(this.txtKlinik_Leave);
+      // 
+      // label20
+      // 
+      this.label20.Location = new System.Drawing.Point(5, 35);
+      this.label20.Name = "label20";
+      this.label20.Size = new System.Drawing.Size(72, 16);
+      this.label20.TabIndex = 75;
+      this.label20.Text = "Fakturakund:";
+      this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // pictureBox5
+      // 
+      this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+      this.pictureBox5.Location = new System.Drawing.Point(403, 7);
+      this.pictureBox5.Name = "pictureBox5";
+      this.pictureBox5.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox5.TabIndex = 74;
+      this.pictureBox5.TabStop = false;
+      // 
+      // btnDiagUppslag
+      // 
+      this.btnDiagUppslag.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.btnDiagUppslag.Location = new System.Drawing.Point(259, 128);
+      this.btnDiagUppslag.Name = "btnDiagUppslag";
+      this.btnDiagUppslag.Size = new System.Drawing.Size(24, 24);
+      this.btnDiagUppslag.TabIndex = 73;
+      this.btnDiagUppslag.TabStop = false;
+      this.btnDiagUppslag.Text = "...";
+      this.btnDiagUppslag.Click += new System.EventHandler(this.btnDiagUppslag_Click);
+      // 
+      // txtFKN_NAM
+      // 
+      this.txtFKN_NAM.Location = new System.Drawing.Point(187, 34);
+      this.txtFKN_NAM.Name = "txtFKN_NAM";
+      this.txtFKN_NAM.ReadOnly = true;
+      this.txtFKN_NAM.Size = new System.Drawing.Size(168, 20);
+      this.txtFKN_NAM.TabIndex = 72;
+      this.txtFKN_NAM.TabStop = false;
+      // 
+      // txtFKN
+      // 
+      this.txtFKN.Location = new System.Drawing.Point(83, 34);
+      this.txtFKN.Name = "txtFKN";
+      this.txtFKN.Size = new System.Drawing.Size(100, 20);
+      this.txtFKN.TabIndex = 50;
+      this.txtFKN.Enter += new System.EventHandler(this.txtFKN_Enter);
+      this.txtFKN.Leave += new System.EventHandler(this.txtFKN_Leave);
+      // 
+      // label12
+      // 
+      this.label12.Location = new System.Drawing.Point(37, 59);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(40, 16);
+      this.label12.TabIndex = 71;
+      this.label12.Text = "Klinik:";
+      this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label11
+      // 
+      this.label11.Location = new System.Drawing.Point(13, 338);
+      this.label11.Name = "label11";
+      this.label11.Size = new System.Drawing.Size(64, 18);
+      this.label11.TabIndex = 70;
+      this.label11.Text = "Signatur:";
+      this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label10
+      // 
+      this.label10.Location = new System.Drawing.Point(21, 302);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(56, 16);
+      this.label10.TabIndex = 69;
+      this.label10.Text = "Notering:";
+      this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtNotering
+      // 
+      this.txtNotering.AcceptsReturn = true;
+      this.txtNotering.Location = new System.Drawing.Point(83, 290);
+      this.txtNotering.Multiline = true;
+      this.txtNotering.Name = "txtNotering";
+      this.txtNotering.Size = new System.Drawing.Size(360, 40);
+      this.txtNotering.TabIndex = 64;
+      this.txtNotering.Enter += new System.EventHandler(this.txtNotering_Enter);
+      // 
+      // label9
+      // 
+      this.label9.Location = new System.Drawing.Point(9, 265);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(68, 16);
+      this.label9.TabIndex = 68;
+      this.label9.Text = "Gilltig från:";
+      this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label8
+      // 
+      this.label8.Location = new System.Drawing.Point(13, 226);
+      this.label8.Name = "label8";
+      this.label8.Size = new System.Drawing.Size(64, 16);
+      this.label8.TabIndex = 67;
+      this.label8.Text = "Ordination:";
+      this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtOrdination
+      // 
+      this.txtOrdination.Location = new System.Drawing.Point(83, 210);
+      this.txtOrdination.Multiline = true;
+      this.txtOrdination.Name = "txtOrdination";
+      this.txtOrdination.Size = new System.Drawing.Size(360, 48);
+      this.txtOrdination.TabIndex = 57;
+      this.txtOrdination.Enter += new System.EventHandler(this.txtOrdination_Enter);
+      // 
+      // label7
+      // 
+      this.label7.Location = new System.Drawing.Point(29, 169);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(48, 12);
+      this.label7.TabIndex = 65;
+      this.label7.Text = "Diagnos:";
+      this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label5
+      // 
+      this.label5.Location = new System.Drawing.Point(13, 107);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(64, 17);
+      this.label5.TabIndex = 60;
+      this.label5.Text = "Er referens:";
+      this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label4
+      // 
+      this.label4.Location = new System.Drawing.Point(21, 82);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(56, 18);
+      this.label4.TabIndex = 58;
+      this.label4.Text = "Ordinatör:";
+      this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label2
+      // 
+      this.label2.Location = new System.Drawing.Point(21, 10);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(56, 16);
+      this.label2.TabIndex = 55;
+      this.label2.Text = "Ordernr:";
+      this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtTillagg
+      // 
+      this.txtTillagg.Location = new System.Drawing.Point(83, 154);
+      this.txtTillagg.Multiline = true;
+      this.txtTillagg.Name = "txtTillagg";
+      this.txtTillagg.Size = new System.Drawing.Size(360, 48);
+      this.txtTillagg.TabIndex = 56;
+      this.txtTillagg.Enter += new System.EventHandler(this.txtTillagg_Enter);
+      // 
+      // txtDiagTxt
+      // 
+      this.txtDiagTxt.Location = new System.Drawing.Point(155, 130);
+      this.txtDiagTxt.Name = "txtDiagTxt";
+      this.txtDiagTxt.ReadOnly = true;
+      this.txtDiagTxt.Size = new System.Drawing.Size(100, 20);
+      this.txtDiagTxt.TabIndex = 49;
+      this.txtDiagTxt.TabStop = false;
+      // 
+      // txtDiagID
+      // 
+      this.txtDiagID.Location = new System.Drawing.Point(83, 130);
+      this.txtDiagID.Name = "txtDiagID";
+      this.txtDiagID.Size = new System.Drawing.Size(64, 20);
+      this.txtDiagID.TabIndex = 54;
+      this.txtDiagID.Enter += new System.EventHandler(this.txtDiagID_Enter);
+      this.txtDiagID.Leave += new System.EventHandler(this.txtDiagID_Leave);
+      // 
+      // txtERF
+      // 
+      this.txtERF.Location = new System.Drawing.Point(83, 106);
+      this.txtERF.Name = "txtERF";
+      this.txtERF.Size = new System.Drawing.Size(168, 20);
+      this.txtERF.TabIndex = 53;
+      this.txtERF.Enter += new System.EventHandler(this.txtERF_Enter);
+      // 
+      // cboOrdinator
+      // 
+      this.cboOrdinator.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+      this.cboOrdinator.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+      this.cboOrdinator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboOrdinator.Items.AddRange(new object[] {
+            ""});
+      this.cboOrdinator.Location = new System.Drawing.Point(83, 82);
+      this.cboOrdinator.Name = "cboOrdinator";
+      this.cboOrdinator.Size = new System.Drawing.Size(275, 21);
+      this.cboOrdinator.Sorted = true;
+      this.cboOrdinator.TabIndex = 52;
+      this.cboOrdinator.SelectionChangeCommitted += new System.EventHandler(this.cboOrdinator_SelectionChangeCommitted);
+      this.cboOrdinator.Enter += new System.EventHandler(this.txtOrdination_Enter);
+      this.cboOrdinator.SelectedIndexChanged += new System.EventHandler(this.cboOrdinator_SelectedIndexChanged);
+      this.cboOrdinator.SelectedValueChanged += new System.EventHandler(this.cboOrdinator_SelectedValueChanged);
+      // 
+      // label6
+      // 
+      this.label6.Location = new System.Drawing.Point(5, 132);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(72, 15);
+      this.label6.TabIndex = 63;
+      this.label6.Text = "Diagnoskod:";
+      this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label30
+      // 
+      this.label30.Location = new System.Drawing.Point(343, 265);
+      this.label30.Name = "label30";
+      this.label30.Size = new System.Drawing.Size(64, 16);
+      this.label30.TabIndex = 80;
+      this.label30.Text = "Antal/år:";
+      this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label33
+      // 
+      this.label33.AutoSize = true;
+      this.label33.Location = new System.Drawing.Point(284, 133);
+      this.label33.Name = "label33";
+      this.label33.Size = new System.Drawing.Size(28, 13);
+      this.label33.TabIndex = 86;
+      this.label33.Text = "Typ:";
+      this.label33.Visible = false;
+      // 
+      // grbOr
+      // 
+      this.grbOr.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.grbOr.Controls.Add(this.pictureBox7);
+      this.grbOr.Controls.Add(this.tabctrlRow);
+      this.grbOr.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbOr.Location = new System.Drawing.Point(105, 417);
+      this.grbOr.Name = "grbOr";
+      this.grbOr.Size = new System.Drawing.Size(893, 261);
+      this.grbOr.TabIndex = 41;
+      this.grbOr.TabStop = false;
+      this.grbOr.Text = "Hjälpmedel";
+      // 
+      // pictureBox7
+      // 
+      this.pictureBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+      this.pictureBox7.Location = new System.Drawing.Point(851, 12);
+      this.pictureBox7.Name = "pictureBox7";
+      this.pictureBox7.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox7.TabIndex = 39;
+      this.pictureBox7.TabStop = false;
+      // 
+      // tabctrlRow
+      // 
+      this.tabctrlRow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.tabctrlRow.Controls.Add(this.tabPage1);
+      this.tabctrlRow.Controls.Add(this.tabNew);
+      this.tabctrlRow.Controls.Add(this.tabPage2);
+      this.tabctrlRow.Location = new System.Drawing.Point(8, 24);
+      this.tabctrlRow.Name = "tabctrlRow";
+      this.tabctrlRow.SelectedIndex = 0;
+      this.tabctrlRow.Size = new System.Drawing.Size(875, 231);
+      this.tabctrlRow.TabIndex = 0;
+      this.tabctrlRow.SelectedIndexChanged += new System.EventHandler(this.tabctrlRow_SelectedIndexChanged);
+      // 
+      // tabPage1
+      // 
+      this.tabPage1.Controls.Add(this.lwOr);
+      this.tabPage1.Location = new System.Drawing.Point(4, 22);
+      this.tabPage1.Name = "tabPage1";
+      this.tabPage1.Size = new System.Drawing.Size(867, 205);
+      this.tabPage1.TabIndex = 0;
+      this.tabPage1.Text = "Översikt rader";
+      // 
+      // lwOr
+      // 
+      this.lwOr.AllowColumnReorder = true;
+      this.lwOr.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colAidNr,
+            this.colArt,
+            this.colBen,
+            this.colAnt,
+            this.colApris,
+            this.colEgenAvgift,
+            this.colHandl,
+            this.colProdstatus,
+            this.colLevtid,
+            this.colFakNr,
+            this.colFakDat});
+      this.lwOr.ContextMenu = this.mnuOrderRow;
+      this.lwOr.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.lwOr.FullRowSelect = true;
+      this.lwOr.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+      this.lwOr.HideSelection = false;
+      this.lwOr.Location = new System.Drawing.Point(0, 0);
+      this.lwOr.Name = "lwOr";
+      this.lwOr.Size = new System.Drawing.Size(867, 205);
+      this.lwOr.Sorting = System.Windows.Forms.SortOrder.Descending;
+      this.lwOr.TabIndex = 1;
+      this.lwOr.UseCompatibleStateImageBehavior = false;
+      this.lwOr.View = System.Windows.Forms.View.Details;
+      // 
+      // colAidNr
+      // 
+      this.colAidNr.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAidNrDI;
+      this.colAidNr.Text = "ID";
+      this.colAidNr.Width = global::Ortoped.Properties.Settings.Default.colAidNrWidth;
+      // 
+      // colArt
+      // 
+      this.colArt.DisplayIndex = global::Ortoped.Properties.Settings.Default.colArtDI;
+      this.colArt.Text = "Artikel";
+      this.colArt.Width = global::Ortoped.Properties.Settings.Default.colArtWidth;
+      // 
+      // colBen
+      // 
+      this.colBen.DisplayIndex = global::Ortoped.Properties.Settings.Default.colBenDI;
+      this.colBen.Text = "Benämning";
+      this.colBen.Width = global::Ortoped.Properties.Settings.Default.colBenWidth;
+      // 
+      // colAnt
+      // 
+      this.colAnt.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAntDI;
+      this.colAnt.Text = "Antal";
+      this.colAnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.colAnt.Width = global::Ortoped.Properties.Settings.Default.colAntWidth;
+      // 
+      // colApris
+      // 
+      this.colApris.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAprisDI;
+      this.colApris.Text = "Tot.pris";
+      this.colApris.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.colApris.Width = global::Ortoped.Properties.Settings.Default.colAprisWidth;
+      // 
+      // colEgenAvgift
+      // 
+      this.colEgenAvgift.DisplayIndex = global::Ortoped.Properties.Settings.Default.colEgenAvgiftDI;
+      this.colEgenAvgift.Text = "Egenavgift";
+      this.colEgenAvgift.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.colEgenAvgift.Width = global::Ortoped.Properties.Settings.Default.colEgenAvgiftWidth;
+      // 
+      // colHandl
+      // 
+      this.colHandl.DisplayIndex = global::Ortoped.Properties.Settings.Default.colhandlDI;
+      this.colHandl.Text = "Handläggare";
+      this.colHandl.Width = global::Ortoped.Properties.Settings.Default.colhandlWidth;
+      // 
+      // colProdstatus
+      // 
+      this.colProdstatus.DisplayIndex = global::Ortoped.Properties.Settings.Default.colProdStatusDI;
+      this.colProdstatus.Text = "Status";
+      this.colProdstatus.Width = global::Ortoped.Properties.Settings.Default.colProdStatusWidth;
+      // 
+      // colLevtid
+      // 
+      this.colLevtid.DisplayIndex = global::Ortoped.Properties.Settings.Default.colLevtidDI;
+      this.colLevtid.Text = "Leveranstid";
+      this.colLevtid.Width = global::Ortoped.Properties.Settings.Default.colLevtidWidth;
+      // 
+      // colFakNr
+      // 
+      this.colFakNr.DisplayIndex = global::Ortoped.Properties.Settings.Default.colFakNrDI;
+      this.colFakNr.Text = "FakturaNr";
+      this.colFakNr.Width = global::Ortoped.Properties.Settings.Default.colFakNrWidth;
+      // 
+      // colFakDat
+      // 
+      this.colFakDat.DisplayIndex = global::Ortoped.Properties.Settings.Default.colFakDatDI;
+      this.colFakDat.Text = "Fakturadatum";
+      this.colFakDat.Width = global::Ortoped.Properties.Settings.Default.colFakDatWidth;
+      // 
+      // mnuOrderRow
+      // 
+      this.mnuOrderRow.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuNewAid,
+            this.menuItem12,
+            this.menuItem1,
+            this.menuItem2,
+            this.menuItem9,
+            this.menuItem5,
+            this.menuItem3,
+            this.menuItem8,
+            this.menuItem6,
+            this.menuItem4,
+            this.menuItem7});
+      this.mnuOrderRow.Popup += new System.EventHandler(this.mnuOrderRow_Popup);
+      // 
+      // mnuNewAid
+      // 
+      this.mnuNewAid.Index = 0;
+      this.mnuNewAid.Shortcut = System.Windows.Forms.Shortcut.CtrlI;
+      this.mnuNewAid.Text = "Nytt hjälpmedel";
+      this.mnuNewAid.Click += new System.EventHandler(this.mnuNewAid_Click);
+      // 
+      // menuItem12
+      // 
+      this.menuItem12.Index = 1;
+      this.menuItem12.Text = "-";
+      // 
+      // menuItem1
+      // 
+      this.menuItem1.Index = 2;
+      this.menuItem1.Text = "Egenavgift";
+      this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+      // 
+      // menuItem2
+      // 
+      this.menuItem2.Index = 3;
+      this.menuItem2.Text = "Leverera hjälpmedel";
+      this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click_1);
+      // 
+      // menuItem9
+      // 
+      this.menuItem9.Index = 4;
+      this.menuItem9.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem10,
+            this.menuItem11,
+            this.menuItem13});
+      this.menuItem9.Text = "Kreditera hjälpmedel";
+      this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
+      // 
+      // menuItem10
+      // 
+      this.menuItem10.Index = 0;
+      this.menuItem10.Text = "1. Endast egenavgift på patienten";
+      this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+      // 
+      // menuItem11
+      // 
+      this.menuItem11.Index = 1;
+      this.menuItem11.Text = "2. Hela hjälpmedlet inklusive egenavgift på fakturakund (inget på patienten)";
+      this.menuItem11.Click += new System.EventHandler(this.menuItem11_Click);
+      // 
+      // menuItem13
+      // 
+      this.menuItem13.Index = 2;
+      this.menuItem13.Text = "3. Hela hjälpmedlet och egenavgift på fakturakund samt egenavgift på patienten";
+      this.menuItem13.Click += new System.EventHandler(this.menuItem13_Click);
+      // 
+      // menuItem5
+      // 
+      this.menuItem5.Index = 5;
+      this.menuItem5.Text = "-";
+      // 
+      // menuItem3
+      // 
+      this.menuItem3.Index = 6;
+      this.menuItem3.Text = "Gå till kalender med patient...";
+      this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
+      // 
+      // menuItem8
+      // 
+      this.menuItem8.Index = 7;
+      this.menuItem8.Text = "Gå till kalender med hjälp-id...";
+      this.menuItem8.Click += new System.EventHandler(this.menuItem8_Click);
+      // 
+      // menuItem6
+      // 
+      this.menuItem6.Index = 8;
+      this.menuItem6.Text = "-";
+      // 
+      // menuItem4
+      // 
+      this.menuItem4.Index = 9;
+      this.menuItem4.Text = "Skriv ut Dokument";
+      // 
+      // menuItem7
+      // 
+      this.menuItem7.Index = 10;
+      this.menuItem7.Text = "Skriv ut Arbetsorder";
+      this.menuItem7.Visible = false;
+      // 
+      // tabNew
+      // 
+      this.tabNew.Controls.Add(this.cboProdStatus);
+      this.tabNew.Controls.Add(this.grbAid);
+      this.tabNew.Controls.Add(this.grbArtList);
+      this.tabNew.Controls.Add(this.grbArt);
+      this.tabNew.Location = new System.Drawing.Point(4, 22);
+      this.tabNew.Name = "tabNew";
+      this.tabNew.Size = new System.Drawing.Size(867, 205);
+      this.tabNew.TabIndex = 3;
+      this.tabNew.Text = "Detaljer";
+      // 
+      // cboProdStatus
+      // 
+      this.cboProdStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboProdStatus.Items.AddRange(new object[] {
+            ""});
+      this.cboProdStatus.Location = new System.Drawing.Point(17, 121);
+      this.cboProdStatus.Name = "cboProdStatus";
+      this.cboProdStatus.Size = new System.Drawing.Size(112, 21);
+      this.cboProdStatus.Sorted = true;
+      this.cboProdStatus.TabIndex = 1;
+      this.cboProdStatus.SelectedValueChanged += new System.EventHandler(this.cboProdStatus_SelectedValueChanged);
+      // 
+      // grbAid
+      // 
+      this.grbAid.Controls.Add(this.txtLevDate);
+      this.grbAid.Controls.Add(this.cboLevsatt);
+      this.grbAid.Controls.Add(this.txtOrDatum);
+      this.grbAid.Controls.Add(this.chkGaranti);
+      this.grbAid.Controls.Add(this.label28);
+      this.grbAid.Controls.Add(this.txtAidId);
+      this.grbAid.Controls.Add(this.dtpLevtid);
+      this.grbAid.Controls.Add(this.label27);
+      this.grbAid.Controls.Add(this.label26);
+      this.grbAid.Controls.Add(this.cboHandler);
+      this.grbAid.Controls.Add(this.label3);
+      this.grbAid.Controls.Add(this.label18);
+      this.grbAid.Controls.Add(this.label25);
+      this.grbAid.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbAid.Location = new System.Drawing.Point(8, 8);
+      this.grbAid.Name = "grbAid";
+      this.grbAid.Size = new System.Drawing.Size(216, 188);
+      this.grbAid.TabIndex = 0;
+      this.grbAid.TabStop = false;
+      this.grbAid.Text = "Gemensam info Hjälpmedel";
+      // 
+      // txtLevDate
+      // 
+      this.txtLevDate.Location = new System.Drawing.Point(128, 114);
+      this.txtLevDate.Name = "txtLevDate";
+      this.txtLevDate.Size = new System.Drawing.Size(80, 20);
+      this.txtLevDate.TabIndex = 14;
+      this.txtLevDate.TabStop = false;
+      this.txtLevDate.Leave += new System.EventHandler(this.txtLevDate_Leave);
+      // 
+      // cboLevsatt
+      // 
+      this.cboLevsatt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboLevsatt.Location = new System.Drawing.Point(128, 155);
+      this.cboLevsatt.Name = "cboLevsatt";
+      this.cboLevsatt.Size = new System.Drawing.Size(80, 21);
+      this.cboLevsatt.TabIndex = 11;
+      this.cboLevsatt.TabStop = false;
+      this.cboLevsatt.SelectedValueChanged += new System.EventHandler(this.cboLevsatt_SelectedValueChanged);
+      // 
+      // txtOrDatum
+      // 
+      this.txtOrDatum.Location = new System.Drawing.Point(124, 20);
+      this.txtOrDatum.Name = "txtOrDatum";
+      this.txtOrDatum.ReadOnly = true;
+      this.txtOrDatum.Size = new System.Drawing.Size(72, 20);
+      this.txtOrDatum.TabIndex = 9;
+      this.txtOrDatum.TabStop = false;
+      this.txtOrDatum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      // 
+      // chkGaranti
+      // 
+      this.chkGaranti.Location = new System.Drawing.Point(8, 157);
+      this.chkGaranti.Name = "chkGaranti";
+      this.chkGaranti.Size = new System.Drawing.Size(72, 16);
+      this.chkGaranti.TabIndex = 8;
+      this.chkGaranti.TabStop = false;
+      this.chkGaranti.Text = "Garanti";
+      this.chkGaranti.CheckedChanged += new System.EventHandler(this.chkGaranti_CheckedChanged);
+      // 
+      // label28
+      // 
+      this.label28.Location = new System.Drawing.Point(8, 20);
+      this.label28.Name = "label28";
+      this.label28.Size = new System.Drawing.Size(24, 16);
+      this.label28.TabIndex = 7;
+      this.label28.Text = "ID:";
+      this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtAidId
+      // 
+      this.txtAidId.Location = new System.Drawing.Point(36, 20);
+      this.txtAidId.Name = "txtAidId";
+      this.txtAidId.ReadOnly = true;
+      this.txtAidId.Size = new System.Drawing.Size(36, 20);
+      this.txtAidId.TabIndex = 6;
+      this.txtAidId.TabStop = false;
+      this.txtAidId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      // 
+      // dtpLevtid
+      // 
+      this.dtpLevtid.CustomFormat = "yyMMdd";
+      this.dtpLevtid.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+      this.dtpLevtid.Location = new System.Drawing.Point(128, 114);
+      this.dtpLevtid.Name = "dtpLevtid";
+      this.dtpLevtid.Size = new System.Drawing.Size(80, 20);
+      this.dtpLevtid.TabIndex = 2;
+      this.dtpLevtid.TabStop = false;
+      // 
+      // label27
+      // 
+      this.label27.Location = new System.Drawing.Point(125, 98);
+      this.label27.Name = "label27";
+      this.label27.Size = new System.Drawing.Size(72, 16);
+      this.label27.TabIndex = 4;
+      this.label27.Text = "Lev.datum";
+      // 
+      // label26
+      // 
+      this.label26.Location = new System.Drawing.Point(6, 98);
+      this.label26.Name = "label26";
+      this.label26.Size = new System.Drawing.Size(104, 16);
+      this.label26.TabIndex = 3;
+      this.label26.Text = "Produktionsstatus";
+      // 
+      // cboHandler
+      // 
+      this.cboHandler.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+      this.cboHandler.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+      this.cboHandler.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboHandler.Items.AddRange(new object[] {
+            ""});
+      this.cboHandler.Location = new System.Drawing.Point(8, 68);
+      this.cboHandler.Name = "cboHandler";
+      this.cboHandler.Size = new System.Drawing.Size(200, 21);
+      this.cboHandler.Sorted = true;
+      this.cboHandler.TabIndex = 0;
+      this.cboHandler.SelectedValueChanged += new System.EventHandler(this.cboHandler_SelectedValueChanged);
+      // 
+      // label3
+      // 
+      this.label3.Location = new System.Drawing.Point(76, 20);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(48, 16);
+      this.label3.TabIndex = 10;
+      this.label3.Text = "Datum:";
+      this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label18
+      // 
+      this.label18.Location = new System.Drawing.Point(81, 158);
+      this.label18.Name = "label18";
+      this.label18.Size = new System.Drawing.Size(48, 16);
+      this.label18.TabIndex = 12;
+      this.label18.Text = "Lev.sätt:";
+      // 
+      // label25
+      // 
+      this.label25.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.label25.Location = new System.Drawing.Point(8, 54);
+      this.label25.Name = "label25";
+      this.label25.Size = new System.Drawing.Size(64, 16);
+      this.label25.TabIndex = 1;
+      this.label25.Text = "Handläggare";
+      // 
+      // grbArtList
+      // 
+      this.grbArtList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.grbArtList.Controls.Add(this.lwAidRows);
+      this.grbArtList.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbArtList.Location = new System.Drawing.Point(526, 8);
+      this.grbArtList.Name = "grbArtList";
+      this.grbArtList.Size = new System.Drawing.Size(329, 194);
+      this.grbArtList.TabIndex = 2;
+      this.grbArtList.TabStop = false;
+      this.grbArtList.Text = "Ingående artiklar";
+      // 
+      // lwAidRows
+      // 
+      this.lwAidRows.AllowColumnReorder = true;
+      this.lwAidRows.CheckBoxes = true;
+      this.lwAidRows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colAidRowsArtNo,
+            this.colAidRowsBen,
+            this.colAidRowsPcs});
+      this.lwAidRows.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.lwAidRows.FullRowSelect = true;
+      this.lwAidRows.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+      this.lwAidRows.HideSelection = false;
+      this.lwAidRows.Location = new System.Drawing.Point(3, 16);
+      this.lwAidRows.MultiSelect = false;
+      this.lwAidRows.Name = "lwAidRows";
+      this.lwAidRows.Size = new System.Drawing.Size(323, 175);
+      this.lwAidRows.Sorting = System.Windows.Forms.SortOrder.Ascending;
+      this.lwAidRows.TabIndex = 0;
+      this.lwAidRows.TabStop = false;
+      this.lwAidRows.UseCompatibleStateImageBehavior = false;
+      this.lwAidRows.View = System.Windows.Forms.View.Details;
+      this.lwAidRows.SelectedIndexChanged += new System.EventHandler(this.lwAidRows_SelectedIndexChanged);
+      this.lwAidRows.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lwAidRows_ItemCheck);
+      // 
+      // colAidRowsArtNo
+      // 
+      this.colAidRowsArtNo.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAidRowsArtNo_DI;
+      this.colAidRowsArtNo.Text = "ArtikelNr";
+      this.colAidRowsArtNo.Width = global::Ortoped.Properties.Settings.Default.colAidRowsArtNr_Width;
+      // 
+      // colAidRowsBen
+      // 
+      this.colAidRowsBen.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAidRowsBen_DI;
+      this.colAidRowsBen.Text = "Benämning";
+      this.colAidRowsBen.Width = global::Ortoped.Properties.Settings.Default.colAidRowsBen_Width;
+      // 
+      // colAidRowsPcs
+      // 
+      this.colAidRowsPcs.DisplayIndex = global::Ortoped.Properties.Settings.Default.colAidRowsPcs_DI;
+      this.colAidRowsPcs.Text = "Antal";
+      this.colAidRowsPcs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.colAidRowsPcs.Width = global::Ortoped.Properties.Settings.Default.colAidRowsPcs_Width;
+      // 
+      // grbArt
+      // 
+      this.grbArt.Controls.Add(this.label24);
+      this.grbArt.Controls.Add(this.cboNeedStep);
+      this.grbArt.Controls.Add(this.groupBox1);
+      this.grbArt.Controls.Add(this.chkViewState);
+      this.grbArt.Controls.Add(this.txtRDC);
+      this.grbArt.Controls.Add(this.btnDelete);
+      this.grbArt.Controls.Add(this.btnAdd);
+      this.grbArt.Controls.Add(this.txtORA);
+      this.grbArt.Controls.Add(this.labORA);
+      this.grbArt.Controls.Add(this.txtPRI);
+      this.grbArt.Controls.Add(this.txtBEN);
+      this.grbArt.Controls.Add(this.label21);
+      this.grbArt.Controls.Add(this.txtANR);
+      this.grbArt.Controls.Add(this.label22);
+      this.grbArt.Controls.Add(this.label1);
+      this.grbArt.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbArt.Location = new System.Drawing.Point(228, 8);
+      this.grbArt.Name = "grbArt";
+      this.grbArt.Size = new System.Drawing.Size(292, 188);
+      this.grbArt.TabIndex = 1;
+      this.grbArt.TabStop = false;
+      this.grbArt.Text = "Artikel";
+      // 
+      // label24
+      // 
+      this.label24.AutoSize = true;
+      this.label24.Location = new System.Drawing.Point(13, 23);
+      this.label24.Name = "label24";
+      this.label24.Size = new System.Drawing.Size(76, 13);
+      this.label24.TabIndex = 15;
+      this.label24.Text = "Behovstrappa:";
+      this.label24.Visible = false;
+      // 
+      // cboNeedStep
+      // 
+      this.cboNeedStep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cboNeedStep.DropDownWidth = 400;
+      this.cboNeedStep.FormattingEnabled = true;
+      this.cboNeedStep.Items.AddRange(new object[] {
+            " ",
+            "1 - Personlig ADL i hemmet (ADL)",
+            "2 - Instrumentell ADL (ADL)",
+            "3 - ADL för att delta i samhällslivet (ADL)",
+            "4 - ADL för att utföra fritt valda aktiviteter (ADL)",
+            "5 - Ändra och bibehålla kroppställning (Förflyttning)",
+            "6 - Överflyttning (Förflyttning)",
+            "7 - Förflytta sig i bostaden (Förflyttning)",
+            "8 - Förflytta sig utanför bostaden för att utföra dagliga livets aktiviteter (För" +
+                "flyttning)",
+            "9 - Förflytta sig för att ta promenader (Förflyttning)",
+            "10 - Förflytta sig för att deltaga i samhällslivet (Förflyttning)",
+            "11 - Förflytta sig för att utföra fritt vald aktivitet (Förflyttning)",
+            "18 - Livsuppehålladne aktivitet (Vård och behandling )",
+            "19 - Vård och behandling av fysiska funktioner (Vård och behandling )",
+            "20 - Upprätthålla och förbättra fysiska funktioner (Vård och behandling )",
+            "21 - Vård och behandling för att utöva fritt valda aktiviteter (Vård och behandli" +
+                "ng )"});
+      this.cboNeedStep.Location = new System.Drawing.Point(95, 20);
+      this.cboNeedStep.Name = "cboNeedStep";
+      this.cboNeedStep.Size = new System.Drawing.Size(186, 21);
+      this.cboNeedStep.TabIndex = 14;
+      this.cboNeedStep.Visible = false;
+      this.cboNeedStep.SelectedValueChanged += new System.EventHandler(this.cboNeedStep_SelectedValueChanged);
+      // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.rdBestalld);
+      this.groupBox1.Controls.Add(this.rdBestallEj);
+      this.groupBox1.Controls.Add(this.rdBestall);
+      this.groupBox1.Enabled = false;
+      this.groupBox1.Location = new System.Drawing.Point(16, 142);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(265, 40);
+      this.groupBox1.TabIndex = 13;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Beställning";
+      // 
+      // rdBestalld
+      // 
+      this.rdBestalld.Location = new System.Drawing.Point(196, 14);
+      this.rdBestalld.Name = "rdBestalld";
+      this.rdBestalld.Size = new System.Drawing.Size(64, 18);
+      this.rdBestalld.TabIndex = 2;
+      this.rdBestalld.Text = "Beställd";
+      // 
+      // rdBestallEj
+      // 
+      this.rdBestallEj.Checked = true;
+      this.rdBestallEj.Location = new System.Drawing.Point(8, 17);
+      this.rdBestallEj.Name = "rdBestallEj";
+      this.rdBestallEj.Size = new System.Drawing.Size(72, 16);
+      this.rdBestallEj.TabIndex = 1;
+      this.rdBestallEj.TabStop = true;
+      this.rdBestallEj.Text = "Beställ ej";
+      // 
+      // rdBestall
+      // 
+      this.rdBestall.Location = new System.Drawing.Point(101, 16);
+      this.rdBestall.Name = "rdBestall";
+      this.rdBestall.Size = new System.Drawing.Size(64, 16);
+      this.rdBestall.TabIndex = 0;
+      this.rdBestall.Text = "Beställ";
+      // 
+      // chkViewState
+      // 
+      this.chkViewState.Location = new System.Drawing.Point(16, 39);
+      this.chkViewState.Name = "chkViewState";
+      this.chkViewState.Size = new System.Drawing.Size(128, 16);
+      this.chkViewState.TabIndex = 12;
+      this.chkViewState.TabStop = false;
+      this.chkViewState.Text = "Visa artikel i översikt";
+      this.chkViewState.Visible = false;
+      // 
+      // txtRDC
+      // 
+      this.txtRDC.Location = new System.Drawing.Point(228, 94);
+      this.txtRDC.Name = "txtRDC";
+      this.txtRDC.ReadOnly = true;
+      this.txtRDC.Size = new System.Drawing.Size(48, 20);
+      this.txtRDC.TabIndex = 10;
+      this.txtRDC.TabStop = false;
+      this.txtRDC.Visible = false;
+      // 
+      // btnDelete
+      // 
+      this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.btnDelete.Location = new System.Drawing.Point(224, 114);
+      this.btnDelete.Name = "btnDelete";
+      this.btnDelete.Size = new System.Drawing.Size(57, 23);
+      this.btnDelete.TabIndex = 9;
+      this.btnDelete.TabStop = false;
+      this.btnDelete.Text = "Radera";
+      this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+      // 
+      // btnAdd
+      // 
+      this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.btnAdd.Location = new System.Drawing.Point(149, 114);
+      this.btnAdd.Name = "btnAdd";
+      this.btnAdd.Size = new System.Drawing.Size(64, 23);
+      this.btnAdd.TabIndex = 3;
+      this.btnAdd.Text = "Ny artikel";
+      this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+      // 
+      // txtORA
+      // 
+      this.txtORA.Location = new System.Drawing.Point(152, 68);
+      this.txtORA.Name = "txtORA";
+      this.txtORA.Size = new System.Drawing.Size(64, 20);
+      this.txtORA.TabIndex = 1;
+      this.txtORA.Enter += new System.EventHandler(this.txtORA_Enter);
+      this.txtORA.Leave += new System.EventHandler(this.txtORA_Leave);
+      // 
+      // labORA
+      // 
+      this.labORA.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.labORA.Location = new System.Drawing.Point(153, 54);
+      this.labORA.Name = "labORA";
+      this.labORA.Size = new System.Drawing.Size(63, 16);
+      this.labORA.TabIndex = 6;
+      this.labORA.Text = "Antal";
+      // 
+      // txtPRI
+      // 
+      this.txtPRI.Location = new System.Drawing.Point(224, 68);
+      this.txtPRI.Name = "txtPRI";
+      this.txtPRI.Size = new System.Drawing.Size(56, 20);
+      this.txtPRI.TabIndex = 2;
+      this.txtPRI.Enter += new System.EventHandler(this.txtPRI_Enter);
+      this.txtPRI.Leave += new System.EventHandler(this.txtPRI_Leave);
+      // 
+      // txtBEN
+      // 
+      this.txtBEN.Location = new System.Drawing.Point(16, 114);
+      this.txtBEN.Name = "txtBEN";
+      this.txtBEN.ReadOnly = true;
+      this.txtBEN.Size = new System.Drawing.Size(128, 20);
+      this.txtBEN.TabIndex = 3;
+      this.txtBEN.TabStop = false;
+      // 
+      // label21
+      // 
+      this.label21.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.label21.Location = new System.Drawing.Point(16, 98);
+      this.label21.Name = "label21";
+      this.label21.Size = new System.Drawing.Size(88, 16);
+      this.label21.TabIndex = 2;
+      this.label21.Text = "Benämning";
+      // 
+      // txtANR
+      // 
+      this.txtANR.Enabled = false;
+      this.txtANR.Location = new System.Drawing.Point(16, 68);
+      this.txtANR.Name = "txtANR";
+      this.txtANR.Size = new System.Drawing.Size(128, 20);
+      this.txtANR.TabIndex = 0;
+      this.txtANR.Enter += new System.EventHandler(this.txtANR_Enter);
+      this.txtANR.Leave += new System.EventHandler(this.txtANR_Leave);
+      // 
+      // label22
+      // 
+      this.label22.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.label22.Location = new System.Drawing.Point(224, 54);
+      this.label22.Name = "label22";
+      this.label22.Size = new System.Drawing.Size(40, 14);
+      this.label22.TabIndex = 5;
+      this.label22.Text = "Pris";
+      // 
+      // label1
+      // 
+      this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.label1.Location = new System.Drawing.Point(16, 54);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(40, 16);
+      this.label1.TabIndex = 1;
+      this.label1.Text = "Artikel";
+      // 
+      // tabPage2
+      // 
+      this.tabPage2.Controls.Add(this.txtLabAidTexter);
+      this.tabPage2.Controls.Add(this.txtLabArtTexter);
+      this.tabPage2.Controls.Add(this.label34);
+      this.tabPage2.Controls.Add(this.txtAidText);
+      this.tabPage2.Controls.Add(this.txtOrText);
+      this.tabPage2.Location = new System.Drawing.Point(4, 22);
+      this.tabPage2.Name = "tabPage2";
+      this.tabPage2.Size = new System.Drawing.Size(867, 205);
+      this.tabPage2.TabIndex = 4;
+      this.tabPage2.Text = "Text";
+      this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+      // 
+      // txtLabAidTexter
+      // 
+      this.txtLabAidTexter.Location = new System.Drawing.Point(3, 20);
+      this.txtLabAidTexter.Name = "txtLabAidTexter";
+      this.txtLabAidTexter.ReadOnly = true;
+      this.txtLabAidTexter.Size = new System.Drawing.Size(439, 20);
+      this.txtLabAidTexter.TabIndex = 5;
+      // 
+      // txtLabArtTexter
+      // 
+      this.txtLabArtTexter.Location = new System.Drawing.Point(3, 20);
+      this.txtLabArtTexter.Name = "txtLabArtTexter";
+      this.txtLabArtTexter.ReadOnly = true;
+      this.txtLabArtTexter.Size = new System.Drawing.Size(416, 20);
+      this.txtLabArtTexter.TabIndex = 4;
+      // 
+      // label34
+      // 
+      this.label34.AutoSize = true;
+      this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label34.Location = new System.Drawing.Point(3, 0);
+      this.label34.Name = "label34";
+      this.label34.Size = new System.Drawing.Size(39, 17);
+      this.label34.TabIndex = 2;
+      this.label34.Text = "Text";
+      // 
+      // txtAidText
+      // 
+      this.txtAidText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtAidText.BackColor = System.Drawing.SystemColors.Info;
+      this.txtAidText.Location = new System.Drawing.Point(3, 40);
+      this.txtAidText.Name = "txtAidText";
+      this.txtAidText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+      this.txtAidText.Size = new System.Drawing.Size(861, 162);
+      this.txtAidText.TabIndex = 1;
+      this.txtAidText.Text = "";
+      this.txtAidText.Leave += new System.EventHandler(this.txtAidText_Leave);
+      this.txtAidText.TextChanged += new System.EventHandler(this.txtAidText_TextChanged);
+      // 
+      // txtOrText
+      // 
+      this.txtOrText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtOrText.BackColor = System.Drawing.SystemColors.Info;
+      this.txtOrText.Location = new System.Drawing.Point(3, 40);
+      this.txtOrText.Name = "txtOrText";
+      this.txtOrText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+      this.txtOrText.Size = new System.Drawing.Size(861, 162);
+      this.txtOrText.TabIndex = 0;
+      this.txtOrText.Text = "";
+      this.txtOrText.Leave += new System.EventHandler(this.txtOrText_Leave);
+      // 
+      // grbTid
+      // 
+      this.grbTid.Controls.Add(this.pictureBox6);
+      this.grbTid.Controls.Add(this.lwErrand);
+      this.grbTid.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbTid.Location = new System.Drawing.Point(105, 244);
+      this.grbTid.Name = "grbTid";
+      this.grbTid.Size = new System.Drawing.Size(431, 163);
+      this.grbTid.TabIndex = 40;
+      this.grbTid.TabStop = false;
+      this.grbTid.Text = "Tidsbokningar";
+      // 
+      // pictureBox6
+      // 
+      this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+      this.pictureBox6.Location = new System.Drawing.Point(390, 13);
+      this.pictureBox6.Name = "pictureBox6";
+      this.pictureBox6.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox6.TabIndex = 7;
+      this.pictureBox6.TabStop = false;
+      this.pictureBox6.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
+      this.pictureBox6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // lwErrand
+      // 
+      this.lwErrand.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader1,
+            this.columnHeader9,
+            this.columnHeader6});
+      this.lwErrand.FullRowSelect = true;
+      this.lwErrand.Location = new System.Drawing.Point(8, 19);
+      this.lwErrand.Name = "lwErrand";
+      this.lwErrand.Size = new System.Drawing.Size(376, 138);
+      this.lwErrand.Sorting = System.Windows.Forms.SortOrder.Descending;
+      this.lwErrand.TabIndex = 3;
+      this.lwErrand.UseCompatibleStateImageBehavior = false;
+      this.lwErrand.View = System.Windows.Forms.View.Details;
+      // 
+      // columnHeader7
+      // 
+      this.columnHeader7.Text = "Datum";
+      this.columnHeader7.Width = 61;
+      // 
+      // columnHeader4
+      // 
+      this.columnHeader4.Text = "Starttid";
+      this.columnHeader4.Width = 50;
+      // 
+      // columnHeader5
+      // 
+      this.columnHeader5.Text = "Pågår";
+      this.columnHeader5.Width = 50;
+      // 
+      // columnHeader1
+      // 
+      this.columnHeader1.Text = "Order - ID";
+      this.columnHeader1.Width = 70;
+      // 
+      // columnHeader9
+      // 
+      this.columnHeader9.Text = "Handläggare";
+      this.columnHeader9.Width = 140;
+      // 
+      // columnHeader6
+      // 
+      this.columnHeader6.Text = "ID";
+      this.columnHeader6.Width = 0;
+      // 
+      // grbPatient
+      // 
+      this.grbPatient.Controls.Add(this.chkDeceased);
+      this.grbPatient.Controls.Add(this.pictureBox10);
+      this.grbPatient.Controls.Add(this.chkCopDok);
+      this.grbPatient.Controls.Add(this.label16);
+      this.grbPatient.Controls.Add(this.label15);
+      this.grbPatient.Controls.Add(this.txtTelMobil);
+      this.grbPatient.Controls.Add(this.txtTelArbete);
+      this.grbPatient.Controls.Add(this.txtKNR);
+      this.grbPatient.Controls.Add(this.pictureBox4);
+      this.grbPatient.Controls.Add(this.labANM);
+      this.grbPatient.Controls.Add(this.txtANM);
+      this.grbPatient.Controls.Add(this.chkJournal);
+      this.grbPatient.Controls.Add(this.txtTelBostad);
+      this.grbPatient.Controls.Add(this.txtORT);
+      this.grbPatient.Controls.Add(this.txtADD);
+      this.grbPatient.Controls.Add(this.txtSN);
+      this.grbPatient.Controls.Add(this.txtLN);
+      this.grbPatient.Controls.Add(this.txtPNR);
+      this.grbPatient.Controls.Add(this.labTEL);
+      this.grbPatient.Controls.Add(this.labORT);
+      this.grbPatient.Controls.Add(this.labADD);
+      this.grbPatient.Controls.Add(this.labSN);
+      this.grbPatient.Controls.Add(this.labLN);
+      this.grbPatient.Controls.Add(this.labPnr);
+      this.grbPatient.FlatStyle = System.Windows.Forms.FlatStyle.System;
+      this.grbPatient.Location = new System.Drawing.Point(105, 12);
+      this.grbPatient.Name = "grbPatient";
+      this.grbPatient.Size = new System.Drawing.Size(431, 232);
+      this.grbPatient.TabIndex = 0;
+      this.grbPatient.TabStop = false;
+      this.grbPatient.Text = "Patient";
+      // 
+      // chkDeceased
+      // 
+      this.chkDeceased.AutoSize = true;
+      this.chkDeceased.Location = new System.Drawing.Point(222, 17);
+      this.chkDeceased.Name = "chkDeceased";
+      this.chkDeceased.Size = new System.Drawing.Size(61, 17);
+      this.chkDeceased.TabIndex = 24;
+      this.chkDeceased.Text = "Avliden";
+      this.chkDeceased.UseVisualStyleBackColor = true;
+      this.chkDeceased.CheckedChanged += new System.EventHandler(this.chkDeceased_CheckedChanged);
+      // 
+      // pictureBox10
+      // 
+      this.pictureBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+      this.pictureBox10.Location = new System.Drawing.Point(392, 58);
+      this.pictureBox10.Name = "pictureBox10";
+      this.pictureBox10.Size = new System.Drawing.Size(24, 24);
+      this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox10.TabIndex = 23;
+      this.pictureBox10.TabStop = false;
+      this.pictureBox10.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox10.Click += new System.EventHandler(this.pictureBox10_Click);
+      this.pictureBox10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // chkCopDok
+      // 
+      this.chkCopDok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkCopDok.Location = new System.Drawing.Point(317, 206);
+      this.chkCopDok.Name = "chkCopDok";
+      this.chkCopDok.Size = new System.Drawing.Size(88, 24);
+      this.chkCopDok.TabIndex = 22;
+      this.chkCopDok.Text = "CoPdoc";
+      this.chkCopDok.CheckedChanged += new System.EventHandler(this.chkCopDok_CheckedChanged);
+      // 
+      // label16
+      // 
+      this.label16.Location = new System.Drawing.Point(32, 182);
+      this.label16.Name = "label16";
+      this.label16.Size = new System.Drawing.Size(56, 23);
+      this.label16.TabIndex = 21;
+      this.label16.Text = "Tel Mobil:";
+      this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // label15
+      // 
+      this.label15.Location = new System.Drawing.Point(24, 161);
+      this.label15.Name = "label15";
+      this.label15.Size = new System.Drawing.Size(64, 16);
+      this.label15.TabIndex = 20;
+      this.label15.Text = "Tel Arbete:";
+      this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtTelMobil
+      // 
+      this.txtTelMobil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtTelMobil.Location = new System.Drawing.Point(96, 184);
+      this.txtTelMobil.Name = "txtTelMobil";
+      this.txtTelMobil.ReadOnly = true;
+      this.txtTelMobil.Size = new System.Drawing.Size(184, 20);
+      this.txtTelMobil.TabIndex = 19;
+      this.txtTelMobil.TabStop = false;
+      // 
+      // txtTelArbete
+      // 
+      this.txtTelArbete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtTelArbete.Location = new System.Drawing.Point(96, 160);
+      this.txtTelArbete.Name = "txtTelArbete";
+      this.txtTelArbete.ReadOnly = true;
+      this.txtTelArbete.Size = new System.Drawing.Size(184, 20);
+      this.txtTelArbete.TabIndex = 18;
+      this.txtTelArbete.TabStop = false;
+      // 
+      // txtKNR
+      // 
+      this.txtKNR.Location = new System.Drawing.Point(317, 136);
+      this.txtKNR.Name = "txtKNR";
+      this.txtKNR.Size = new System.Drawing.Size(80, 20);
+      this.txtKNR.TabIndex = 17;
+      this.txtKNR.TabStop = false;
+      this.txtKNR.Visible = false;
+      // 
+      // pictureBox4
+      // 
+      this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+      this.pictureBox4.Location = new System.Drawing.Point(389, 13);
+      this.pictureBox4.Name = "pictureBox4";
+      this.pictureBox4.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox4.TabIndex = 16;
+      this.pictureBox4.TabStop = false;
+      this.pictureBox4.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+      this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // labANM
+      // 
+      this.labANM.Location = new System.Drawing.Point(16, 209);
+      this.labANM.Name = "labANM";
+      this.labANM.Size = new System.Drawing.Size(72, 16);
+      this.labANM.TabIndex = 14;
+      this.labANM.Text = "Anmärkning:";
+      this.labANM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // txtANM
+      // 
+      this.txtANM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtANM.Location = new System.Drawing.Point(96, 208);
+      this.txtANM.Name = "txtANM";
+      this.txtANM.ReadOnly = true;
+      this.txtANM.Size = new System.Drawing.Size(184, 20);
+      this.txtANM.TabIndex = 2;
+      this.txtANM.TabStop = false;
+      this.txtANM.Tag = "0";
+      // 
+      // chkJournal
+      // 
+      this.chkJournal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.chkJournal.Location = new System.Drawing.Point(317, 182);
+      this.chkJournal.Name = "chkJournal";
+      this.chkJournal.Size = new System.Drawing.Size(88, 24);
+      this.chkJournal.TabIndex = 3;
+      this.chkJournal.TabStop = false;
+      this.chkJournal.Text = "Journal finns";
+      this.chkJournal.CheckedChanged += new System.EventHandler(this.chkJournal_CheckedChanged);
+      // 
+      // txtTelBostad
+      // 
+      this.txtTelBostad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtTelBostad.Location = new System.Drawing.Point(96, 136);
+      this.txtTelBostad.Name = "txtTelBostad";
+      this.txtTelBostad.ReadOnly = true;
+      this.txtTelBostad.Size = new System.Drawing.Size(184, 20);
+      this.txtTelBostad.TabIndex = 11;
+      this.txtTelBostad.TabStop = false;
+      // 
+      // txtORT
+      // 
+      this.txtORT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtORT.Location = new System.Drawing.Point(96, 112);
+      this.txtORT.Name = "txtORT";
+      this.txtORT.ReadOnly = true;
+      this.txtORT.Size = new System.Drawing.Size(224, 20);
+      this.txtORT.TabIndex = 10;
+      this.txtORT.TabStop = false;
+      // 
+      // txtADD
+      // 
+      this.txtADD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtADD.Location = new System.Drawing.Point(96, 88);
+      this.txtADD.Name = "txtADD";
+      this.txtADD.ReadOnly = true;
+      this.txtADD.Size = new System.Drawing.Size(224, 20);
+      this.txtADD.TabIndex = 9;
+      this.txtADD.TabStop = false;
+      // 
+      // txtSN
+      // 
+      this.txtSN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtSN.Location = new System.Drawing.Point(96, 64);
+      this.txtSN.Name = "txtSN";
+      this.txtSN.ReadOnly = true;
+      this.txtSN.Size = new System.Drawing.Size(184, 20);
+      this.txtSN.TabIndex = 8;
+      this.txtSN.TabStop = false;
+      // 
+      // txtLN
+      // 
+      this.txtLN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtLN.Location = new System.Drawing.Point(96, 40);
+      this.txtLN.Name = "txtLN";
+      this.txtLN.ReadOnly = true;
+      this.txtLN.Size = new System.Drawing.Size(184, 20);
+      this.txtLN.TabIndex = 7;
+      this.txtLN.TabStop = false;
+      // 
+      // txtPNR
+      // 
+      this.txtPNR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.txtPNR.Location = new System.Drawing.Point(96, 16);
+      this.txtPNR.Name = "txtPNR";
+      this.txtPNR.Size = new System.Drawing.Size(120, 20);
+      this.txtPNR.TabIndex = 0;
+      this.txtPNR.Tag = "0";
+      this.txtPNR.Enter += new System.EventHandler(this.txtPNR_Enter);
+      this.txtPNR.Leave += new System.EventHandler(this.txtPNR_Leave);
+      // 
+      // labTEL
+      // 
+      this.labTEL.Location = new System.Drawing.Point(24, 137);
+      this.labTEL.Name = "labTEL";
+      this.labTEL.Size = new System.Drawing.Size(64, 16);
+      this.labTEL.TabIndex = 5;
+      this.labTEL.Text = "Tel Bostad:";
+      this.labTEL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // labORT
+      // 
+      this.labORT.Location = new System.Drawing.Point(24, 112);
+      this.labORT.Name = "labORT";
+      this.labORT.Size = new System.Drawing.Size(64, 16);
+      this.labORT.TabIndex = 4;
+      this.labORT.Text = "Pnr/Ort:";
+      this.labORT.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // labADD
+      // 
+      this.labADD.Location = new System.Drawing.Point(24, 89);
+      this.labADD.Name = "labADD";
+      this.labADD.Size = new System.Drawing.Size(64, 16);
+      this.labADD.TabIndex = 3;
+      this.labADD.Text = "Adress:";
+      this.labADD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // labSN
+      // 
+      this.labSN.Location = new System.Drawing.Point(24, 65);
+      this.labSN.Name = "labSN";
+      this.labSN.Size = new System.Drawing.Size(64, 16);
+      this.labSN.TabIndex = 2;
+      this.labSN.Text = "Förnamn:";
+      this.labSN.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // labLN
+      // 
+      this.labLN.Location = new System.Drawing.Point(24, 41);
+      this.labLN.Name = "labLN";
+      this.labLN.Size = new System.Drawing.Size(64, 16);
+      this.labLN.TabIndex = 1;
+      this.labLN.Text = "Efternamn:";
+      this.labLN.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // labPnr
+      // 
+      this.labPnr.Location = new System.Drawing.Point(32, 17);
+      this.labPnr.Name = "labPnr";
+      this.labPnr.Size = new System.Drawing.Size(56, 16);
+      this.labPnr.TabIndex = 0;
+      this.labPnr.Text = "PersonNr:";
+      this.labPnr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // pnlMainLeft
+      // 
+      this.pnlMainLeft.Controls.Add(this.pnlLeft);
+      this.pnlMainLeft.Dock = System.Windows.Forms.DockStyle.Left;
+      this.pnlMainLeft.Location = new System.Drawing.Point(0, 0);
+      this.pnlMainLeft.Name = "pnlMainLeft";
+      this.pnlMainLeft.Size = new System.Drawing.Size(96, 706);
+      this.pnlMainLeft.TabIndex = 21;
+      // 
+      // pnlLeft
+      // 
+      this.pnlLeft.BackColor = System.Drawing.SystemColors.ControlDark;
+      this.pnlLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+      this.pnlLeft.Controls.Add(this.label17);
+      this.pnlLeft.Controls.Add(this.pictureBox1);
+      this.pnlLeft.Controls.Add(this.labClose);
+      this.pnlLeft.Controls.Add(this.pictureBox9);
+      this.pnlLeft.Controls.Add(this.pictureBox8);
+      this.pnlLeft.Controls.Add(this.pictureBox3);
+      this.pnlLeft.Controls.Add(this.picNew);
+      this.pnlLeft.Controls.Add(this.label19);
+      this.pnlLeft.Controls.Add(this.label14);
+      this.pnlLeft.Controls.Add(this.label13);
+      this.pnlLeft.Location = new System.Drawing.Point(8, 8);
+      this.pnlLeft.Name = "pnlLeft";
+      this.pnlLeft.Size = new System.Drawing.Size(88, 560);
+      this.pnlLeft.TabIndex = 17;
+      // 
+      // label17
+      // 
+      this.label17.Location = new System.Drawing.Point(12, 290);
+      this.label17.Name = "label17";
+      this.label17.Size = new System.Drawing.Size(60, 16);
+      this.label17.TabIndex = 44;
+      this.label17.Text = "Byt Patient";
+      // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+      this.pictureBox1.Location = new System.Drawing.Point(24, 248);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox1.TabIndex = 43;
+      this.pictureBox1.TabStop = false;
+      this.pictureBox1.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
+      this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // labClose
+      // 
+      this.labClose.Location = new System.Drawing.Point(0, 204);
+      this.labClose.Name = "labClose";
+      this.labClose.Size = new System.Drawing.Size(80, 16);
+      this.labClose.TabIndex = 42;
+      this.labClose.Text = "Stäng order";
+      this.labClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // pictureBox9
+      // 
+      this.pictureBox9.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+      this.pictureBox9.Location = new System.Drawing.Point(24, 160);
+      this.pictureBox9.Name = "pictureBox9";
+      this.pictureBox9.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox9.TabIndex = 41;
+      this.pictureBox9.TabStop = false;
+      this.pictureBox9.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox9.Click += new System.EventHandler(this.pictureBox9_Click);
+      this.pictureBox9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // pictureBox8
+      // 
+      this.pictureBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.pictureBox8.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+      this.pictureBox8.Location = new System.Drawing.Point(24, 480);
+      this.pictureBox8.Name = "pictureBox8";
+      this.pictureBox8.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox8.TabIndex = 38;
+      this.pictureBox8.TabStop = false;
+      this.pictureBox8.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
+      this.pictureBox8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // pictureBox3
+      // 
+      this.pictureBox3.BackColor = System.Drawing.SystemColors.ControlDark;
+      this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+      this.pictureBox3.Location = new System.Drawing.Point(24, 88);
+      this.pictureBox3.Name = "pictureBox3";
+      this.pictureBox3.Size = new System.Drawing.Size(32, 32);
+      this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox3.TabIndex = 37;
+      this.pictureBox3.TabStop = false;
+      this.pictureBox3.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+      this.pictureBox3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.pictureBox3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // picNew
+      // 
+      this.picNew.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.picNew.Image = ((System.Drawing.Image)(resources.GetObject("picNew.Image")));
+      this.picNew.Location = new System.Drawing.Point(24, 24);
+      this.picNew.Name = "picNew";
+      this.picNew.Size = new System.Drawing.Size(32, 32);
+      this.picNew.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.picNew.TabIndex = 35;
+      this.picNew.TabStop = false;
+      this.picNew.MouseLeave += new System.EventHandler(this.Gen_MouseLeave);
+      this.picNew.Click += new System.EventHandler(this.picNew_Click);
+      this.picNew.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseDown);
+      this.picNew.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Gen_MouseUp);
+      // 
+      // label19
+      // 
+      this.label19.Location = new System.Drawing.Point(4, 128);
+      this.label19.Name = "label19";
+      this.label19.Size = new System.Drawing.Size(72, 16);
+      this.label19.TabIndex = 33;
+      this.label19.Text = "Radera order";
+      this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // label14
+      // 
+      this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.label14.Location = new System.Drawing.Point(8, 512);
+      this.label14.Name = "label14";
+      this.label14.Size = new System.Drawing.Size(64, 24);
+      this.label14.TabIndex = 29;
+      this.label14.Text = "Avsluta";
+      this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // label13
+      // 
+      this.label13.Location = new System.Drawing.Point(16, 64);
+      this.label13.Name = "label13";
+      this.label13.Size = new System.Drawing.Size(48, 16);
+      this.label13.TabIndex = 28;
+      this.label13.Text = "Ny order";
+      this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // statusBar1
+      // 
+      this.statusBar1.Location = new System.Drawing.Point(0, 708);
+      this.statusBar1.Name = "statusBar1";
+      this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+            this.pnlBol,
+            this.pnlGroup,
+            this.pnlUser,
+            this.pnlKst,
+            this.pnlCustomConfig,
+            this.pnlOrderStat});
+      this.statusBar1.ShowPanels = true;
+      this.statusBar1.Size = new System.Drawing.Size(1010, 22);
+      this.statusBar1.TabIndex = 17;
+      // 
+      // pnlBol
+      // 
+      this.pnlBol.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+      this.pnlBol.Name = "pnlBol";
+      this.pnlBol.Width = 10;
+      // 
+      // pnlGroup
+      // 
+      this.pnlGroup.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+      this.pnlGroup.Name = "pnlGroup";
+      this.pnlGroup.Width = 10;
+      // 
+      // pnlUser
+      // 
+      this.pnlUser.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+      this.pnlUser.Name = "pnlUser";
+      this.pnlUser.Width = 10;
+      // 
+      // pnlKst
+      // 
+      this.pnlKst.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+      this.pnlKst.Name = "pnlKst";
+      this.pnlKst.Width = 10;
+      // 
+      // pnlCustomConfig
+      // 
+      this.pnlCustomConfig.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+      this.pnlCustomConfig.Name = "pnlCustomConfig";
+      this.pnlCustomConfig.Width = 10;
+      // 
+      // pnlOrderStat
+      // 
+      this.pnlOrderStat.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+      this.pnlOrderStat.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
+      this.pnlOrderStat.Name = "pnlOrderStat";
+      this.pnlOrderStat.Width = 943;
+      // 
+      // mnuMain
+      // 
+      this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.hjälpToolStripMenuItem});
+      this.mnuMain.Location = new System.Drawing.Point(0, 0);
+      this.mnuMain.Name = "mnuMain";
+      this.mnuMain.Size = new System.Drawing.Size(1010, 24);
+      this.mnuMain.TabIndex = 18;
+      this.mnuMain.Text = "menuStrip1";
+      // 
+      // toolStripMenuItem1
+      // 
+      this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.avslutaToolStripMenuItem});
+      this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
+      this.toolStripMenuItem1.Text = "Arkiv";
+      this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+      // 
+      // avslutaToolStripMenuItem
+      // 
+      this.avslutaToolStripMenuItem.Name = "avslutaToolStripMenuItem";
+      this.avslutaToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+      this.avslutaToolStripMenuItem.Text = "Avsluta";
+      this.avslutaToolStripMenuItem.Click += new System.EventHandler(this.avslutaToolStripMenuItem_Click);
+      // 
+      // hjälpToolStripMenuItem
+      // 
+      this.hjälpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripSeparator1,
+            this.omToolStripMenuItem});
+      this.hjälpToolStripMenuItem.Name = "hjälpToolStripMenuItem";
+      this.hjälpToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+      this.hjälpToolStripMenuItem.Text = "Hjälp";
+      // 
+      // toolStripMenuItem2
+      // 
+      this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+      this.toolStripMenuItem2.Size = new System.Drawing.Size(156, 22);
+      this.toolStripMenuItem2.Text = "Inställningar...";
+      this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+      // 
+      // omToolStripMenuItem
+      // 
+      this.omToolStripMenuItem.Name = "omToolStripMenuItem";
+      this.omToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+      this.omToolStripMenuItem.Text = "Om...";
+      this.omToolStripMenuItem.Click += new System.EventHandler(this.omToolStripMenuItem_Click);
+      // 
+      // toolTip1
+      // 
+      this.toolTip1.AutoPopDelay = 5000;
+      this.toolTip1.InitialDelay = 500;
+      this.toolTip1.IsBalloon = true;
+      this.toolTip1.ReshowDelay = 500;
+      this.toolTip1.ShowAlways = true;
+      // 
+      // frmMain
+      // 
+      this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+      this.ClientSize = new System.Drawing.Size(1010, 730);
+      this.Controls.Add(this.statusBar1);
+      this.Controls.Add(this.pnlBottom);
+      this.Controls.Add(this.mnuMain);
+      this.DataBindings.Add(new System.Windows.Forms.Binding("WindowState", global::Ortoped.Properties.Settings.Default, "frmMain_WindowsState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.KeyPreview = true;
+      this.MainMenuStrip = this.mnuMain;
+      this.Name = "frmMain";
+      this.Text = "Patientöversikt";
+      this.WindowState = global::Ortoped.Properties.Settings.Default.frmMain_WindowsState;
+      this.Activated += new System.EventHandler(this.frmMain_Activated);
+      this.Closing += new System.ComponentModel.CancelEventHandler(this.frmMain_Closing);
+      this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmMain_KeyPress);
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
+      this.Load += new System.EventHandler(this.frmMain_Load);
+      this.pnlBottom.ResumeLayout(false);
+      this.tabctrlOH.ResumeLayout(false);
+      this.tabOH.ResumeLayout(false);
+      this.tabOH.PerformLayout();
+      this.grbOH.ResumeLayout(false);
+      this.grbOH.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+      this.grbOr.ResumeLayout(false);
+      this.grbOr.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+      this.tabctrlRow.ResumeLayout(false);
+      this.tabPage1.ResumeLayout(false);
+      this.tabNew.ResumeLayout(false);
+      this.grbAid.ResumeLayout(false);
+      this.grbAid.PerformLayout();
+      this.grbArtList.ResumeLayout(false);
+      this.grbArt.ResumeLayout(false);
+      this.grbArt.PerformLayout();
+      this.groupBox1.ResumeLayout(false);
+      this.tabPage2.ResumeLayout(false);
+      this.tabPage2.PerformLayout();
+      this.grbTid.ResumeLayout(false);
+      this.grbTid.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+      this.grbPatient.ResumeLayout(false);
+      this.grbPatient.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+      this.pnlMainLeft.ResumeLayout(false);
+      this.pnlLeft.ResumeLayout(false);
+      this.pnlLeft.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.picNew)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlBol)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlGroup)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlUser)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlKst)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlCustomConfig)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pnlOrderStat)).EndInit();
+      this.mnuMain.ResumeLayout(false);
+      this.mnuMain.PerformLayout();
+      this.ResumeLayout(false);
+      this.PerformLayout();
+
+		}
+		#endregion
+
+		/// <summary>
+		/// Entry point för applikationen.
+		/// </summary>
+		[STAThread]
+		static void Main() 
+		{
+			Application.EnableVisualStyles();
+			Application.Run(new frmMain());
+		}
+
+		#endregion
+
+
+		private void frmMain_Load(object sender, System.EventArgs e)
+		{
+      //mnuMain.Visible = false;
+			try
+			{
+				oCust = new CustomerFunc();
+				oOH = new orderFunc();
+				oOR = new OrderRowFunc();
+				oErr = new ErrandFunc();
+				oCon = new Contacts();
+				oPrislista = new Prislista();
+				oDelM = new DeliveryMode();
+        Logger.startLogging(Config.User);
+			}
+			catch
+			{
+				MessageBox.Show(this,"garp är inte startat, starta Garp och försök igen", "Garp är inte startat",MessageBoxButtons.OK,MessageBoxIcon.Error);
+				Application.Exit();
+				return;
+			}
+			
+			try
+			{
+				mnuOrderRow.MenuItems[9].MenuItems.AddRange(Config.getKallelse(new EventHandler(this.printEvent)));
+				mnuOrderRow.MenuItems[10].MenuItems.AddRange(Config.getArbetsOrder(new EventHandler(this.printEvent)));
+			}
+			catch
+			{
+				MessageBox.Show(this, "Ett fel uppstod när menyalternativ för utskrift lades till", "Fel vid configuration",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				oDiagnos = new Diagnos(Config.DiagnosPath);
+			}
+			catch
+			{
+				oDiagnos = new Diagnos("");
+				MessageBox.Show(this, "Ett fel uppstod när diagnosfil skulle läsas från " + Config.DiagnosPath ,"Fel vid configuration",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				pnlMainLeft.Dock = DockStyle.Left;
+				pnlLeft.Dock = DockStyle.Fill;
+				grbOr.Tag = "";
+				grbOH.Tag = "";
+				grbPatient.Tag = "";
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Ett fel uppstod när grbOr skulle initsieras " + ex.Message ,"Fel vid initsiering",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				cboProdStatus.Items.Add("");
+				cboProdStatus.Items.AddRange(oOR.oProdStat.getListOfReservations());
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Ett fel uppstod när Produktionsstatus skulle initsieras " + ex.Message ,"Fel vid initsiering",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				cboHandler.Items.AddRange(oOR.getListOfSalesman());
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Ett fel uppstod när Handläggare skulle initsieras " + ex.Message ,"Fel vid initsiering",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				cboSignature.Items.AddRange(oOH.getListOfSignatures());
+				cboSignature.Items.Add(" ");
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Ett fel uppstod när Signaturer skulle initsieras " + ex.Message ,"Fel vid initsiering",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			try
+			{
+				cboPrislista.Items.AddRange(oPrislista.getPricelists());
+				cboPrislista.Items.Add(" ");
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Ett fel uppstod när Prislistor skulle initsieras " + ex.Message ,"Fel vid initsiering",MessageBoxButtons.OK,MessageBoxIcon.Information);
+			}
+
+			if(!oCust.doLogin("",""))
+			{
+				MessageBox.Show(this,"Garp är inte startat. Starta Garp och försök igen","Garp är inte startat");
+				Dispose();
+				Application.Exit();
+			}
+
+			try
+			{
+				dtpGilltigFrom.Value = DateTime.ParseExact(DateTime.Today.ToString("yyMMdd"),"yyMMdd",new CultureInfo("sv-SE"));
+				dtpLevtid.Value = DateTime.ParseExact(DateTime.Today.ToString("yyMMdd"),"yyMMdd",new CultureInfo("sv-SE"));
+			}
+			catch{}
+
+			try
+			{
+				cboLevsatt.Items.Add("");
+				cboLevsatt.Items.AddRange(oDelM.getListOfNames());
+			}
+			catch{}
+
+			// Thordunikt
+			if (Config.IsThordUser)
+			{
+				cboNeedStep.Visible = true;
+				label24.Visible = true;
+//        cboAidType.Visible = true;
+//        label33.Visible = true;
+			}
+			else
+			{
+				cboNeedStep.Visible = false;
+				label24.Visible = false;
+//        cboAidType.Visible = false;
+//        label33.Visible = false;
+      }
+
+      oOH.getAllOrdinators(true);
+
+			// Visa versionsummer i namnlisten
+			sVersion = Application.ProductVersion;// System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
+			this.Text = "Patientöversikt" + " - " + sVersion;
+
+			// Show information in statusbar?
+			showStatusBar(Config.ShowPreferences);
+		}
+
+		#region Internal functions
+
+		/// <summary>
+		/// Kontrollera vad resultatet blev genom att undersöka parametern "p".
+		/// T ex kontroll och hantering av flera träffar eller inga träffar.
+		/// </summary>
+		/// <param name="p"></param>
+		private bool checkPatient(CustomerFunc.Patient[] p)
+		{
+			if(p.Length == 0) // Ingen patient hittades
+			{
+				// Om det är en sökning skall inte upplägg av patient visas
+				if(txtPNR.Text.StartsWith("."))
+				{
+					MessageBox.Show("Ingen Patienten som matchade sökbegreppet hittades","Patient hittades ej" ,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+					return false;
+				}
+				else
+				{
+					if(MessageBox.Show("Patienten finns inte, vill du lägga upp en ny?","patient saknas" ,MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+					{
+						return addPatient();
+					}
+					else // Användaren valde att inte lägga upp ny patient
+					{
+						return false;
+					}
+				}
+			}
+			else if(p.Length > 1) // Fler än en patient hittades
+			{
+				Ortoped.Dialogs.frmDiagPatient oDiaPat = new Ortoped.Dialogs.frmDiagPatient(CustomerFunc.Patient.convertToPatient(p));
+				oDiaPat.ShowDialog();
+				int idx = oDiaPat.selidx;
+				oDiaPat.Dispose();
+
+				// Kontrollera om användaren valde Cancel (idx == -1)
+				if(idx != -1)
+				{
+					if(updateForm(p[oDiaPat.selidx]))
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else
+					return false;
+			}
+			else	// Endast en patient hittades
+			{
+				updateForm(p[0]);
+				return true;
+			}
+		}
+		
+		private bool checkKlinik(CustomerFunc.Klinik[] p)
+		{
+			CustomerFunc.Klinik selKlinik = new CustomerFunc.Klinik();
+
+			if(p.Length == 0) // Ingen Klinik hittades
+			{
+				MessageBox.Show("Hittade ingen klinik.", "Kund saknas" , MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			}
+			else if(p.Length > 1) // Fler än en kliniker hittades
+			{
+				int i = -1;
+				Ortoped.Dialogs.frmDiagFkn oDiaFkn = new Ortoped.Dialogs.frmDiagFkn(CustomerFunc.Klinik.convertToFkn(p),ref i);
+				oDiaFkn.ShowDialog();
+				if(!oDiaFkn.selCust.Equals(""))
+					selKlinik = oCust.getKlinikByCust(oDiaFkn.selCust)[0];
+				oDiaFkn.Dispose();
+			}
+			else	// Endast en klinik hittades
+			{
+				selKlinik = p[0];
+			}
+
+			// Kontrollera om någon Klinik är vald
+			if(selKlinik.CustNr != null)
+			{
+				// Uppdatera fält
+				txtKlinik.Text = selKlinik.CustNr; 
+				txtKlinikNamn.Text = selKlinik.Name;
+        string sOrd = cboOrdinator.Text;
+        cboOrdinator.Items.Clear();
+				cboOrdinator.Items.Add("");
+				cboOrdinator.Items.AddRange(oOH.getOrdinatorsOnCustomer(txtKlinik.Text));
+        cboOrdinator.SelectedIndex = cboOrdinator.FindStringExact(sOrd);
+
+				// Om fakturakund (Landsting) ej är angivet så hämta fakturakunden från klinik
+				if(txtFKN.Text.Trim() == "")
+				{
+					CustomerFunc.Fakturakund[] selFkn = oCust.getFakturakundByCust(selKlinik.InvoiceCustNr);
+          if (selFkn.Length > 0)
+          {
+            txtFKN.Text = selKlinik.InvoiceCustNr;
+            txtFKN_NAM.Text = selKlinik.InvoiceCustName;
+            cboPrislista.Text = selFkn[0].PriceList;
+          }
+				}
+				return true;
+			}
+			else return false;
+		}
+
+		private bool checkFkn(CustomerFunc.Fakturakund[] p)
+		{
+			CustomerFunc.Fakturakund selFkn = new CustomerFunc.Fakturakund();
+
+			if(p.Length == 0) // Ingen Klinik hittades
+			{
+				MessageBox.Show("Fakturakunden finns inte.", "Fakturakund saknas" , MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			}
+			else if(p.Length > 1) // Fler än en kliniker hittades
+			{
+				int i = -1;
+				Ortoped.Dialogs.frmDiagFkn oDiaFkn = new Ortoped.Dialogs.frmDiagFkn(CustomerFunc.Fakturakund.convertToFkn(p),ref i);
+				oDiaFkn.ShowDialog();
+				if(!oDiaFkn.selCust.Equals(""))
+					selFkn = oCust.getFakturakundByCust(oDiaFkn.selCust)[0];
+
+				oDiaFkn.Dispose();
+			}
+			else	// Endast en klinik hittades
+			{
+				selFkn = p[0];
+			}
+
+			if(selFkn.CustNr != null)
+			{
+				// Uppdatera fält
+				txtFKN.Text = p[0].CustNr; 
+				txtFKN_NAM.Text = p[0].Name;
+				cboPrislista.Text = p[0].PriceList;
+				return true;
+			}
+			else return false;
+		}
+
+		private bool checkProduct(OrderRowFunc.Product[] pr)
+		{
+			OrderRowFunc.Product selProd = new OrderRowFunc.Product();
+
+			if(pr.Length == 0) // Ingen artikel hittades
+			{
+				MessageBox.Show("Artikeln finns inte.", "Artikel saknas" , MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			}
+			else if(pr.Length > 1) // Fler än en artikel hittades
+			{
+				int i = -1;
+				Ortoped.Dialogs.frmDiagProduct oProd = new Ortoped.Dialogs.frmDiagProduct(OrderRowFunc.Product.convertToListView(pr),ref i);
+				oProd.ShowDialog();
+				selProd = oOR.findProductByID(oProd.selProd)[0];
+				oProd.Dispose();
+			}
+			else	// Endast en artikel hittades
+			{
+				selProd = pr[0];
+			}
+
+			if(selProd.ProductNr != null)
+			{
+				// Uppdatera fält
+				txtANR.Text = selProd.ProductNr;
+				txtBEN.Text = selProd.ProductName;
+				txtPRI.Text = selProd.Apris;
+				return true;
+			}
+			else return false;
+		}
+
+    private OrderRowDefinitions.OrderRow fillOrderRow(object sender, bool fillprice)
+		{
+      OrderRowDefinitions.OrderRow or = new OrderRowDefinitions.OrderRow();
+			or.OrderNr = txtONR.Text;
+			or.AidDate = txtOrDatum.Text;
+			or.AidNr = txtAidId.Text; 
+			or.Rad = txtRDC.Text;
+			or.SelectedHandler = cboHandler.Text;
+			or.Prodstatus = cboProdStatus.Text;
+			or.LevTid = txtLevDate.Text;
+			or.DeliverMode = cboLevsatt.Text;
+			or.Artikel = txtANR.Text;
+			or.Antal = txtORA.Text;
+			if(fillprice)
+				or.APris = txtPRI.Text;
+			else
+				or.APris = "";
+			or.Text = txtOrText.Text;
+			or.InkStat = getBestallSelektion();
+			or.Warrenty = chkGaranti.Checked;
+      try
+      {
+        or.Thord_NeedStep = cboNeedStep.Text.Substring(0, 2).Trim();
+      }
+      catch
+      {
+        or.Thord_NeedStep = "";
+      }
+			if(lwAidRows.Items.Count == 0)
+				or.ViewInList = true;
+			else
+			{
+				or.ViewInList = chkViewState.Checked;
+			}
+
+			return or;
+		}
+		
+		private void clearAllOHFields()
+		{
+			ignoreSave = true;
+			tabctrlRow.SelectedIndex = 0;
+			grbOH.Text = "Orderhuvud";
+			txtONR.Text = "";
+			txtODT.Text = "";
+			txtFKN.Text = "";
+			txtFKN_NAM.Text = "";
+			txtERF.Text = "";
+			txtKlinik.Text = "";
+			txtKlinikNamn.Text = "";
+			cboOrdinator.Items.Clear();
+			cboOrdinator.Text = "";
+			txtDiagID.Text = "";
+			txtDiagTxt.Text = "";
+			txtTillagg.Text = "";
+			txtOrdination.Text = "";
+//      cboAidType.Text = "";
+			txtNotering.Text = "";
+			pnlOrderStat.Text = "";
+//			txtOHText.Text = "";
+			dtpGilltigFrom.Value = DateTime.Now;
+			txtYears.Text = "";
+			txtAidCount.Text = "";
+			txtEndDate.Text = "";
+			cboSignature.Text = " ";
+			cboPrislista.Text = " ";
+			ignoreSave = false;
+		}
+
+		private void clearAllPatientsFields()
+		{
+			txtKNR.Text = "";
+			txtLN.Text = "";
+			txtSN.Text = "";
+			txtADD.Text = "";
+			txtORT.Text = "";
+			txtTelBostad.Text = "";
+			txtANM.Text = "";
+			txtPNR.Text = "";
+      txtPNR.BackColor = Color.White;
+      toolTip1.SetToolTip(txtPNR, "");
+			txtTelArbete.Text = "";
+			txtTelBostad.Text = "";
+			txtTelMobil.Text = "";
+			chkJournal.Enabled = false;
+			chkCopDok.Enabled = false;
+      chkDeceased.Enabled = false;
+			chkJournal.Checked = false;
+			chkCopDok.Checked = false;
+      chkDeceased.Checked = false;
+		}
+
+		private void clearAllAppointments()
+		{
+			lwErrand.Items.Clear();
+		}
+
+		private void clearAllOrderrows()
+		{
+			lwOr.Items.Clear();
+		}
+
+		private void clearOrderrowDetailPane(bool leave_tab)
+		{
+			cboHandler.Text = "";
+			cboProdStatus.Text = "";
+			cboLevsatt.Text = "";
+			cboNeedStep.Text = "";
+			dtpLevtid.Value =  DateTime.ParseExact(DateTime.Today.ToString("yyMMdd"),"yyMMdd",new CultureInfo("sv-SE"));
+			txtRDC.Text = "";
+			txtANR.Text = "";
+			txtBEN.Text = "";
+			txtORA.Text = "";
+			txtPRI.Text = "";
+			txtAidId.Text = "";
+			txtOrDatum.Text = "";
+			lwAidRows.Items.Clear();
+
+			grbAid.Enabled = false;
+			grbArt.Enabled = false;
+			grbArtList.Enabled = false;
+
+			// Visa översikten för att inte poster skall sparas på fel order
+			if(leave_tab)
+			{
+				ignoreSave = true;
+				tabctrlRow.SelectedIndex = 0;
+				ignoreSave = false;
+			}
+		}
+
+		private bool updateForm(CustomerFunc.Patient p, orderFunc.OH o)
+		{
+			// Deaktivera sparafunktionen
+			ignoreSave = true;
+
+			// Patient
+			txtKNR.Text = p.CustNr;
+			txtPNR.Text = p.Pnr;
+			txtLN.Text = p.LastName;
+			txtSN.Text = p.SureName;
+			txtADD.Text = p.Address;
+			txtORT.Text = p.PoCity;
+			txtTelBostad.Text = p.TelHome;
+			txtTelArbete.Text = p.TelWork;
+			txtTelMobil.Text = p.TelMobile;
+			chkCopDok.Enabled = true;
+			chkJournal.Enabled = true;
+      chkDeceased.Enabled = true;
+			chkJournal.Checked = p.Journal;
+			chkCopDok.Checked = p.CopDok;
+      chkDeceased.Checked = p.Deceased;
+			txtANM.Text = p.Remark;
+      if (p.OpenBalance > 0)
+      {
+        txtPNR.BackColor = Color.Salmon;
+        toolTip1.SetToolTip(txtPNR, "Öppet saldo: " + p.OpenBalance + ":-");
+      }
+      else
+      {
+        txtPNR.BackColor = Color.White;
+        toolTip1.SetToolTip(txtPNR, "");
+      }
+
+			// OH
+			if(o.isClosed)
+			{
+				pnlOrderStat.Text = "### Ordern är stängd ###";
+				labClose.Text = "Öppna order";
+			}
+			else
+			{
+				pnlOrderStat.Text = "";
+				labClose.Text = "Stäng order";
+			}
+			txtONR.Text = o.OrderNr;
+			txtODT.Text = o.Orderdatum;
+			txtFKN.Text = o.FakKund;
+			txtFKN_NAM.Text = o.FakKundNamn;
+			txtKlinik.Text = o.Klinik;
+			txtKlinikNamn.Text = o.KlinikNamn;
+			cboOrdinator.Items.Clear(); 
+			cboOrdinator.Text = "";
+			cboSignature.Text = "";
+			cboSignature.Text = o.Signature;
+			if(o.Ordinator != null)
+			{
+				cboOrdinator.Items.Add("");
+				cboOrdinator.Items.AddRange(o.Ordinator);
+			}
+			cboOrdinator.Text = o.SelOrdinator;//cboOrdinator.FindString(o.SelOrdinator);
+			txtERF.Text = o.ErReferens;
+			txtDiagID.Text = o.Diagnoskod;
+			txtDiagTxt.Text = oDiagnos.getDiagnosById(txtDiagID.Text.Trim());
+//      cboAidType.SelectedIndex = cboAidType.FindString(o.AidType);
+			txtOrdination.Text = o.Ordination;
+			txtTillagg.Text = o.Tillagg;
+			txtNotering.Text = o.Notering;
+//			txtOHText.Text = o.OHtext;
+			dtpGilltigFrom.Value = o.GilltigFrom == "" ? DateTime.ParseExact(DateTime.Today.ToString("yyMMdd") ,"yyMMdd",new CultureInfo("sv-SE")) : DateTime.ParseExact(o.GilltigFrom.Trim(),"yyMMdd",new CultureInfo("sv-SE"));
+			txtYears.Text = o.AntalAr;
+			try
+			{
+				txtEndDate.Text = dtpGilltigFrom.Value.AddYears(int.Parse(txtYears.Text)).ToString("yyMMdd");
+			}
+			catch{}
+			txtAidCount.Text = o.AntalAid;
+			cboPrislista.Text = oPrislista.getPriceListById(o.Prislista);
+//			txtOHText.Text = o.OHtext;
+
+			// Orderrad
+			ignoreSave = true;
+			tabctrlRow.SelectedIndex = 0;
+			ignoreSave = false;
+
+			lwOr.Items.Clear();
+      lwOr.Items.AddRange(OrderRowDefinitions.OrderRow.convertToListView(oOR.getAllAid(txtONR.Text)));
+			try
+			{
+				lwOr.Items[0].Selected = true;
+				clearOrderrowDetailPane(true);
+			}
+			catch{
+				clearOrderrowDetailPane(true);
+			}
+
+			// Ärenden
+			if(oErr.getUnboundErrands(txtKNR.Text,txtONR.Text).Length > 0)
+			{
+				frmDiagUnboundErrand oDue = new frmDiagUnboundErrand(txtKNR.Text, txtONR.Text);
+				oDue.ShowDialog();
+			}
+
+			lwErrand.Items.Clear();
+			lwErrand.Items.AddRange(ErrandFunc.Errand.convertToErrand(oErr.getErrands(txtKNR.Text, txtONR.Text)));
+
+			// Kontrollera om vi skall enabla groupboxarna för OH och OR eller ej
+			if(o.OrderNr.Trim() == "")
+			{
+				grbOH.Enabled = false;
+				grbOr.Enabled = false;
+				tabctrlRow.Enabled = false;
+			}
+			else
+			{
+				grbOH.Enabled = true;
+				grbOr.Enabled = true;
+				tabctrlRow.Enabled = true;
+				txtKlinik.Focus();
+			}
+
+			if(!p.DoesExist)
+				grbTid.Enabled = false;
+			else
+				grbTid.Enabled = true;
+			
+			// Aktivera sparafunktionen
+			ignoreSave = false;
+			return true;
+		}
+
+		private bool updateForm(CustomerFunc.Patient p)
+		{
+			return updateForm(p, oOH.getPatientsLastOH(p.CustNr));
+		}
+		#endregion
+
+
+		#region Event
+		
+		private void txtPNR_Leave(object sender, System.EventArgs e)
+		{
+			// Om fältet ändrats och inte är blankt
+			if((txtPNR.Tag.ToString() != txtPNR.Text) && (!txtPNR.Text.Trim().Equals("")) && !ignorePnrLeaveEvent)
+			{
+				bool bFindExact = false;
+				string search = "";
+				ignorePnrLeaveEvent = true;
+
+				// Spara innan byte av patient
+				if(txtONR.Text.Trim() != "")
+					// Om ordern inte sparades, avbryt
+					if(!saveOrder(true))
+						return;
+
+				// Är det en sökning eller ett helt personnummer
+				if(txtPNR.Text.StartsWith("."))
+				{
+					bFindExact = false;
+					search = txtPNR.Text.Substring(1); 
+				}
+				else
+				{
+					bFindExact = true;
+					search = txtPNR.Text; 
+				}
+				// Om ingen patient hittades eller lades upp
+				if(!checkPatient(oCust.getPatientByPnr(search,bFindExact,true)))
+				{
+					txtPNR.Focus();
+					txtPNR.Text = txtPNR.Tag.ToString();
+					txtPNR.SelectAll();
+				}
+			}
+			else if(txtPNR.Text.Trim().Equals(""))
+			{
+//				txtPNR.Focus();
+				clearAllPatientsFields();
+				clearAllOHFields();
+				clearAllAppointments();
+				clearAllOrderrows();
+				clearOrderrowDetailPane(true);
+			}
+			ignorePnrLeaveEvent = false;
+		}
+
+		private void txtKNR_Leave(object sender, System.EventArgs e)
+		{
+//			if(txtKNR.Tag.ToString() != txtKNR.Text)
+//				checkPatient(oCust.getPatientByCust(txtKNR.Text));				
+		}
+
+		private void txtPNR_Enter(object sender, System.EventArgs e)
+		{
+			txtPNR.Tag = txtPNR.Text;
+		}
+
+		private void txtKNR_Enter(object sender, System.EventArgs e)
+		{
+			txtKNR.Tag = txtKNR.Text;
+		}
+
+		private void frmMain_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+		{
+			if(e.KeyChar == (char) 13)
+			{
+				if (!txtOrText.Focused && !txtAidText.Focused)
+				{
+					System.Windows.Forms.SendKeys.Send("{TAB}");
+					e.Handled = true;
+				}
+			}
+		}
+
+		private void button1_Click(object sender, System.EventArgs e)
+		{
+			orderFunc.OH o = oOH.addOH(txtKNR.Text);
+			
+			clearAllOHFields();
+
+			txtONR.Text = o.OrderNr;
+			// Om patient har en "bestämd" fakturakund, hämtas denna och visas
+			// annar så tvingas användaren att välja fakturakund
+			if(o.FakKund.Trim() != "")
+			{
+				txtFKN.Text = o.FakKund;
+				txtFKN_NAM.Text = o.FakKundNamn;
+				cboOrdinator.Focus();
+			}
+			else txtFKN.Focus();
+		}
+
+		private void txtFKN_Leave(object sender, System.EventArgs e)
+		{
+			if((txtFKN.Tag.ToString() != txtFKN.Text) && !txtFKN.Text.Trim().Equals(""))
+			{
+				if(txtFKN.Text.StartsWith("."))
+				{
+					if(!checkFkn(oCust.getFakturakundByName(txtFKN.Text.Substring(1))))
+					{
+						txtFKN.Focus();
+						txtFKN.Text = txtFKN.Tag.ToString();
+						txtFKN.SelectAll();
+					}
+					else saveOrder(false);
+				}
+				else
+				{
+					if(!checkFkn(oCust.getFakturakundByCust(txtFKN.Text)))
+					{
+						txtFKN.Focus();
+						txtFKN.Text = txtFKN.Tag.ToString();
+						txtFKN.SelectAll();
+					}
+					else saveOrder(false);
+				}
+			}
+			else if(txtFKN.Text.Trim() == "")
+				txtFKN_NAM.Text = "";
+		}
+
+		private void txtFKN_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+			txtFKN.Tag = txtFKN.Text;
+		}
+
+		private void txtGem_Enter(object sender, System.EventArgs e)
+		{
+			TextBox t = (TextBox) sender;
+			t.Tag = t.Text;
+		}
+
+		private void txtGem_Leave(object sender, System.EventArgs e)
+		{
+			TextBox t = (TextBox) sender;
+			if((t.Tag.ToString().Trim() != t.Text.Trim()) && (t.Parent.Visible == true))
+				t.Parent.Tag = "unsaved"; 
+		}
+
+
+		#endregion
+
+
+
+		private void picNew_Click(object sender, System.EventArgs e)
+		{
+      if (txtKNR.Text.Equals(""))
+      {
+        MessageBox.Show(this, "Du måste ange en patient innan order kan skapas", "Välj patient", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        return;
+      }
+
+      if (chkDeceased.Checked)
+      {
+        MessageBox.Show(this, "Patienten är avliden, du kan inte registrera ny order på denna patient", "Patient avliden", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        return;
+      }
+
+			if(saveOrder(true) && !txtKNR.Text.Equals(""))
+			{
+				clearAllOHFields();
+				clearAllOrderrows();
+				clearOrderrowDetailPane(true);
+
+				orderFunc.OH o = oOH.addOH(txtKNR.Text);
+				
+				cboSignature.Text = o.Signature;
+				grbOH.Enabled = true;
+				grbOr.Enabled = true;
+				tabctrlRow.Enabled = true;
+				txtONR.Text = o.OrderNr;
+				txtKlinik.Focus();
+			}
+		}
+
+		private void pictureBox3_Click(object sender, System.EventArgs e)
+		{
+			if(MessageBox.Show(this,"Vill du verkligen radera order " + txtONR.Text, "Radering av order",MessageBoxButtons.YesNo,MessageBoxIcon.Warning).Equals(DialogResult.Yes))
+			{
+				if(txtONR.Text.Trim() != "")
+				{
+//					// Visa översikten för att inte poster skall sparas på fel order
+//					ignoreSave = true;
+//					tabctrlRow.SelectedIndex = 0;
+//					ignoreSave = false;
+
+					oOH.removeOrder(txtONR.Text);
+				}
+				updateForm(oCust.getPatientByCust(txtKNR.Text)[0]);
+			}
+		}
+
+		private void Gen_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			PictureBox s = (PictureBox)sender;
+			s.BorderStyle = BorderStyle.Fixed3D;
+		}
+
+		private void Gen_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			PictureBox s = (PictureBox)sender;
+			s.BorderStyle = BorderStyle.None;
+		}
+
+		private void Gen_MouseLeave(object sender, System.EventArgs e)
+		{
+			PictureBox s = (PictureBox)sender;
+			s.BorderStyle = BorderStyle.None;
+		}
+
+		private void txtKlinik_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+			
+			txtKlinik.Tag = txtKlinik.Text;
+		}
+
+		private void txtKlinik_Leave(object sender, System.EventArgs e)
+		{
+      if ((txtKlinik.Tag.ToString() != txtKlinik.Text) && !txtKlinik.Text.Trim().Equals(""))
+			{
+				if(txtKlinik.Text.StartsWith("."))
+				{
+					if(!checkKlinik(oCust.getKlinikByName(txtKlinik.Text.Substring(1))))
+					{
+						txtKlinik.Focus();
+						txtKlinik.Text = txtKlinik.Tag.ToString();
+						txtKlinik.SelectAll();
+					}
+					else saveOrder(false);
+				}
+				else
+				{
+					if(!checkKlinik(oCust.getKlinikByCust(txtKlinik.Text)))
+					{
+						txtKlinik.Focus();
+						txtKlinik.Text = txtKlinik.Tag.ToString();
+						txtKlinik.SelectAll();
+					}
+					else saveOrder(false);
+				}
+			}
+      else if (txtKlinik.Text.Trim() == "")
+      {
+        cboOrdinator.Items.Clear();
+        cboOrdinator.Items.Add("");
+        cboOrdinator.Items.AddRange(oOH.getAllOrdinators(false));
+        txtKlinikNamn.Text = "";
+      }
+		}
+
+		private void mnuNewAid_Click(object sender, System.EventArgs e)
+		{
+      if (chkDeceased.Checked)
+      {
+        MessageBox.Show(this, "Patienten är avliden, du kan inte registrera nytt hjälpmedel på denna patient", "Patient avliden", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        return;
+      }
+
+      // Kontrollera om ordern är öppen
+			if(!oOR.isOrderOpen(txtONR.Text))
+			{
+				MessageBox.Show(this, oOR.getErrorMsg(), "Nyupplägg är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			ignoreTabSwitch = true;
+			ignoreDetailEvents = true;
+
+			tabctrlRow.SelectedTab = tabctrlRow.TabPages[1];
+      OrderRowDefinitions.OrderRow or = oOR.addNewAid(txtONR.Text);
+			grbAid.Enabled = true;
+			grbArt.Enabled = true;
+			grbArtList.Enabled = true;
+			lwAidRows.Items.Clear();
+			txtAidId.Text = or.AidNr;
+			txtOrDatum.Text = or.AidDate; 
+			cboHandler.SelectedIndex = 0;
+			cboHandler.Text = or.SelectedHandler;
+			cboProdStatus.SelectedIndex = 0;
+			cboLevsatt.SelectedIndex = 0;
+			txtLevDate.Text = "";
+			txtLevDate.Enabled = true;
+			txtANR.Enabled = true;
+			txtANR.Text = "";
+			txtRDC.Text = or.Rad;
+			txtORA.Text = "";
+			txtPRI.Text = "";
+			txtBEN.Text = "";
+			labORA.Text = "Antal";
+			cboHandler.Focus();
+
+			ignoreTabSwitch = false;
+			ignoreDetailEvents = false;
+		}
+
+		private void btnAdd_Click(object sender, System.EventArgs e)
+		{
+      if (chkDeceased.Checked)
+      {
+        MessageBox.Show(this, "Patienten är avliden, du kan inte lägga till nya artiklar på ett hjälpmedel", "Patient avliden", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        return;
+      }
+
+      // Kontrollera om ordern är öppen
+			if(!oOR.isOrderOpen(txtONR.Text))
+			{
+				MessageBox.Show(this, oOR.getErrorMsg(), "Nyupplägg är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			// Om inte hjälpmedel finns läggs detta upp
+			if(txtAidId.Text.Trim().Equals(""))
+				mnuNewAid_Click(sender, e);
+			else
+				txtRDC.Text = oOR.addNewRow(txtONR.Text, txtAidId.Text);
+	
+			txtANR.Enabled = true;
+			txtANR.Text = "";
+			txtORA.Text = "";
+			txtPRI.Text = "";
+			txtBEN.Text = "";
+			labORA.Text = "Antal";
+			chkViewState.Checked = false;
+			txtANR.Focus();
+		}
+
+		private void txtANR_Enter(object sender, System.EventArgs e)
+		{
+			txtANR.Tag = txtANR.Text;
+		}
+
+		private void txtORA_Enter(object sender, System.EventArgs e)
+		{
+			txtORA.Tag = txtORA.Text;
+			if(txtORA.Text.Equals(""))
+				txtORA.Text = "0";
+			txtORA.SelectAll();
+		}
+
+		private void txtPRI_Enter(object sender, System.EventArgs e)
+		{
+			txtPRI.Tag = txtPRI.Text;
+		}
+
+		private void txtANR_Leave(object sender, System.EventArgs e)
+		{
+			// Om fältet ändrats och inte är blankt och RDC är ifyllt
+			if((txtANR.Tag.ToString() != txtANR.Text) && (!txtANR.Text.Trim().Equals("")) && (!txtRDC.Text.Trim().Equals("")))
+			{
+				// Sök på namn eller artikelnummer
+				if(txtANR.Text.StartsWith("."))
+				{
+					// Om ingen product hittades
+					if(!checkProduct(oOR.findProductByName(txtANR.Text.Substring(1))))
+					{
+						txtANR.Focus();
+						txtANR.Text = txtPNR.Tag.ToString();
+						txtANR.SelectAll();
+					}
+					else
+					{
+						// Spara om ordern är öppen
+						if(!oOR.saveOrderRow(fillOrderRow(sender,false),true))
+							MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						else
+						{
+							// Uppdatera apris med värde från orderrad
+              OrderRowDefinitions.OrderRow or = oOR.getRow(txtONR.Text, txtRDC.Text);
+							txtPRI.Text = or.APris;
+							labORA.Text = "Antal ( " + or.Enhet + " )";
+							txtANR.Enabled = false;
+						}
+
+					}
+				}
+				else // Söker på artikelnummer
+				{
+					if(!checkProduct(oOR.findProductByID(txtANR.Text)))
+					{
+						txtANR.Focus();
+						txtANR.Text = txtANR.Tag.ToString();
+						txtANR.SelectAll();
+					}
+					else 
+					{
+						// Spara om ordern är öppen
+						if(!oOR.saveOrderRow(fillOrderRow(sender, false),true))
+							MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						else
+						{
+							// Uppdatera apris med värde från orderrad
+              OrderRowDefinitions.OrderRow or = oOR.getRow(txtONR.Text, txtRDC.Text);
+              labORA.Text = "Antal ( " + or.Enhet + " )";
+              txtPRI.Text = or.APris;
+              txtANR.Enabled = false;
+            }
+					}
+				}
+			}
+			else if(txtANR.Text.Trim() == "")
+			{
+				oOR.removeRow(txtONR.Text,txtRDC.Text);
+				txtANR.Text = txtANR.Tag.ToString();
+				txtANR.Enabled = false;
+			}
+		}
+
+		private void tabctrlRow_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			if (!ignoreTabSwitch)
+			{
+				switch (tabctrlRow.SelectedIndex)
+				{
+					case 0:	// Översikt
+						try
+						{
+              if (!ignoreSave)
+                oOR.saveOrderRow(fillOrderRow(null, false), false);
+
+							updateAidList();
+						}
+						catch
+						{
+							lwOr.Items.Clear();
+              lwOr.Items.AddRange(OrderRowDefinitions.OrderRow.convertToListView(oOR.getAllAid(txtONR.Text)));
+							if (lwOr.Items.Count > 0)
+								lwOr.Items[0].Selected = true;
+						}
+						txtOrText.Text = "";
+						iCurrentTab = 0;
+						break;
+					case 1:	// Rad
+						if (lwOr.SelectedItems.Count > 0)
+							if(iCurrentTab == 0)
+								updateOrderRowDetailPane(oOR.getRow(txtONR.Text, lwOr.SelectedItems[0].Tag.ToString()), true);
+							else
+								updateOrderRowDetailPane(oOR.getRow(txtONR.Text, txtRDC.Text), true);
+
+						else
+						{
+							clearOrderrowDetailPane(false);
+						};
+						iCurrentTab = 1;
+						break;
+					case 2:	// Textrader
+						if (iCurrentTab == 0)	// Från översikt
+						{
+							if (lwOr.SelectedItems.Count > 0) 
+							{
+								label34.Text = "Hjälpmedelstext";
+								txtAidText.Text = oOR.getAidsTexts(txtONR.Text, lwOr.SelectedItems[0].Text);
+								txtLabAidTexter.Text = lwOr.SelectedItems[0].Text + " - " + lwOr.SelectedItems[0].SubItems[1].Text + " - " + lwOr.SelectedItems[0].SubItems[2].Text;
+								txtAidText.Visible = true;
+								txtLabAidTexter.Visible = true;
+								txtOrText.Visible = false;
+								txtLabArtTexter.Visible = false;
+							}
+						}
+
+						if (iCurrentTab == 1)	// Från artikelrader
+						{
+							label34.Text = "Artikeltext";
+							txtLabArtTexter.Text = txtANR.Text + " - " + txtBEN.Text;
+							txtAidText.Visible = false;
+							txtLabAidTexter.Visible = false;
+							txtOrText.Visible = true;
+							txtLabArtTexter.Visible = true;
+
+							if (lwAidRows.SelectedItems.Count > 0)
+							{
+								txtOrText.Text = oOR.getOrderRowTexts(txtONR.Text, txtRDC.Text);
+							}
+						}
+						iCurrentTab = 2;
+						break;
+					default:
+						break;
+				}
+			}
+			iCurrentTab = tabctrlRow.SelectedIndex;
+		}
+
+    private void updateOrderRowDetailPane(OrderRowDefinitions.OrderRow or, bool updatelistview)
+		{
+			if(updatelistview)
+				clearOrderrowDetailPane(false);
+
+			// Avbryt om ingen orderrad hittades
+			if(or.OrderNr == null)
+				return;
+
+			cboHandler.Text = or.SelectedHandler;
+			txtAidId.Text = or.AidNr;
+			txtRDC.Text = or.Rad;
+			cboProdStatus.Text = "";
+			cboProdStatus.Text = or.Prodstatus;
+			txtOrDatum.Text = or.AidDate;
+			txtLevDate.Text = or.LevTid;
+			
+			if (or.Levstatus.Equals("5"))
+				txtLevDate.Enabled = false;
+			else
+				txtLevDate.Enabled = true;
+
+			txtANR.Text = or.Artikel;
+			txtBEN.Text = or.ProductName;
+			txtORA.Text = or.Antal;
+			txtPRI.Text = or.APris;
+      labORA.Text = "Antal ( " + or.Enhet.Trim() + " )";
+			cboHandler.Text = or.SelectedHandler;
+			txtOrText.Text = or.Text;
+			setBestallSelektion(or.InkStat);
+			chkViewState.Checked = or.ViewInList;
+			chkGaranti.Checked = or.Warrenty;
+			cboLevsatt.Text = or.DeliverMode;
+			cboNeedStep.SelectedIndex = cboNeedStep.FindString(or.Thord_NeedStep);
+
+			grbArtList.Enabled = true;
+
+			if(or.Levstatus.Equals("0"))
+			{
+				grbAid.Enabled = true;
+				grbArt.Enabled = true;
+			}
+			else
+			{
+				grbAid.Enabled = false;
+				grbArt.Enabled = false;
+			}
+
+			if(updatelistview)
+			{
+				int i = 0;
+				if(lwAidRows.SelectedItems.Count > 0)
+					i = lwAidRows.SelectedItems[0].Index;
+				lwAidRows.Items.Clear();
+        lwAidRows.Items.AddRange(OrderRowDefinitions.OrderRow.convertToSmallListView(oOR.getAllRows(or.OrderNr, or.AidNr)));
+				if(lwAidRows.Items.Count > i)
+					lwAidRows.Items[i].Selected = true;
+			}
+		}
+
+		private void updateAidList()
+		{
+//			if(!ignoreSave)
+//				oOR.saveOrderRow(fillOrderRow(null,false),false);
+
+			int i = lwOr.SelectedItems[0].Index;
+			lwOr.Items.Clear();
+      lwOr.Items.AddRange(OrderRowDefinitions.OrderRow.convertToListView(oOR.getAllAid(txtONR.Text)));
+			if(lwOr.Items.Count > i)
+				lwOr.Items[i].Selected = true;
+		}
+
+		private void menuItem2_Click(object sender, System.EventArgs e)
+		{
+			oOR.removeRow(txtONR.Text, lwOr.SelectedItems[0].Tag.ToString());
+
+			lwOr.Items.Clear();
+      lwOr.Items.AddRange(OrderRowDefinitions.OrderRow.convertToListView(oOR.getAllAid(txtONR.Text)));
+		}
+
+		private void lwAidRows_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			if((lwAidRows.SelectedItems.Count > 0) && lwAidRows.Focused )
+			{
+				// Spara om ordern är öppen
+				if(!oOR.saveOrderRow(fillOrderRow("",false),true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				else	
+					updateOrderRowDetailPane(oOR.getRow(txtONR.Text, lwAidRows.SelectedItems[0].Tag.ToString()), false);
+				
+			}
+		}
+
+		private void txtORA_Leave(object sender, System.EventArgs e)
+		{
+			try
+			{
+				if (Double.Parse(txtORA.Text.Trim().Replace('.', ',')) != 0)
+				{
+					if (txtORA.Text.Trim() != txtORA.Tag.ToString() && (!txtORA.Text.Trim().Equals("")))
+					{
+						if (!oOR.saveOrderRow(fillOrderRow(sender, false), true))
+							MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						else
+						{
+							// Uppdatera apris med värde från orderrad
+              OrderRowDefinitions.OrderRow or = oOR.getRow(txtONR.Text, txtRDC.Text);
+							txtPRI.Text = or.APris;
+							lwAidRows.Items.Clear();
+              lwAidRows.Items.AddRange(OrderRowDefinitions.OrderRow.convertToSmallListView(oOR.getAllRows(txtONR.Text, txtAidId.Text)));
+							if (lwAidRows.Items.Count == 1)
+							{
+								lwAidRows.Items[0].Checked = true;
+								chkViewState.Checked = true;
+							}
+						}
+					}
+				}
+				else // Nollvärde
+				{
+					MessageBox.Show(this, "Antal måste vara större än noll", "Noll i antal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+          // If detailpane has is the current pane
+          if (tabctrlRow.SelectedIndex == 1)
+            txtORA.Focus();
+				}
+			}
+			catch
+			{
+				MessageBox.Show(this, "Angivet antal har ett felaktigt format, endast numeriska värden är tillåtna", "Felaktigt format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txtORA.Focus();
+			}
+		}
+
+		private void txtPRI_Leave(object sender, System.EventArgs e)
+		{
+			if(txtPRI.Text.Trim() != txtPRI.Tag.ToString() && (!txtRDC.Text.Trim().Equals("")))
+			{
+				if(!oOR.saveOrderRow(fillOrderRow(sender,true),true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				else
+				{
+					lwAidRows.Items.Clear();
+          lwAidRows.Items.AddRange(OrderRowDefinitions.OrderRow.convertToSmallListView(oOR.getAllRows(txtONR.Text, txtAidId.Text)));
+					if(lwAidRows.Items.Count == 1)
+					{
+						lwAidRows.Items[0].Checked = true;
+						chkViewState.Checked = true;
+					}
+				}
+			}
+		}
+
+		private void cboHandler_SelectedValueChanged(object sender, System.EventArgs e)
+		{
+			if(cboHandler.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+				if(!oOR.saveOrderRow(fillOrderRow(sender,false),true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
+
+		private void cboProdStatus_SelectedValueChanged(object sender, System.EventArgs e)
+		{
+			if (cboProdStatus.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)	
+				if(!oOR.saveOrderRow(fillOrderRow(sender,false),true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
+
+
+		private void lwAidRows_ItemCheck(object sender, System.Windows.Forms.ItemCheckEventArgs e)
+		{
+			// Om vi inte har valt att ignorera ItemCheck eventet
+			if(!ignoreItemCheckEvent)
+			{
+				// Är det en redan bockad rad?
+				if(e.CurrentValue.Equals(CheckState.Checked))
+					e.NewValue = e.CurrentValue;
+				else	// Raden var inte bockad
+				{
+					ignoreItemCheckEvent = true;
+					try
+					{
+						for (int i = 0; i < lwAidRows.CheckedItems.Count; i++)
+							lwAidRows.CheckedItems[i].Checked = false;
+					}
+					catch { }
+					// Sätt rätt rad i databasen
+					oOR.setAsViewInList(txtONR.Text,txtAidId.Text, lwAidRows.Items[e.Index].Tag.ToString());
+					chkViewState.Checked = oOR.getViewState(txtONR.Text, txtRDC.Text);
+					ignoreItemCheckEvent = false;
+				}
+			}
+		}
+
+		private void pictureBox8_Click(object sender, System.EventArgs e)
+		{
+			if(txtONR.Text.Trim() != "")
+			{
+				if(saveOrder(true))
+					this.Close();
+			}
+			else this.Close();
+		}
+
+		/// <summary>
+		/// Spara order
+		/// </summary>
+		/// <returns></returns>
+		private bool saveOrder(bool checksignature)
+		{
+			orderFunc.OH o = oOH.getOrder(txtONR.Text);
+
+			// Avbryt men returnera true
+			if(ignoreSave || !isOrderHeadChanged(ref o))
+				return true;
+
+			// Kontrollera att signatur finns innan order uppdateras (om ny order)
+			if(!o.OrderNr.Trim().Equals(txtONR.Text.Trim()) || checksignature)
+			{
+				if(cboSignature.Text.Trim().Equals(""))
+				{
+					MessageBox.Show(this,"Signatur saknas! Ange signatur innan någon annan åtgärd utförs", "Signatur saknas", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+					return false;
+				}
+			}
+
+			// Uppdatera fälten och spara
+			o.OrderNr = txtONR.Text;
+			o.LevKund = o.LevKund == "" ? txtKNR.Text : o.LevKund;
+			o.FakKund = txtFKN.Text;
+			o.Klinik = txtKlinik.Text; 
+			o.KlinikNamn = txtKlinikNamn.Text;
+      if (cboOrdinator.Text.Contains("("))
+        o.SelOrdinator = cboOrdinator.Text.Substring(0, cboOrdinator.Text.IndexOf("("));
+      else
+        o.SelOrdinator = cboOrdinator.Text;
+			o.ErReferens = txtERF.Text;
+			o.Diagnoskod = txtDiagID.Text;
+      //try
+      //{
+      //  o.AidType = cboAidType.Text.Substring(0, 2).Trim();
+      //}
+      //catch
+      //{
+      //  o.AidType = "";
+      //}
+			o.Ordination = txtOrdination.Text;
+			o.Tillagg = txtTillagg.Text;
+			o.Notering = txtNotering.Text;
+      o.OrderTyp = "1";
+//			o.OHtext = txtOHText.Text; 
+			o.GilltigFrom = dtpGilltigFrom.Value.ToString("yyMMdd");
+			o.AntalAr = txtYears.Text;
+			o.AntalAid = txtAidCount.Text;
+			o.Signature = cboSignature.Text;
+			try
+			{
+				o.Prislista = cboPrislista.Text.Substring(0,1);
+			}
+			catch{}
+			
+			// Spara
+			if(oOH.saveOH(o))
+				return true;
+			else
+			{
+				MessageBox.Show(this, oOH.getErrorMsg(), "Ordern sparades inte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return true;
+			}
+		}
+
+		/// <summary>
+		/// Kontrollera om ordern är ändrad
+		/// </summary>
+		/// <param name="o"></param>
+		/// <returns></returns>
+		private bool isOrderHeadChanged(ref orderFunc.OH o)
+		{
+			bool isOrderChanged = false;
+			
+			try
+			{
+				if(!o.OrderNr.Trim().Equals(txtONR.Text.Trim()))
+				isOrderChanged = true;
+					
+				if(!o.LevKund.Trim().Equals(txtKNR.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.FakKund.Trim().Equals(txtFKN.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.Klinik.Trim().Equals(txtKlinik.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.SelOrdinator.Trim().Equals(cboOrdinator.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.Ordination.Trim().Equals(txtOrdination.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.ErReferens.Trim().Equals(txtERF.Text.Trim()))
+					isOrderChanged = true;
+
+				if(!o.Tillagg.Trim().Equals(txtTillagg.Text.Trim()))
+					isOrderChanged = true;
+
+				if(!o.Notering.Trim().Equals(txtNotering.Text.Trim()))
+					isOrderChanged = true;
+
+				//if (!o.OHtext.Trim().Equals(txtOHText.Text.Trim()))
+				//  isOrderChanged = true;
+
+				if (!o.Diagnoskod.Trim().Equals(txtDiagID.Text.Trim()))
+					isOrderChanged = true;
+
+				if(!o.GilltigFrom.Trim().Equals(dtpGilltigFrom.Value.ToString("yyMMdd")))
+					isOrderChanged = true;
+				
+				if(!o.AntalAr.Trim().Equals(txtYears.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.AntalAid.Trim().Equals(txtAidCount.Text.Trim()))
+					isOrderChanged = true;
+				
+				if(!o.Signature.Trim().Equals(cboSignature.Text.Trim()) || o.Signature.Equals(""))
+					isOrderChanged = true;
+
+				if(!o.Prislista.Trim().Equals(cboPrislista.Text.Substring(0,1)))
+					isOrderChanged = true;
+			}
+			catch{}
+
+			return isOrderChanged;
+		}
+
+		private void pictureBox6_Click(object sender, System.EventArgs e)
+		{
+			Activate app = new Activate();
+			app.activateByTitle("Garp");
+			oErr.showCalendar();
+			Clipboard.SetDataObject(txtKNR.Text);
+		}
+
+		private void btnDiagUppslag_Click(object sender, System.EventArgs e)
+		{
+			// Om ingen order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+			frmDiagDiagnos oDiagForm = new frmDiagDiagnos(oDiagnos.getDiagnosList());
+			oDiagForm.ShowDialog();
+			txtDiagID.Text = oDiagForm.selDiagnos;
+			txtDiagTxt.Text = oDiagnos.getDiagnosById(txtDiagID.Text);
+			oDiagForm.Dispose();
+		}
+
+		private void txtONR_Leave(object sender, System.EventArgs e)
+		{
+
+			// Om något är ifyllt
+			try
+			{
+				if(!txtONR.Text.Trim().Equals(""))
+				{
+					orderFunc.OH oTemp = oOH.getOrder(txtONR.Text);
+					// Om inte null, hittades en order med angivet ordernummer
+					if(oTemp.OrderNr != null)
+						updateForm(oCust.getPatientByCust(oTemp.LevKund)[0],oTemp);
+					
+					else
+					{
+						clearAllOHFields();
+						clearAllAppointments();
+						clearAllOrderrows();
+						clearOrderrowDetailPane(true);
+						txtONR.Focus();
+					}
+				}
+				else
+				{
+//					// Visa översikten för att inte poster skall sparas på fel order
+//					ignoreSave = true;
+//					tabctrlRow.SelectedIndex = 0;
+//					ignoreSave = false;
+
+					clearAllOHFields();
+					clearAllAppointments();
+					clearAllOrderrows();
+					clearOrderrowDetailPane(true);
+				}
+			}
+			catch{};
+		}
+
+		private void cboSignature_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			saveOrder(false);
+		}
+
+		private void pictureBox9_Click(object sender, System.EventArgs e)
+		{
+			if(labClose.Text.Equals("Stäng order"))
+			{
+				if(!saveOrder(true))
+					return;
+				oOH.closeOrder(txtONR.Text);
+				pnlOrderStat.Text = "### Ordern är stängd ###";
+				labClose.Text = "Öppna order";
+			}
+			else if(labClose.Text.Equals("Öppna order"))
+			{
+				oOH.openOrder(txtONR.Text);
+				pnlOrderStat.Text = "";
+				labClose.Text = "Stäng order";
+			}
+		}
+
+		private void menuItem1_Click(object sender, System.EventArgs e)
+		{
+			if(lwOr.SelectedItems.Count > 0)
+			{
+				frmOwnFee oOwnFee = new frmOwnFee(txtPNR.Text, txtKNR.Text, txtSN.Text + " " + txtLN.Text, txtONR.Text, lwOr.SelectedItems[0].Text, oOH.getCompanyId());
+				oOwnFee.ShowDialog();
+				updateAidList();
+			}
+			else
+				MessageBox.Show(this,"Välj ett hjälpmedel först", "Val saknas",MessageBoxButtons.OK,MessageBoxIcon.Information);
+		}
+
+		private void txtYears_Leave(object sender, System.EventArgs e)
+		{
+			try
+			{
+				// Blankt blir noll (0)
+				if(txtYears.Text.Equals(""))
+					txtYears.Text = "0";
+
+				txtEndDate.Text = dtpGilltigFrom.Value.AddYears(int.Parse(txtYears.Text)).ToString("yyMMdd");
+			}
+			catch
+			{
+				MessageBox.Show(this,"Antal år är ett ogiltigt värde, måste vara ett heltal", "Värdefel");
+			}
+		}
+
+		private void cmdSave_Click(object sender, System.EventArgs e)
+		{
+			oOR.saveOrderRow(fillOrderRow("",false),true);
+		}
+
+		private void mnuOrderRow_Popup(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void menuItem2_Click_1(object sender, System.EventArgs e)
+		{
+			string sFSNr = "";
+
+			if(lwOr.SelectedItems.Count > 0)
+			{
+				if(lwOr.SelectedItems[0].SubItems[7].Text.ToString().Equals("0"))
+				{
+//					frmDiagLevDat oDiagLevDat = new frmDiagLevDat();
+//					oDiagLevDat.ShowDialog();
+//					if (!oDiagLevDat.sDate.Equals(""))
+					if (MessageBox.Show("Vill du genomföra leveransen?","Leverans",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+					{
+						sFSNr = oOR.deliverAid(oOR.getAllRowsOwnFeeIncluded(txtONR.Text, lwOr.SelectedItems[0].Text));
+						if (!sFSNr.Trim().Equals(""))
+						{
+//							ignoreSave = true;
+							updateAidList();
+//							ignoreSave = false;
+							MessageBox.Show(this, "Levernas utförd.", "Leverans", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						}
+						else
+							MessageBox.Show(this, "Levernas utfördes EJ! Kontrollera att datum är angivet under Detaljer på hjälpmedlet", "Leverans ej genomförd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					}
+				}
+			}
+			else
+				MessageBox.Show(this,"Välj ett hjälpmedel först", "Val saknas",MessageBoxButtons.OK,MessageBoxIcon.Information);
+		}
+
+		private void txtDiagID_Leave(object sender, System.EventArgs e)
+		{
+			if((txtDiagID.Tag.ToString() != txtDiagID.Text))
+			{
+				if(!txtDiagID.Text.Equals(""))
+				{
+					if(oDiagnos.ContainsId(txtDiagID.Text.Trim()))
+					{
+						txtDiagTxt.Text = oDiagnos.getDiagnosById(txtDiagID.Text);
+						txtDiagID.Focus();
+						txtDiagID.SelectAll();
+					}
+					else
+					{
+						txtDiagID.Text = "";
+						txtDiagTxt.Text = "";
+						txtDiagID.Focus();
+					}
+
+				}
+				else
+					txtDiagTxt.Text = "";
+			}
+		}
+
+		private void txtDiagID_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+			txtDiagID.Tag = txtDiagID.Text;
+		}
+
+		private string getBestallSelektion()
+		{
+			if(rdBestalld.Checked)
+			{
+				return "5";
+			}
+			else if(rdBestall.Checked)
+			{
+				return "1";
+			}
+			else if(rdBestallEj.Checked)
+			{
+				return "0";
+			}
+			else
+				return "0";
+		}
+
+		private void setBestallSelektion(string stat)
+		{
+			try
+			{
+				if(stat.Equals("5"))
+				{
+					rdBestalld.Checked = true;
+				}
+				else if(stat.Equals("1"))
+				{
+					rdBestall.Checked = true;
+				}
+				else if(stat.Equals("0"))
+				{
+					rdBestallEj.Checked = true;
+				}
+			}
+			catch{}
+		}
+
+		private void frmMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if(txtONR.Text.Trim() != "")
+			{
+				if(!saveOrder(true))
+					e.Cancel = true;
+			}
+		}
+
+		private void pictureBox4_Click(object sender, System.EventArgs e)
+		{
+			Clipboard.SetDataObject(txtKNR.Text);
+			Activate app = new Activate();
+			app.activateByTitle("Garp");
+			oCust.showCustomerForm();
+		}
+
+		private void pictureBox10_Click(object sender, System.EventArgs e)
+		{
+			Clipboard.SetDataObject(txtKNR.Text);
+			Activate app = new Activate();
+			app.activateByTitle("Garp");
+			oCust.showAccountForm();
+		}
+
+		private void txtERF_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void txtDiagID_TextChanged(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void txtTillagg_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+		
+		}
+
+		private void txtOrdination_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void txtNotering_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void txtONR_Enter(object sender, System.EventArgs e)
+		{
+			// Om inte ordernummer är blankt sparar vi ordern innan nytt nummer fylls i
+			if(!txtONR.Text.Equals(""))
+			{
+				// Om ordern inte sparades, avbryt
+				if(!saveOrder(true))
+					return;
+			}
+		}
+
+		private void frmMain_Activated(object sender, System.EventArgs e)
+		{
+			try
+			{
+				IDataObject iData = Clipboard.GetDataObject();
+				string s = (string) iData.GetData(DataFormats.Text);
+
+				if(s.StartsWith("MCMARK"))
+				{
+					txtONR.Text = s.Substring(6);
+					txtONR_Leave(sender, null);
+					Clipboard.SetDataObject("");
+					this.Refresh();
+				}
+			}
+			catch{}
+		}
+
+		private void menuItem3_Click(object sender, System.EventArgs e)
+		{
+			Activate app = new Activate();
+			app.activateByTitle("Garp");
+			oErr.showCalendar();
+			Clipboard.SetDataObject(txtKNR.Text);
+		}
+
+		private void pictureBox1_Click_1(object sender, System.EventArgs e)
+		{
+			if(saveOrder(true))
+			{
+				// Visa översikten för att inte poster skall sparas på fel order
+				ignoreSave = true;
+				tabctrlRow.SelectedIndex = 0;
+				ignoreSave = false;
+
+				clearAllPatientsFields();	// Rensa innan patientupplägg visas
+				clearAllOHFields();
+				clearAllOrderrows();
+				clearAllAppointments();
+				clearOrderrowDetailPane(true);
+				txtPNR.Focus();
+			}
+		}
+
+		private bool addPatient()
+		{
+			frmAddCust newCust = new frmAddCust(txtPNR.Text);						
+			clearAllPatientsFields();	// Rensa innan patientupplägg visas
+			clearAllOHFields();
+			clearAllOrderrows();
+			clearAllAppointments();
+			clearOrderrowDetailPane(true);
+			newCust.ShowDialog();
+			// Kontrollera vad som returneras från formuläret för nyupplägg
+			if(newCust.newPatient.Pnr != null)
+			{
+				bool b = updateForm(newCust.newPatient);
+				newCust.Dispose();
+				// Gick uppdatering bra eller ej?
+				if(b)
+					return true;
+				else
+					return false;
+			}
+			else
+			{
+				if(!txtPNR.Tag.ToString().Equals(""))
+					updateForm(oCust.getPatientByPnr(txtPNR.Tag.ToString(),true,true)[0]);
+				return false;
+			}
+		}
+
+		private void txtOrText_Leave(object sender, System.EventArgs e)
+		{
+			if(!txtRDC.Text.Trim().Equals(""))
+				oOR.saveOrderRowTexts(txtONR.Text, txtRDC.Text, txtOrText.Text);
+		}
+
+		private void menuItem8_Click(object sender, System.EventArgs e)
+		{
+			Activate app = new Activate();
+			app.activateByTitle("Garp");
+			oErr.showCalendar();
+			Clipboard.SetDataObject(txtONR.Text + "-" + lwOr.SelectedItems[0].Text);
+		}
+
+		private void chkJournal_CheckedChanged(object sender, System.EventArgs e)
+		{
+			if(chkJournal.Focused && chkJournal.Enabled)
+				oCust.setJournal(txtKNR.Text, chkJournal.Checked);
+		}
+
+		private void chkCopDok_CheckedChanged(object sender, System.EventArgs e)
+		{
+			if(chkCopDok.Focused && chkCopDok.Enabled)
+				oCust.setCopDoc(txtKNR.Text, chkCopDok.Checked);
+		}
+
+		private void printEvent(object sender, System.EventArgs e)
+		{
+			MenuItem mnu = (MenuItem) sender;
+			string sErrandId = "";
+			
+			// Om ett hjälpmedel är valt, uppdatera ärendeinformation
+			if(lwOr.SelectedItems.Count > 0)
+			{
+				ErrandFunc.Errand[] er = oErr.getErrandsOnAid(txtKNR.Text,txtONR.Text,lwOr.SelectedItems[0].Text);
+
+				// Uppdatera textrader med fräsch ärendedata
+				foreach(ErrandFunc.Errand errand in er)
+					oOR.updateAidWithErrand(txtONR.Text,lwOr.SelectedItems[0].Text,errand.ErrandID ,errand.StartDatum ,errand.Starttid ,errand.Tidsperiod);
+
+				// Om det finns mer än en tdisbokning på detta hjälpmedel så får användaren välja tidsbokning
+				if(er.Length > 1)
+				{
+					frmDiagChooseErrand oCE = new frmDiagChooseErrand(txtKNR.Text,txtONR.Text ,lwOr.SelectedItems[0].Text);
+					oCE.ShowDialog();
+					sErrandId = oCE.mErrandId;
+				}
+			}
+
+			try
+			{
+				string[] s = mnu.Text.Split('-');
+
+				// Kallelse eller Arbetsorder
+				if(mnu.Parent.ToString().IndexOf("Dokument") != -1)
+				{
+					// Om ett hjälpmedel är valt, uppdatera ärendeinformation
+					if(lwOr.SelectedItems.Count > 0)
+						oOH.printNotice(s[0],s[1].Substring(0,2), txtONR.Text,lwOr.SelectedItems[0].Text,sErrandId);
+					else
+						MessageBox.Show(this, "Du måste välja ett hjälmedel innan du kan skriva ut Dokument", "Inget hjälpmedel är valt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				else
+				{
+					oOH.printWorkOrder(s[0],s[1].Substring(0,2), txtONR.Text, lwOr.SelectedItems[0].Text, sErrandId);
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(this, "Du måste välja ett hjälpmedel innan du kan skriva ut Arbetsorder", "Inget hjälpmedel är valt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		private void chkGaranti_CheckedChanged(object sender, System.EventArgs e)
+		{
+			if(chkGaranti.Focused)
+				if(!oOR.saveOrderRow(fillOrderRow(sender,false),true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
+
+		private void cboSignature_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void cboPrislista_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void dtpGilltigFrom_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void txtYears_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void txtAidCount_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void cboOrdinator_Enter(object sender, System.EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if(txtONR.Text.Equals(""))
+				txtONR.Focus();
+
+		}
+
+		private void frmMain_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+		{
+			if(e.Control && e.KeyValue == 78)
+			{
+				picNew_Click(this, e);
+				e.Handled = true;
+			}
+			
+			if(e.Control && e.Alt && e.Shift && e.KeyValue == 86)
+			{
+				if(statusBar1.ShowPanels)
+					showStatusBar(false);
+				else
+					showStatusBar(true);
+
+			}
+
+			if (e.Control && e.Alt && e.Shift && e.KeyValue == 72)
+			{
+				if (txtRDC.Visible)
+					txtRDC.Visible = false;
+				else
+					txtRDC.Visible = true;
+			}
+		}
+
+		private void btnOrderList_Click(object sender, System.EventArgs e)
+		{
+			if(!saveOrder(true))
+				return;
+
+			frmDiagOH oOrderHuvud = new frmDiagOH(orderFunc.OH.convertToListView(oOH.getPatientsAllOH(txtKNR.Text)));
+			oOrderHuvud.ShowDialog();
+			if(oOrderHuvud.selOnr != "")
+			{
+				clearAllOHFields();
+				updateForm(oCust.getPatientByCust(txtKNR.Text)[0],oOH.getOrder(oOrderHuvud.selOnr));
+			}
+			oOrderHuvud.Dispose();
+		}
+
+		private void btnDelete_Click(object sender, System.EventArgs e)
+		{
+			// Kontrollera om ordern är öppen
+			if(!oOR.isOrderOpen(txtONR.Text))
+			{
+				MessageBox.Show(this, oOR.getErrorMsg(), "Radering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			
+			try
+			{
+				oOR.removeRow(txtONR.Text,lwAidRows.SelectedItems[0].Tag.ToString());
+				//lwOr.Items.Remove(lwOr.SelectedItems[0]);
+				if(lwOr.SelectedItems.Count > 0)
+					updateOrderRowDetailPane(oOR.getRow(txtONR.Text, lwOr.SelectedItems[0].Tag.ToString()),true);	
+				else
+					clearOrderrowDetailPane(true);
+			}
+			catch{}
+		}
+
+		private void showStatusBar(bool b)
+		{
+			if(b)
+			{
+				statusBar1.ShowPanels = true;
+				statusBar1.Panels[0].Text = "Bolag: " + Config.CompanyId;
+				statusBar1.Panels[1].Text = "Grupp: " + Config.Group;
+				statusBar1.Panels[2].Text = "Användare: " + Config.User;
+				statusBar1.Panels[3].Text = "Kostnadsställe: " + Config.Kst;
+				if(Config.UserDefinedConfig)
+					statusBar1.Panels[4].Text = "Unika inst.: Ja";
+				else
+					statusBar1.Panels[4].Text = "Unika inst.: Nej";
+			}
+			else
+			{
+				statusBar1.ShowPanels = false;
+				statusBar1.Panels[0].Text = "";
+				statusBar1.Panels[1].Text = "";
+				statusBar1.Panels[2].Text = "";
+				statusBar1.Panels[3].Text = "";
+				statusBar1.Panels[4].Text = "";
+			}
+    }
+
+		private void txtOHText_Enter(object sender, EventArgs e)
+		{
+			// Om inge order är satt tillåter vi inte uppdatering av detta fält
+			if (txtONR.Text.Equals(""))
+				txtONR.Focus();
+		}
+
+		private void txtAidText_Leave(object sender, EventArgs e)
+		{
+			if (lwOr.SelectedItems.Count > 0)
+				oOR.saveAidsTexts(txtONR.Text, lwOr.SelectedItems[0].Text, txtAidText.Text);
+		}
+
+		private void menuItem9_Click(object sender, EventArgs e)
+		{
+      //if (!oOR.isOrderOpen(txtONR.Text))
+      //{
+      //  MessageBox.Show(this, oOR.getErrorMsg(), "Kreditering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+      //  return;
+      //}
+			
+      //if (lwOr.SelectedItems.Count > 0)
+      //{
+      //  oOR.creditAid(txtONR.Text, lwOr.SelectedItems[0].Text);
+      //  updateAidList();
+      //  MessageBox.Show(this, "Hjälpmedlet är nu krediterat", "Kreditering", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      //}
+      //else
+      //  MessageBox.Show(this, "Välj ett hjälpmedel först", "Val saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void txtAidText_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tabPage2_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void txtLevDate_Leave(object sender, EventArgs e)
+		{
+			DateTime dt = new DateTime();
+			string[] s = {"yyMMdd", "yyyyMMdd", "yyyy-MM-dd" };
+
+			if (!txtLevDate.Text.Equals(""))
+			{
+				if (DateTime.TryParseExact(txtLevDate.Text, s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt))
+					txtLevDate.Text = dt.ToString("yyMMdd");
+				else
+					MessageBox.Show("Ogiltligt datum");
+			}
+
+			if (txtLevDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+				if (!oOR.saveOrderRow(fillOrderRow(sender, false), true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
+
+		private void cboLevsatt_SelectedValueChanged(object sender, EventArgs e)
+		{
+			if (cboLevsatt.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+				if (!oOR.saveOrderRow(fillOrderRow(sender, false), true))
+					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+		}
+
+    private void cboNeedStep_SelectedValueChanged(object sender, EventArgs e)
+    {
+      if (cboNeedStep.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+        if (!oOR.saveOrderRow(fillOrderRow(sender, false), true))
+          MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+    }
+
+    private void createRegistryPost()
+    {
+      RegistryKey rk = Registry.LocalMachine.OpenSubKey("Software").OpenSubKey("eXcido");
+      RegistryKey rkExcido;
+
+      try
+      {
+        if (rk == null)
+        {
+          rk = Registry.LocalMachine.OpenSubKey("Software", true);
+          rkExcido = rk.CreateSubKey("eXcido");
+          rkExcido.SetValue("Path", Application.StartupPath);
+          rkExcido.SetValue("ConfigureFile", Application.StartupPath + @"\Configure.xml");
+        }
+      }
+      catch(Exception e) 
+      {
+        MessageBox.Show(this, "Det gick inte att skapa nödvändiga registerposter av följande anledning: \n\n" + e.Message, "Kan inte skapa registerpost", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+    }
+
+    private void toolStripMenuItem1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void avslutaToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Properties.Settings.Default.Save();
+      if (txtONR.Text.Trim() != "")
+      {
+        if (saveOrder(true))
+          this.Close();
+      }
+      else this.Close();
+    }
+
+    private void omToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      frmAbout oAbout = new frmAbout();
+      oAbout.ShowDialog();
+    }
+
+    private void toolStripMenuItem2_Click(object sender, EventArgs e)
+    {
+      frmSettings oSettings = new frmSettings();
+      oSettings.ShowDialog();
+    }
+
+    private void pnlBottom_Paint(object sender, PaintEventArgs e)
+    {
+      
+    }
+
+    private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      Ortoped.Properties.Settings.Default.frmMain_WindowsState = this.WindowState;
+      Ortoped.Properties.Settings.Default.colAidNrDI = colAidNr.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAidNrWidth = colAidNr.Width;
+      Ortoped.Properties.Settings.Default.colAntDI = colAnt.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAntWidth = colAnt.Width;
+      Ortoped.Properties.Settings.Default.colAprisDI = colApris.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAprisWidth = colApris.Width;
+      Ortoped.Properties.Settings.Default.colArtDI = colArt.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colArtWidth = colArt.Width;
+      Ortoped.Properties.Settings.Default.colBenDI = colBen.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colBenWidth = colBen.Width;
+      Ortoped.Properties.Settings.Default.colEgenAvgiftDI = colEgenAvgift.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colEgenAvgiftWidth = colEgenAvgift.Width;
+      Ortoped.Properties.Settings.Default.colFakDatDI = colFakDat.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colFakDatWidth = colFakDat.Width;
+      Ortoped.Properties.Settings.Default.colFakNrDI = colFakNr.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colFakNrWidth = colFakNr.Width;
+      Ortoped.Properties.Settings.Default.colhandlDI = colHandl.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colhandlWidth = colHandl.Width;
+      Ortoped.Properties.Settings.Default.colLevtidDI = colLevtid.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colLevtidWidth = colLevtid.Width;
+      Ortoped.Properties.Settings.Default.colProdStatusDI = colProdstatus.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colProdStatusWidth = colProdstatus.Width;
+      Ortoped.Properties.Settings.Default.colAidRowsArtNo_DI = colAidRowsArtNo.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAidRowsArtNr_Width = colAidRowsArtNo.Width;
+      Ortoped.Properties.Settings.Default.colAidRowsBen_DI = colAidRowsBen.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAidRowsBen_Width = colAidRowsBen.Width;
+      Ortoped.Properties.Settings.Default.colAidRowsPcs_DI = colAidRowsPcs.DisplayIndex;
+      Ortoped.Properties.Settings.Default.colAidRowsPcs_Width = colAidRowsPcs.Width;
+      Ortoped.Properties.Settings.Default.Save();
+      Logger.stopLogging();
+    }
+
+    private void chkDeceased_CheckedChanged(object sender, EventArgs e)
+    {
+      if (chkDeceased.Focused && chkDeceased.Enabled)
+        oCust.setDeceased(txtKNR.Text, chkDeceased.Checked);
+
+    }
+
+    private void cboOrdinator_SelectedValueChanged(object sender, EventArgs e)
+    {
+    }
+
+    private void cboOrdinator_SelectedIndexChanged(object sender, EventArgs e)
+    {
+    }
+
+    private void cboOrdinator_SelectionChangeCommitted(object sender, EventArgs e)
+    {
+      if (cboOrdinator.Focused && txtKlinik.Text.Trim().Equals(""))
+      {
+        txtKlinik.Text = oOH.getOrdinatorsCustomerNo(cboOrdinator.Text);
+        txtKlinik_Leave(sender, e);
+      }
+    }
+
+    private void menuItem10_Click(object sender, EventArgs e)
+    {
+      if (!oOR.isOrderOpen(txtONR.Text))
+      {
+        MessageBox.Show(this, oOR.getErrorMsg(), "Kreditering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (lwOr.SelectedItems.Count > 0)
+      {
+        bool bStat = oOR.creditAid(txtONR.Text, lwOr.SelectedItems[0].Text, OrderRowFunc.CreditType.OnlyPatient);
+        updateAidList();
+        if(bStat)
+          MessageBox.Show(this, "Hjälpmedlet är nu krediterat", "Kreditering", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+      else
+        MessageBox.Show(this, "Välj ett hjälpmedel först", "Val saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    }
+
+    private void menuItem11_Click(object sender, EventArgs e)
+    {
+      if (!oOR.isOrderOpen(txtONR.Text))
+      {
+        MessageBox.Show(this, oOR.getErrorMsg(), "Kreditering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (lwOr.SelectedItems.Count > 0)
+      {
+        bool bstat = oOR.creditAid(txtONR.Text, lwOr.SelectedItems[0].Text, OrderRowFunc.CreditType.OnlyInvoiceCustomer);
+        updateAidList();
+        if(bstat)
+          MessageBox.Show(this, "Hjälpmedlet är nu krediterat", "Kreditering", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+      else
+        MessageBox.Show(this, "Välj ett hjälpmedel först", "Val saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    }
+
+    private void menuItem13_Click(object sender, EventArgs e)
+    {
+      if (!oOR.isOrderOpen(txtONR.Text))
+      {
+        MessageBox.Show(this, oOR.getErrorMsg(), "Kreditering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+      }
+
+      if (lwOr.SelectedItems.Count > 0)
+      {
+        bool bstat = oOR.creditAid(txtONR.Text, lwOr.SelectedItems[0].Text, OrderRowFunc.CreditType.Both);
+        updateAidList();
+        if(bstat)
+          MessageBox.Show(this, "Hjälpmedlet är nu krediterat", "Kreditering", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+      else
+        MessageBox.Show(this, "Välj ett hjälpmedel först", "Val saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    }
+  }
+}

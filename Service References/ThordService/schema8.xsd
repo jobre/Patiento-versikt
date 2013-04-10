@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/referencetypes" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/referencetypes" id="schema8" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="isocodes" type="tns:isocodes" />
+  <xs:complexType name="isocodes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="isocode" type="tns:IsoCodeDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IsoCodeDefinition">
+    <xs:attribute form="unqualified" name="isonumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="aidtypes" type="tns:aidtypes" />
+  <xs:complexType name="aidtypes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aidtype" type="tns:ParameterDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ParameterDefinition">
+    <xs:attribute form="unqualified" name="oid" type="xs:int" />
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+    <xs:attribute form="unqualified" name="isActive" type="xs:boolean" />
+  </xs:complexType>
+  <xs:element name="needsteps" type="tns:needsteps" />
+  <xs:complexType name="needsteps">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="needstep" type="tns:needstep" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="needstep">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ParameterDefinition">
+        <xs:attribute form="unqualified" name="needstair" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="reducedfunctions" type="tns:reducedfunctions" />
+  <xs:complexType name="reducedfunctions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="function" type="tns:ParameterDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

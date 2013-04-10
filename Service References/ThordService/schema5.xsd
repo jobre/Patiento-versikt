@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/persontypes" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/persontypes" id="schema5" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+  <xs:element name="personinformation" type="tns:personinformation" />
+  <xs:complexType name="personinformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="person" type="tns:PersonDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="rulelimit" type="tns:RuleLimitDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="referrals" type="tns:PersonDefinitionreferrals" />
+      <xs:element xmlns:q1="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" name="repairs" type="q1:RepairsDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="firstname" type="xs:string" />
+    <xs:attribute form="unqualified" name="lastname" type="xs:string" />
+    <xs:attribute form="unqualified" name="personnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="email" type="xs:string" />
+    <xs:attribute form="unqualified" name="phonemobile" type="xs:string" />
+    <xs:attribute form="unqualified" name="phonework" type="xs:string" />
+    <xs:attribute form="unqualified" name="phonehome" type="xs:string" />
+    <xs:attribute form="unqualified" name="information" type="xs:string" />
+    <xs:attribute form="unqualified" name="street" type="xs:string" />
+    <xs:attribute form="unqualified" name="postaladdress" type="xs:string" />
+    <xs:attribute form="unqualified" name="postalcode" type="xs:string" />
+    <xs:attribute form="unqualified" name="note" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RuleLimitDefinition">
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+    <xs:attribute form="unqualified" name="isonumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="noofaid" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="PersonDefinitionreferrals">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="unbounded" name="referral" type="q2:ReferralDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

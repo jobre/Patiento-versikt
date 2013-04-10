@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/wsdl" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/wsdl" id="schema1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/commands" />
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/persontypes" />
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/invoicetypes" />
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/mappingtypes" />
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/referencetypes" />
+  <xs:element name="HelloThord">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="HelloThordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="HelloThordResult" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HelloThordException">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="HelloThordExceptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="HelloThordExceptionResult" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HelloSecretThord">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="HelloSecretThordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="HelloSecretThordResult" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReferrals">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q1:referralupdates" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReferralsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" ref="q2:referrals" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReferrals">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q3:referralselection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReferralsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" ref="q4:referrals" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPersonInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q5:personselection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPersonInformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://thord.bkv.sll.se/2005/03/08/persontypes" minOccurs="0" maxOccurs="1" ref="q6:personinformation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRepair">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q7:personalreparationupdates" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRepairResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" ref="q8:repairs" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRepair">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q9:reparationselection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRepairResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" ref="q10:repairs" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInvoice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q11:newinvoices" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://thord.bkv.sll.se/2005/03/08/invoicetypes" minOccurs="0" maxOccurs="1" ref="q12:invoices" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreditInvoice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q13:newcreditinvoices" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreditInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://thord.bkv.sll.se/2005/03/08/invoicetypes" minOccurs="0" maxOccurs="1" ref="q14:invoices" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferReferral">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q15:transferreferrals" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TransferReferralResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="TransferReferralResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOIDByExternalID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://thord.bkv.sll.se/2005/03/08/commands" minOccurs="0" maxOccurs="1" ref="q16:oidselection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOIDByExternalIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://thord.bkv.sll.se/2005/03/08/mappingtypes" minOccurs="0" maxOccurs="1" ref="q17:customids" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllISOCode">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAllISOCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://thord.bkv.sll.se/2005/03/08/referencetypes" minOccurs="0" maxOccurs="1" ref="q18:isocodes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllAidTypes">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAllAidTypesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://thord.bkv.sll.se/2005/03/08/referencetypes" minOccurs="0" maxOccurs="1" ref="q19:aidtypes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllNeedSteps">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAllNeedStepsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://thord.bkv.sll.se/2005/03/08/referencetypes" minOccurs="0" maxOccurs="1" ref="q20:needsteps" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllReducedfunction">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAllReducedfunctionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://thord.bkv.sll.se/2005/03/08/referencetypes" minOccurs="0" maxOccurs="1" ref="q21:reducedfunctions" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

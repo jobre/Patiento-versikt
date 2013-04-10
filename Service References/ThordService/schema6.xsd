@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/invoicetypes" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/invoicetypes" id="schema6" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+  <xs:element name="invoices" type="tns:invoices" />
+  <xs:complexType name="invoices">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="invoice" type="tns:InvoiceDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvoiceDefinition">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" name="invoiceaids" type="q1:AidsDefinition" />
+      <xs:element xmlns:q2="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" name="invoicerepairs" type="q2:RepairsDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="invoicenumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="creditinvoicenumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="invoicedate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="duedate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="amount" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="vat" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="totalamount" type="xs:decimal" />
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CD2B875F-1A47-46B7-92D7-4E14C7CAEF96}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>Icons\App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Ortoped</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Ortoped</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>Ortoped.frmMain</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <ManifestCertificateThumbprint>BC8A86E15144499632F2903A86F928BC4792D038</ManifestCertificateThumbprint>
+    <ManifestKeyFile>Ortoped_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SignAssembly>false</SignAssembly>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://192.168.20.6/Ortoped/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>0</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft WSE\v3.0\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <COMReference Include="Garp">
+      <Guid>{061704E0-06C7-11D3-AB92-006097D5DE41}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Service References\ThordService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\se.sll.thord.www\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Content Include="ExternalResources\log4net.dll" />
+    <Content Include="ExternalResources\Microsoft.Web.Services3.dll" />
+    <Content Include="configure.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Icons\App.ico" />
+    <None Include="Service References\ThordService\Ortoped.ThordService.aidtypes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.customids.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.invoices.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.isocodes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.needsteps.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.personinformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.reducedfunctions.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.referrals.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Ortoped.ThordService.repairs.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ThordService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ThordService\configuration.svcinfo" />
+    <None Include="Service References\ThordService\configuration91.svcinfo" />
+    <None Include="Service References\ThordService\schema1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\ThordIntegration2.disco" />
+    <None Include="Service References\ThordService\schema4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\schema7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ThordService\ThordIntegration2.wsdl" />
+    <None Include="Service References\ThordService\ThordIntegration21.wsdl" />
+    <None Include="Web References\se.sll.thord.www\aidtypes.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\customids.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\invoices.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\isocodes.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\needsteps.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\personinformation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\reducedfunctions.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\se.sll.thord.www\referrals.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\repairs.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\Thordintegration2.disco" />
+    <None Include="Resources\document_pinned.ico" />
+    <None Include="Resources\document_pinned.png" />
+    <None Include="Resources\disk_blue.png" />
+    <EmbeddedResource Include="Dialogs\frmDiagIO.resx">
+      <DependentUpon>frmDiagIO.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagOH.sah-RU.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmDiagOH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="disk_blue.ico" />
+    <None Include="Resources\Icon1.ico" />
+    <None Include="Resources\date-time.png" />
+    <None Include="Resources\money2.png" />
+    <None Include="Resources\user1_information1.png" />
+    <None Include="Resources\user1_information.png" />
+    <None Include="Resources\arrow_left_blue.png" />
+    <None Include="Resources\box.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\users_back.png" />
+    <None Include="Resources\user1_into.png" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Definitions\CommonDefinitions.cs" />
+    <Compile Include="Definitions\OrderHeadDefinitions.cs" />
+    <Compile Include="Definitions\PatientDefenitions.cs" />
+    <Compile Include="Definitions\PurchaseDefenitions.cs" />
+    <Compile Include="Dialogs\frmDiagIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagIO.Designer.cs">
+      <DependentUpon>frmDiagIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagThord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagChooseErrand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagDiagnos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagFkn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagLevDat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagOH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagOrderHuvud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagReceipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagReceipt.Designer.cs">
+      <DependentUpon>frmDiagReceipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\frmDiagUnboundErrand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmOwnFeeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmOwnFeeList.Designer.cs">
+      <DependentUpon>frmOwnFeeList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddCust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeliver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmErrorReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmErrorReport.Designer.cs">
+      <DependentUpon>frmErrorReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOwnFee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GarpFunctions\CustomerFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpFunctions\ErrandFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpFunctions\orderFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpFunctions\OrderRowFunc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\CustomerCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\ErrandCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\GarpCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\OrderCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\OrderRowCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\ProductCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GarpGEM\SaleCOM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\Config.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\Contacts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\DeliveryMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\Diagnos.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\ExcidoCS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\FormControler.cs" />
+    <Compile Include="HelpClasses\HandleConfig.cs" />
+    <Compile Include="HelpClasses\ListViewItemComparer.cs" />
+    <Compile Include="HelpClasses\Mail.cs" />
+    <Compile Include="HelpClasses\MessageHelper.cs" />
+    <Compile Include="HelpClasses\ohText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\OrderRowText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\OwnFee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\PersonNummer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\Prislista.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelpClasses\ProcessAPI.cs" />
+    <Compile Include="HelpClasses\SingleApplication.cs" />
+    <Compile Include="HelpClasses\Table.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Definitions\OrderRowDefinitions.cs" />
+    <Compile Include="Interface\MainDbFunctions.cs" />
+    <Compile Include="Interface\PatientDb.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\TestClass.cs" />
+    <Compile Include="Thord\ThordFunctions\GarpReferrals.cs" />
+    <Compile Include="Thord\ThordFunctions\ThordFunctions.cs" />
+    <Compile Include="Thord\ThordFunctions\ThordFunctionsThreaded.cs" />
+    <Compile Include="Thord\ThordHelpClasses\ConvertFunctions.cs" />
+    <Compile Include="Thord\frmDiagThord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Thord\frmDiagThord.Designer.cs">
+      <DependentUpon>frmDiagThord.cs</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Dialogs\frmDiagThord.resx">
+      <DependentUpon>frmDiagThord.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagChooseErrand.resx">
+      <DependentUpon>frmDiagChooseErrand.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagDiagnos.resx">
+      <DependentUpon>frmDiagDiagnos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagFkn.resx">
+      <DependentUpon>frmDiagFkn.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagLevDat.resx">
+      <DependentUpon>frmDiagLevDat.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagOH.resx">
+      <DependentUpon>frmDiagOH.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagOrderHuvud.resx">
+      <DependentUpon>frmDiagOrderHuvud.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagPatient.resx">
+      <DependentUpon>frmDiagPatient.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagProduct.resx">
+      <DependentUpon>frmDiagProduct.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagReceipt.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmDiagReceipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmDiagUnboundErrand.resx">
+      <DependentUpon>frmDiagUnboundErrand.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmOwnFeeList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmOwnFeeList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAbout.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddCust.resx">
+      <DependentUpon>frmAddCust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeliver.resx">
+      <DependentUpon>frmDeliver.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmErrorReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmErrorReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOwnFee.resx">
+      <DependentUpon>frmOwnFee.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Thord\frmDiagThord.resx">
+      <DependentUpon>frmDiagThord.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <None Include="Web References\se.sll.thord.www\schema4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\schema8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\se.sll.thord.www\Thordintegration2.wsdl" />
+    <None Include="Web References\se.sll.thord.www\Thordintegration20.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <BaseApplicationManifest Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3924545A-F8E2-475A-B1A4-05175BC41E50}" />
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_BaseFunctions\GCS_BaseFunctions.csproj">
+      <Project>{AE8C795F-D34D-4D7D-A8DC-2386EBC17A15}</Project>
+      <Name>GCS_BaseFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_GarpFunctions\GCS_GarpFunctions.csproj">
+      <Project>{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}</Project>
+      <Name>GCS_GarpFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardSpyDll\KeyboardSpyDll.csproj">
+      <Project>{D82FCD01-11A7-4AFF-9623-DA451803A35A}</Project>
+      <Name>KeyboardSpyDll</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\se.sll.thord.www\</RelPath>
+      <UpdateFromURL>https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ortoped_se_sll_thord_www_ThordIntegration2</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ThordService\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

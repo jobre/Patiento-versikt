@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/referraltypes" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" id="schema3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/base" />
+  <xs:complexType name="NewReferralDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="diagnosis" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aids" type="tns:NewAidsDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidtypes" type="tns:NewAidtypesDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="personnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="referraldate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="reducedfunction" type="xs:int" />
+    <xs:attribute form="unqualified" name="priority" type="tns:ReferralPriorityValues" />
+    <xs:attribute form="unqualified" name="validtime" type="xs:int" />
+    <xs:attribute form="unqualified" name="prescribername" type="xs:string" />
+    <xs:attribute form="unqualified" name="kombikacode" type="xs:string" />
+    <xs:attribute form="unqualified" name="desiredadministrator" type="xs:string" />
+    <xs:attribute form="unqualified" name="treatmentaid" type="tns:TreatmentAidValues" />
+    <xs:attribute form="unqualified" name="status" type="tns:ReferralStatusValues" />
+  </xs:complexType>
+  <xs:complexType name="NewAidsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newaid" type="tns:NewAidDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NewAidDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:NewPartsDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidrepairs" type="tns:NewRepairsDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isFirstTimePatient" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isPEVAPatient" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isHabiliteringPatient" type="xs:boolean" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+    <xs:attribute form="unqualified" name="status" type="tns:AidStatusValues" />
+    <xs:attribute form="unqualified" name="isonumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="externalaidid" type="xs:string" />
+    <xs:attribute form="unqualified" name="aidtypeoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="excludefromrulelimit" type="xs:boolean" />
+    <xs:attribute form="unqualified" name="needstep" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="NewPartsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newpart" type="tns:NewPartDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NewPartDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="positionid" type="xs:string" />
+    <xs:attribute form="unqualified" name="price" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="count" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="externalpartid" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="NewRepairsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newreparation" type="tns:NewRepairDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NewRepairDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="medicalchange" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:NewPartsDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="status" type="tns:ReparationStatusValues" />
+    <xs:attribute form="unqualified" name="reparationtype" type="tns:RepairValues" />
+    <xs:attribute form="unqualified" name="externalreparationid" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="ReparationStatusValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PABORJAD" />
+      <xs:enumeration value="KLAR FOR FAKTURERING" />
+      <xs:enumeration value="FAKTURERAD" />
+      <xs:enumeration value="GODKAND VID FAKTURERING" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RepairValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REPARATION" />
+      <xs:enumeration value="JUSTERING" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AidStatusValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PABORJAD" />
+      <xs:enumeration value="KLAR FOR FAKTURERING" />
+      <xs:enumeration value="FAKTURERAD" />
+      <xs:enumeration value="GODKAND VID FAKTURERING" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="NewAidtypesDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newaidtype" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ReferralPriorityValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NORMAL" />
+      <xs:enumeration value="SUBAKUT" />
+      <xs:enumeration value="AKUT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TreatmentAidValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NEJ" />
+      <xs:enumeration value="MINDREAN6MAN" />
+      <xs:enumeration value="MERAN6MAN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ReferralStatusValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INKOMMEN" />
+      <xs:enumeration value="PABORJAD" />
+      <xs:enumeration value="AVSLUTAD" />
+      <xs:enumeration value="GILTIGHETSTID UTGATT" />
+      <xs:enumeration value="OVERFORD" />
+      <xs:enumeration value="MOTTAGEN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReferralUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="diagnosis" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aids" type="tns:AidsUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidtypes" type="tns:AidtypesUpdateDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="personnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="referraldate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="reducedfunction" type="xs:int" />
+    <xs:attribute form="unqualified" name="priority" type="tns:ReferralPriorityValues" />
+    <xs:attribute form="unqualified" name="validtime" type="xs:int" />
+    <xs:attribute form="unqualified" name="prescribername" type="xs:string" />
+    <xs:attribute form="unqualified" name="kombikacode" type="xs:string" />
+    <xs:attribute form="unqualified" name="desiredadministrator" type="xs:string" />
+    <xs:attribute form="unqualified" name="treatmentaid" type="tns:TreatmentAidValues" />
+    <xs:attribute form="unqualified" name="status" type="tns:ReferralStatusValues" />
+    <xs:attribute form="unqualified" name="referralnumber" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="AidsUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newaid" type="tns:NewAidDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aidupdate" type="tns:AidUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="removeaid" type="tns:RemoveAidDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AidUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:PartsUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidrepairs" type="tns:RepairsUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isFirstTimePatient" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isPEVAPatient" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="isHabiliteringPatient" type="xs:boolean" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+    <xs:attribute form="unqualified" name="status" type="tns:AidStatusValues" />
+    <xs:attribute form="unqualified" name="isonumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="aidoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalaidid" type="xs:string" />
+    <xs:attribute form="unqualified" name="aidtypeoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="excludefromrulelimit" type="xs:boolean" />
+    <xs:attribute form="unqualified" name="isFirstTimePatient" type="xs:boolean" />
+    <xs:attribute form="unqualified" name="isPEVAPatient" type="xs:boolean" />
+    <xs:attribute form="unqualified" name="isHabiliteringPatient" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="PartsUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newpart" type="tns:NewPartDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="partupdate" type="tns:PartUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="removepart" type="tns:RemovePartDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="positionid" type="xs:string" />
+    <xs:attribute form="unqualified" name="price" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="count" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="partoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalpartid" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RemovePartDefinition">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="partoid" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="RepairsUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newreparation" type="tns:NewRepairDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparationupdate" type="tns:RepairUpdateDefinition" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="removereparation" type="tns:RemoveRepairDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RepairUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="medicalchange" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:PartsUpdateDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="status" type="tns:ReparationStatusValues" />
+    <xs:attribute form="unqualified" name="reparationtype" type="tns:RepairValues" />
+    <xs:attribute form="unqualified" name="reparationoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalreparationid" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RemoveRepairDefinition">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="reparationoid" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="RemoveAidDefinition">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="aidoid" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="AidtypesUpdateDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newaidtype" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="removeaidtype" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="referrals" type="tns:referrals" />
+  <xs:complexType name="referrals">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="referral" type="tns:ReferralDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferralDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="kombika" type="tns:KombikaDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="diagnosis" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:element xmlns:q1="http://thord.bkv.sll.se/2005/03/08/base" minOccurs="0" maxOccurs="1" name="creator" type="q1:UserInfoDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aids" type="tns:AidsDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidtypes" type="tns:AidtypesDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="transfer" type="tns:TransferreferralDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="personnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="referraldate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="reducedfunction" type="xs:int" />
+    <xs:attribute form="unqualified" name="priority" type="tns:ReferralPriorityValues" />
+    <xs:attribute form="unqualified" name="validtime" type="xs:int" />
+    <xs:attribute form="unqualified" name="prescribername" type="xs:string" />
+    <xs:attribute form="unqualified" name="organisationname" type="xs:string" />
+    <xs:attribute form="unqualified" name="desiredadministrator" type="xs:string" />
+    <xs:attribute form="unqualified" name="treatmentaid" type="tns:TreatmentAidValues" />
+    <xs:attribute form="unqualified" name="status" type="tns:ReferralStatusValues" />
+    <xs:attribute form="unqualified" name="referralnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="createddate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="modifieddate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:complexType name="KombikaDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="kombikacode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AidsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aid" type="tns:AidDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AidDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:PartsDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="aidrepairs" type="tns:RepairsDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="name" type="xs:string" />
+    <xs:attribute form="unqualified" name="status" type="tns:AidStatusValues" />
+    <xs:attribute form="unqualified" name="isonumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="handingoutdate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="customerfee" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="aidoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalaidid" type="xs:string" />
+    <xs:attribute form="unqualified" name="aidtypeoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="createddate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="modifieddate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="excludefromrulelimit" type="xs:boolean" />
+    <xs:attribute form="unqualified" name="needstep" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="PartsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="part" type="tns:PartDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="positionid" type="xs:string" />
+    <xs:attribute form="unqualified" name="price" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="count" type="xs:decimal" />
+    <xs:attribute form="unqualified" name="partoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalpartid" type="xs:string" />
+    <xs:attribute form="unqualified" name="createddate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="modifieddate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:complexType name="RepairsDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparation" type="tns:RepairDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RepairDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="medicalchange" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parts" type="tns:PartsDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="status" type="tns:ReparationStatusValues" />
+    <xs:attribute form="unqualified" name="reparationtype" type="tns:RepairValues" />
+    <xs:attribute form="unqualified" name="reparationoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="externalreparationid" type="xs:string" />
+    <xs:attribute form="unqualified" name="createddate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="modifieddate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:complexType name="AidtypesDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aidtype" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransferreferralDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="newreferralnumber" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="transferdate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:element name="repairs" type="tns:repairs" />
+  <xs:complexType name="repairs">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparation" type="tns:RepairDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

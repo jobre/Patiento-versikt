@@ -1,0 +1,303 @@
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+/*
+ * Version 1.1.0.1 uppdaterad av Joakim Brenevik 2005-04-20
+ * 	
+ * Version 1.1.0.2 uppdaterad av Joakim Brenevik 2005-04-20
+ * *	I orderöversikt visas nu att om ordern är stängd
+ *	* Styrning av mellanslag i Pnr/Ort (upplägg patient). Vissa kontroller av postnummrets
+ *		längd och mellanslag i position fyra kontrolleras
+ * * Koppling till Kalender, Kundformulär, Kundreskontraformulär i Garp genom knappar. Kundnummer sparas
+ *		i ClipBoard innan växling till Garp görs.
+ *
+ * Version 1.1.0.3 uppdaterad av Joakim Brenevik 2005-05-17
+ *	* Lagt till konvertering av null värden till blankt i Porpertys för
+ *		klassen OrderCOM
+ * 
+ * Version 1.1.0.4 uppdaterad av Joakim Brenevik 2005-05-17 
+ *	*	Problem med Nullreferens i "isOrderHeadChanged". Har lagt till en try
+ *		för att hantera dessa felmeddelanden
+ *	*	Vid val av bl a handläggare kom det upp ett meddelande om "Uppdaterin ej tillåten".
+ *		Detta kom då det var en rad med blankt artikelnummer. Nu är denna kontroll ändrad så att
+ *		funktionen "saveOrderRow" returnerar tru även när en rad har blankt artiklenummer. Vad som egentligen
+ *		händer är att raden raderas, "You will learn the hard way!"
+ *	*	Radtexten hängde kavar mellan orderrader. Detta är ändrat så att radtexten blankas när tabb 0 (översikt)
+ *		väljs, sedan uppdateras texten när man väljer en under "Detaljer"
+ *	*	Om man angav en order direkt så uppdaterades inte patienten, istället fick ordern den "gammla"
+ *		patientens kundnummer så att ordern bytte Patient/levkund. Detta är nu ändrat, i frmMain tillåter
+ *		vi uppdatering av KNR endast när KNR är blankt.
+ *
+ * Version 1.1.4.2 uppdaterad av Joakim Brenevik 2005-05-17
+ *	*	Bortag av fråga ifall order skall läggas upp om den skansas, detta strulade när det gäller
+ *		kontroll av signatur
+ *	* Ändrat nummerserien för versionshanteringen
+ *
+ * Version 1.1.4.3 uppdaterad av Joakim Brenevik 2005-05-17
+ *	* Fixat problem med att artiklar inte visades i översikten
+ *	* Produktionsstatuslistan raderades vid orderupplägg, fixat	
+ *
+ * Version 1.1.5.1 uppdaterad av Joakim Brenevik 2005-06-14
+ *	* I orderöversikt visas, Ordernr, giltighetsdatum from/tom, status, rekvnr, ordinationstext
+ *	* Gå till tidbok med högerklick från hjälpmedel
+ *	* Skriv ut Kallelse med högerklick från hjälpmedelsrad
+ *	* Skriv ut Arbetsorder med högerklick från hjälpmedelsrad
+ *	*	Ledtext lagd till för "Lev.Sätt"
+ *	
+ * Version 1.1.5.2 uppdaterad av Joakim Brenevik 2005-06-22
+ *	* Detta är nu ändrat. Ny hantering av sökning på patient. Om sökning skall ske skall det
+ *		initsieras med punkt (precis som i alla andra sökningar), om ett värde matas in utan någon 
+ *		punkt framför så förutsätts detta att vara ett personnummer.
+ *	* Vid ny order töms hela formuläret på data
+ *	* Alla tidbokningar på en Patient visas, tidigare visades bara de som var kopplade till aktuell order
+ *	* Hopp direkt till kontantknapp vid egenavgift (efter att Avgift fyllts i)
+ *	*	Vid nytt Hjälpmedel hamnar man på handläggare istället för p i Artikelnummer
+ *	*	Efter prislista hamnar man i orderradsöversikten
+ *
+ * Version 1.1.5.3 uppdaterad av Joakim Brenevik 2005-06-30
+ *	* Väldigt mycket nytt enligt lista, några axplock nedan
+ *	* Implementering av XML baserd konfigurationsfil
+ *	* Dynamiska dokumentlistor
+ *	* Journal och CopDoc går att andra från formuläret (readonly innan)
+ *
+ ** Version 1.1.5.4 uppdaterad av Joakim Brenevik 2005-07-05
+ *	* Buggrättningar 
+ *
+ ** Version 1.1.5.5 uppdaterad av Joakim Brenevik 2005-07-08
+ *	* Buggrättningar
+ *
+ ** Version 1.1.5.6-8 uppdaterad av Joakim Brenevik 2005-10-01
+ * *	Ombyggnad av dokumenthantering (kallelse, arbetsorder)
+ * *	Ombyggnad av egenavgift. 
+ * *	Utskrift av faktura och kontantkvitto på egenavgift
+ * *	Ny hantering av koppling av ärenden.
+ * *	Diverse rättningar
+ *
+ ** Version 1.1.5.9 uppdaterad av Joakim Brenevik 2005-10-01
+ * *	Ändring av utskrft av Kallelse. Nu skickas INTE hjälpmedelsid
+ *		med. Detta för att informationen är överflödig vid arbetsorder.
+ *		Önskemål lämnat av PN.
+ * *	Rättning av koppling av ärende. Ordernummer skickades med endast 5
+ *		tecken till getAllAid(), detta är nu rättat.	
+ *
+ ** Version 1.1.5.10 uppdaterad av Joakim Brenevik 2005-10-03
+ *	*	Vid leverans sätts reservationskod till "1"
+ *	*	Ändrad hantering av priser på artikel. Innan hämtades proset från
+ *		artikeln vilket gjorde att prishantering med prislistor/offerter
+ *		inte hanterades på korrekt vis. Nu hämtas proiset från orderrad 
+ *		(som beräknats av servern) och uppdateras endast när man lämnar 
+ *		txtApris fältet.
+ *
+ ** Version 1.1.5.11 uppdaterad av Joakim Brenevik 2005-10-03
+ *	*	Fixat problem då det vid byte av order kunde kopieras hjälpmedel mellan ordrarna.
+ *
+ ** Version 1.1.5.12 uppdaterad av Joakim Brenevik 2005-10-04
+ *	*	Ytterligare "tätning" för att förhindra att orderrader "kopieras" mellan ordrar 
+ *	*	Vissa fält nollställdes inte vid byte av order, detta är nu fixat .
+ *	*	Numer går det att ange en order eller välja knappen tidigare även om alla
+ *		groupboxar är "gråade". 
+ *	*	Fixat problem med sökning då det inte hittades en patient om man angav ett helt personnummer
+ *		Detta berodde på ett felaktigt jämförelsevärde i getPatientByPnr()
+ *	*	Fixat decimalproblem som uppstod vid decimalhantering på orderradsantal. Nu konverteras
+ *		alltid komma till punkt
+ *	*	Fixat problem som kan uppstå vid byte av artikel på en rad, detta är för tillfället spärrat
+ *
+ ** Version 1.1.5.13 uppdaterad av Joakim Brenevik 2005-10-05
+ *	*	Lagt till funktion getAllRowsOwnFeeIncluded() som returnerar även egenavgifter
+ *		Denna funktion används vid leverans av hjälpmedel så att även egenavgifterna
+ *		levereras på samma FS
+ *	*	Ändrat så att datum visar dagens datum när formuläret öppnas
+ *
+ ** Version 1.1.5.14 uppdaterad av Joakim Brenevik 2005-10-10
+ *	*	Rättat bugg i egenavgift som gjorde att patientens egeanavgift alltid blev debet.
+ *	*	Lagt till textrader med hänvisningar till/från egenavgift på orginal och patientorder
+ *
+ *** Version 1.1.5.15 uppdaterad av Joakim Brenevik 2005-10-11
+ *	*	Ändradr funtionalitet för att inte texter skall kopieras mellan ordrar, detta kunde tidigare
+ *		ske om en helt ny order lades upp.
+ *	*	Ny funktion CTL + N för ny order
+ *	*	Ny funktion CTRL + I för nytt hjälpmedel
+ *	
+ *** Version 1.1.5.16 uppdaterad av Joakim Brenevik 2005-10-17
+ *	*	Fixat hantering av hjälpmedelsid som konverterats in på anorlunda sätt gentemot hur vi hanterar detta 
+ *		i Patientöversikten.
+ *	*	Döpt om "CopDok" till "CoPdoc"	
+ *	*	Fixat ett antal buggar som gör att orderrader kan mixas
+ *	* Ny bättre generering av AidID, den gammla gjorde att ett AidID som redan fanns kunde ges som förslag
+ *
+ *** Version 1.1.5.17 uppdaterad av Joakim Brenevik 2005-10-19
+ *	* Prislista hämtas från fakturakunden när denna anges. Tidigare hämtades denna från order och dett
+ *		fungerade inte för Aktivs del då det inte finns någon koppling mellan patient (leveranskund)
+ *		och fakturakunden.
+ *	*	Täppt igen ytterligare luckor då orderrader kunde kopieras mellan olika ordrar. Denna gång var det i vissa
+ *		lägen när man gick från en order med hjälpmedel till en order utan hjälpmedel som raderna kunde kopieras
+ *		med till den raden utan hjälpmedel. Detta för att Detaljvyn inte rensades mellan orderbyte, det görs nu.
+ *	*	Vid upplägg av ny patient så kontrolleras om det finns ett "-" i personnummret, finns inte detta läggs det till
+ *
+ *** Version 1.1.5.18 uppdaterad av Joakim Brenevik 2005-10-31
+ *	*	Numer sparas ordern innan en frysning görs, detta gjordes ej tidigare vilket innebar att
+ *		vissa fält (som Diagnos, notering m.m) inte sparades
+ *	*	Ändrat ordning på förnamn och efternamn, dessa hämttades tidigare in i fel ordning så att dessa mixades.
+ *	*	Lagt till funktionalitet för att hantera inställningar per användare. användare kodas med prefix i 
+ *		användarnamnet följt av #. I Configure.xml kan man sean styra vilka användarkoder som skall styras mot 
+ *		nummerserie på order samt vilka patienter som skall visas.
+ *
+ *** Version 1.1.5.19 uppdaterad av Joakim Brenevik 2005-10-31
+ *	*	KOD3 som enligt specefikation skall användas till patientens Tillhörighetär bytt till
+ *		KOD6, detta beslut är taget av Peter Nilsson Office Karlstad.
+ *	*	Fixat problem med ordrar som inte visades i översikten och inte gick att lägga till nya rader på.
+ *		Detta berodde på gamla egenavgifter som ställde till kontrollen som görs på antal aidid kontra
+ *		antal rader som visas i översikten. Numer "räknas" inte egenavgiftsrader när denna kontroll görs
+ *	*	Nu inaktiveras groupboxarna under "Detaljer" om inget AidId är valt, tidigare var dessa öpnna även 
+ *		om man inte valt något AidID
+ *
+ *** Version 1.1.5.20 uppdaterad av Joakim Brenevik 2005-11-10
+ *	*	Numer sparas Produktionsstatus, Levernastid, Garanti, Handläggare på AidId, tidigare sparades
+ *		detta på den sista raden i ett hjälpmedelsid	
+ *
+ *** Version 1.1.5.21 uppdaterad av Joakim Brenevik 2005-11-18
+ *	*	Uppdaterat med styrning till kostnadsställe per bolag.
+ *	*	Uppdaterat med styrning av betalningsvillkor vad gäller egenavgift per bolag
+ *	* Ombyggnad av Configure.xml för att förenkla strukturen.		
+ *
+ *** Version 1.1.5.22 uppdaterad av Joakim Brenevik 2005-11-21
+ *	*	Uppdateringar enlig version 1.1.5.21 skall istället vara per användargrupp,
+ *		detta är nu fixat
+ *	*	Lagt till visning av detaljer från Config i statusraden. Visning kan växlas
+ *		med CTRL + SHIFT + ALT + V
+ *	 
+ *** Version 1.1.5.23 uppdaterad av Joakim Brenevik 2005-12-05
+ *	*	Rättning av Leverenssätt. Om något leveranssätt hade blank benämning genererades ett fel
+ *		om detta användes
+ *
+ * *** Version 1.1.5.24 uppdaterad av Joakim Brenevik 2005-12-23
+ *	* Breddat formuläret
+ * * Lagt till visning av enhet på detaljinfo hjälpmedel
+ * * Lagt till antal på listview som visar ingående artiklar
+ * * Lagt till handläggare i visningen av ärenden, även kortat tiderna ner till 5 tkn (hh:mm)
+ * * Ändrat tabordning i detaljvy. Handläggare -> Produktionsstatus -> Artikel. Samtidigt
+ *   löses önskemål om att kunna backa i denna tabordning
+ *
+ * * *** Version 1.1.5.25 uppdaterad av Joakim Brenevik 2006-02-10
+ *	* Lagt till kreditering av hjälpmedel
+ * * Lagt till texter på orderhuvudsnivå (fakturainfo)
+ * * Lagt till texterader kopplade till hjälpmedel
+ * * Lagt till summering av priser på hjälpmedelsnivå
+ * * Lagt till fält för enhetshantering
+ *
+ * * *** Version 1.1.5.26 uppdaterad av Joakim Brenevik 2006-02-10
+ * *	Fixat bugg med aidstexter där en loop gick igenom hela orderegistret istället för aktuell order.
+ *
+ * * *** Version 1.1.5.27 uppdaterad av Joakim Brenevik 2006-02-23
+ * *	Fixat problem med CopDoc och Journal som inte alltid uppdaterades
+ * *	Fixat problem med ID rader som mixas, detta berode på en sparning som gjordes vid val av handläggare
+ *		då triggades funktionen som raderar orderrader utan artikelnummer 
+ *	*	
+ *
+ * * *** Version 1.1.5.28 uppdaterad av Joakim Brenevik 2006-02-28
+ * *	Fixat problem med CopDoc och Journal som inte alltid uppdaterades, utterliggare hål tätat
+ * *	Lagt till en ny grupp i Configure.xml för att hantera mall på kunder.
+ *	*	Lagt till visning av "verkligt" leveransdatum, fakturanummer och fakturadatum
+ *
+ * * *** Version 1.1.5.29 uppdaterad av Joakim Brenevik 2006-03-02
+ * *	Diverse småbuggar
+ *
+ * * *** Version 1.1.5.30 uppdaterad av Joakim Brenevik 2006-03-02
+ * *	Ändrat leveransdatum, nu hämtas denna från HKR och LDT vilket är "perioddatum"
+ *
+ * * *** Version 1.1.5.31 uppdaterad av Joakim Brenevik 2006-03-07
+ * *	Fixat problem med handläggare och produktionsstatus som försvann när nytt hjälpmedel lades upp
+ * *	Optimerat visningen av orderrader när man växlar till detaljvyn.
+´*  
+ * * *** Version 1.1.5.32 uppdaterad av Joakim Brenevik 2006-03-07
+ * *	Levtid på OR blir numer alltid det samma som leveranstid vid leverans
+ * *	Fixat visning av dokument med menyer i mainform, visades tidigare vid fel nod.
+ *
+ * * *** Version 1.1.5.33 uppdaterad av Joakim Brenevik 2006-03-10
+  * *	Ändrat hantering av texter så att endast en text syns (hjälpmedel/artikel)
+ * *	Ändrat så att enhet visas direkt efter man angivit artikelnummer
+ *
+ * * *** Version 1.1.5.34 uppdaterad av Joakim Brenevik 2006-03-13
+ * *	Lagt till parameter i saveOrderRow för att styra om commondata skall sparas. Detta för att det
+ * *	blir fel när en egenavgift skall sparas, då commondata på en idrad försvinna.
+ *
+ * * * *** Version 1.1.5.35 uppdaterad av Joakim Brenevik 2006-03-13
+ * *	Samma som ovan fast felet uppstod vid leverans istället. Även lagt 
+ *		in kontroll på commdata i saveOrderRow, körs aldrig om det är en EA
+ *
+ * * * *** Version 1.1.5.36 uppdaterad av Joakim Brenevik 2006-03-13
+ * *	Fixat problem med texter som inte hängde med vid nytt hjälpmedel (vidade föreg. hjälpmedels text)
+ *
+ * * * *** Version 1.1.5.37 uppdaterad av Joakim Brenevik 2006-03-13
+ * *	Ändrat hanteringen av datum. Nu kan datum anges under detaljer och detta datum plockas sedan med 
+ * * och används vid leverans
+ *
+ * * * *** Version 1.1.5.38 uppdaterad av Joakim Brenevik 2006-04-13
+ * *	Rättat status på öppen/stängd order som inte visades rätt
+ * * Lagt till egenavgifter vid kreditering av hjälpmedel
+ * * Lagt till kontroll av antal på artikelrad så att nollvärden inte accepteras
+ * * Ändrat hanteringen av namn så att vi kan hantera dubbelnamn i efternamn.
+ * * Utökad logik för Thord och behovstrappa (se manual för configure.xml)
+ * 
+ * * * *** Version 1.1.5.39 uppdaterad av Joakim Brenevik 2006-05-12
+ * *	Ändrat hanteringen av behovstrappan för Thord. Nu visas de rätta texterna.
+ *
+ * * * *** Version 1.1.5.40 uppdaterad av Joakim Brenevik 2006-05-19
+ * *	Rättat fel som vid val av Begovstrappa 20,21. Detta berodde på att det försöktes
+ *   väljas ett index på 20,21 istället för alternativet som började på 20,21.
+ *   Nu görs istället en FindString()
+ * 
+ * * * *** Version 1.1.5.41 uppdaterad av Joakim Brenevik 2006-06-19
+ * *	Lagt in "Enter As Tab" i formulär för kundupplägg
+ * * Påbörjat inläggning av konfigurationsfil och inställningar för gränssnitt
+ * * Lagt in början på en "MainMenu"
+ * * Rättat hantering av textrader (se Trac #10)
+ *
+ * * * *** Version 1.1.5.42 uppdaterad av Joakim Brenevik 2006-07-17
+ * *	Beta till ver 2.0.6.1, se trac för detaljer
+ * 
+ * * * *** Version 1.1.5.43 uppdaterad av Joakim Brenevik 2006-09-XX
+ * *	Beta till ver 2.0.6.1, se trac för detaljer
+ *
+ * * * * *** Version 1.1.5.43 uppdaterad av Joakim Brenevik 2006-10-19
+ * *	Beta till ver 2.0.6.1, se trac för detaljer
+ *
+ * * * * * *** Version 2.0.7.0 uppdaterad av Joakim Brenevik 2008-01-07
+ * *  Lagt till hantering av statistik på egenavgifter
+ * *  Thord slutfört enligt spec.
+ *
+ * * * * * * *** Version 2.0.7.1 uppdaterad av Joakim Brenevik 2008-01-14
+ * *  Lagt till sparafunktion vid flera knappar. Detta då det i vissa lägen kunde ske att postning ej 
+ *    genomfördes innan en uppdatering av posten skedde. T ex kunde detta ske vid växling med "Föregående patient"
+ *    men även i flera andra funktioner
+ * 
+ * * * * * * * *** Version 2.0.7.1 uppdaterad av Joakim Brenevik 2008-01-14
+ * *  Rättat radering av rader som alltid gjorde an hämtning av referral, även om det inte var en Thord remiss
+ * 
+ * 
+ * * * * * * * *** Version 2.0.10.0 uppdaterad av Joakim Brenevik 2008-09-29
+ * Finns detaljerad beskrivning i PÖ_ver_10.docx
+ * 
+ * * * * * * * *** Version 2.0.10.2 uppdaterad av Joakim Brenevik 2008-11-10
+ * Finns detaljerad beskrivning i Patientöversikt_ver_2.0.10.2.docx
+ * 
+ * * * * * * * *** Version 2.0.10.3 uppdaterad av Joakim Brenevik 2008-11-12
+ * Finns detaljerad beskrivning i Patientöversikt_ver_2.0.10.3.docx
+ * 
+ 
+*/
+
+[assembly: AssemblyVersion("3.0.0.22")]
+[assembly: AssemblyTitle("Patientöversikt")]
+[assembly: AssemblyDescription("Hantering av remisser och hjälpmedel för ortopedtekniska verkstäder")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("GC Solutions AB")]
+[assembly: AssemblyProduct("Patientöversikt")]
+[assembly: AssemblyCopyright("© 2007 GC Solutions AB")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]		
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("")]
+[assembly: AssemblyKeyName("")]
+[assembly: ComVisibleAttribute(false)]

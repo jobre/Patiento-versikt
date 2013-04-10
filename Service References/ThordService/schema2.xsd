@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://thord.bkv.sll.se/2005/03/08/commands" elementFormDefault="qualified" targetNamespace="http://thord.bkv.sll.se/2005/03/08/commands" id="schema2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://thord.bkv.sll.se/2005/03/08/referraltypes" />
+  <xs:element name="referralupdates" type="tns:referralupdates" />
+  <xs:complexType name="referralupdates">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="unbounded" name="newreferral" type="q1:NewReferralDefinition" />
+      <xs:element xmlns:q2="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="unbounded" name="referralupdate" type="q2:ReferralUpdateDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="referralselection" type="tns:referralselection" />
+  <xs:complexType name="referralselection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="referralnumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="critera" type="tns:critera" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="critera">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="status" type="tns:ReferralStatusValues" />
+      <xs:element minOccurs="0" maxOccurs="1" name="fromDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="toDate" type="xs:dateTime" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ReferralStatusValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INKOMMEN" />
+      <xs:enumeration value="PABORJAD" />
+      <xs:enumeration value="AVSLUTAD" />
+      <xs:enumeration value="GILTIGHETSTID UTGATT" />
+      <xs:enumeration value="OVERFORD" />
+      <xs:enumeration value="MOTTAGEN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="personselection" type="tns:personselection" />
+  <xs:complexType name="personselection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="personnumber" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="personalreparationupdates" type="tns:personalreparationupdates" />
+  <xs:complexType name="personalreparationupdates">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="personalreparationupdate" type="tns:personalreparationupdate" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personalreparationupdate">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://thord.bkv.sll.se/2005/03/08/referraltypes" minOccurs="0" maxOccurs="1" name="reparationupdates" type="q3:RepairsUpdateDefinition" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="personnumber" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="reparationselection" type="tns:reparationselection" />
+  <xs:complexType name="reparationselection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparationoid" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="newinvoices" type="tns:newinvoices" />
+  <xs:complexType name="newinvoices">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newinvoice" type="tns:newinvoice" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="newinvoice">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aidoid" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparationoid" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="invoicenumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="invoicedate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="duedate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:element name="newcreditinvoices" type="tns:newcreditinvoices" />
+  <xs:complexType name="newcreditinvoices">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="newcreditinvoice" type="tns:newcreditinvoice" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="newcreditinvoice">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="aidoid" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reparationoid" type="xs:int" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute form="unqualified" name="invoicenumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="creditinvoicenumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="invoicedate" type="xs:dateTime" />
+    <xs:attribute form="unqualified" name="duedate" type="xs:dateTime" />
+  </xs:complexType>
+  <xs:element name="transferreferrals" type="tns:transferreferrals" />
+  <xs:complexType name="transferreferrals">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="transfer" type="tns:transfer" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transfer">
+    <xs:attribute form="unqualified" name="referralnumber" type="xs:string" />
+    <xs:attribute form="unqualified" name="organisationoid" type="xs:int" />
+    <xs:attribute form="unqualified" name="comment" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="oidselection" type="tns:oidselection" />
+  <xs:complexType name="oidselection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="externalid" type="xs:string" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
