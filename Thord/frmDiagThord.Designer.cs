@@ -283,6 +283,7 @@ namespace Ortoped.Thord
             this.grpTest.TabStop = false;
             this.grpTest.Text = "Testpanel";
             this.grpTest.Visible = false;
+            this.grpTest.Enter += new System.EventHandler(this.grpTest_Enter);
             // 
             // labPassword
             // 

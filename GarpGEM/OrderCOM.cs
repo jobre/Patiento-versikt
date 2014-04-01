@@ -855,6 +855,26 @@ namespace Ortoped.GarpGEM
             }
         }
 
+        protected DateTime ReferralDate
+        {
+            get
+            {
+                DateTime valid;
+                if (DateTime.TryParseExact(mOGF.getValue("GDA"), "yyMMdd", new CultureInfo("sv-SE"), DateTimeStyles.None, out valid))
+                    return valid;
+                else
+                {
+                    //Log4Net.Logger.loggCritical("Date ValidFrom could note be parsed to DateTime, value in string: " + mOGA.getValue("BLT"), Config.User, "updateForm");
+                    return DateTime.Now;
+                }
+            }
+
+            set
+            {
+                mOGF.setValue("GDA", value.ToString("yyMMdd"));
+            }
+        }
+
         protected bool CanChangeInvoiceCustomer
         {
             get

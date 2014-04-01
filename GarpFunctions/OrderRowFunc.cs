@@ -33,8 +33,7 @@ namespace Ortoped.GarpFunctions
 
         public OrderRowFunc()
         {
-            InstanceContext context = new InstanceContext(this);
-
+           
             if (Config.IsThordUser)
             {
                 garpref = new GarpReferrals();
@@ -49,9 +48,13 @@ namespace Ortoped.GarpFunctions
 
             try
             {
+                InstanceContext context = new InstanceContext(this);
                 mProdClient = new ProductionService.OrderServiceClient(context);
             }
-            catch { }
+            catch(Exception e)
+            {
+                Logger.loggError(e, "Error creating OrderServiceClient", "", "OrderRowFunc()");
+            }
         }
 
         public enum CreditType { OnlyPatient = 0, OnlyInvoiceCustomer = 1, Both = 2 };
@@ -330,10 +333,20 @@ namespace Ortoped.GarpFunctions
         {
             string sFSNr = "", levdate = "";
 
-            // Hämta leveranstid från första raden, detta för att det inte skall finnas 
+            // Hämta leveranstid från första raden som inte är en EA, detta för att det inte skall finnas 
             // någon chans att det blir olka levtider på ett hjälpmedelsid
             if (or.Length > 0)
-                levdate = ECS.noNULL(or[0].LevTid);
+            {
+                foreach(OrderRowDefinitions.OrderRow r in or)
+                {
+                    if (!mOR.isEgenAvgift(r.Artikel))
+                    {
+                        levdate = ECS.noNULL(r.LevTid);
+                        break;
+                    }
+                }
+                
+            }
 
             // If no check on date should be done and date ar "", set today as date
             if (!checkdate && levdate.Equals(""))
@@ -404,7 +417,7 @@ namespace Ortoped.GarpFunctions
                 }
             }
             
-            //saveToProduction(or);
+            saveToProduction(or);
 
             return true;
         }
@@ -430,33 +443,35 @@ namespace Ortoped.GarpFunctions
         //    }
         //}
 
-        //private void saveToProduction(OrderRowDefinitions.OrderRow or)
-        //{
-        //    System.Threading.Tasks.Task.Factory.StartNew(() => {
-        //    ProductionService.ProductionAidDTO dto = new ProductionService.ProductionAidDTO();
+        private void saveToProduction(OrderRowDefinitions.OrderRow or)
+        {
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    ProductionService.ProductionAidDTO dto = new ProductionService.ProductionAidDTO();
 
-        //    try
-        //    {
-        //        dto.OrderNo = or.OrderNo;
-        //        dto.AidId = int.Parse(or.AidNr);
-        //        dto.Box = oProdStat.getIdByTX1(or.Prodstatus); 
-        //        dto.ArtNo = or.Artikel;
-        //        dto.ArtName = oProduct.getNameById(or.Artikel);
-        //        dto.CompanyId = Config.CompanyId;
-        //        dto.Urgent = or.Urgent;
-        //        dto.Title = or.ProductionTitle;
-        //        dto.PromisedDeliverDate = or.PromisedDeliverDate;
+                    dto.OrderNo = or.OrderNo;
+                    dto.AidId = int.Parse(or.AidNr);
+                    dto.Box = oProdStat.getIdByTX1(or.Prodstatus);
+                    dto.ArtNo = or.Artikel;
+                    dto.ArtName = oProduct.getNameById(or.Artikel);
+                    dto.CompanyId = Config.CompanyId;
+                    dto.Urgent = or.Urgent;
+                    dto.Title = or.ProductionTitle;
+                    dto.PromisedDeliverDate = or.PromisedDeliverDate;
+                    dto.ConditionDate = or.ConditionDate;
 
-        //        mProdClient.UpdateAid(dto);
+                    mProdClient.UpdateAid(dto);
 
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        Logger.loggError(e, "Error updating ProductionService", "", "saveToProduction(OrderRowDefinitions.OrderRow or)");
-        //    }
-        //    });
+                }
+                catch (Exception e)
+                {
+                    Logger.loggError(e, "Error updating ProductionService", "", "saveToProduction(OrderRowDefinitions.OrderRow or)");
+                }
+            });
 
-        //}
+        }
 
         /// <summary>
         /// Spara orderradstexter
@@ -676,87 +691,6 @@ namespace Ortoped.GarpFunctions
             }
         }
 
-
-        //private void fillOrderRow(ref OrderRowDefinitions.OrderRow or)
-        //{
-        //    fillFieldsFromOtherTables(ONR, RDC);
-
-        //    or.OrderNo = ONR;
-        //    or.Rad = RDC;
-        //    or.AidNr = AidID;
-        //    or.Artikel = ANR;
-        //    or.ProductName = oProduct.getNameById(ANR);
-        //    or.Antal = ORA;
-        //    or.APris = PRI;
-        //    or.LevTid = LDT;
-        //    or.InkStat = INK;
-        //    or.Enhet = ENH;
-        //    or.AidDate = AidDate;
-        //    or.Prodstatus = oProdStat.getTable(RES).TX1;
-        //    or.SelectedHandler = BNX;
-        //    or.Levstatus = LVF;
-        //    or.DeliverMode = DeliverMode;
-        //    or.Text = orText.getTexts(or.OrderNo, or.Rad);
-        //    or.AidsText = orText.getAidsText(or.OrderNo, or.Rad);
-        //    or.ViewInList = ViewStat;
-        //    or.Warrenty = Warranty;
-        //    or.Beloppsrad = Beloppsrad;
-        //    or.DeliverDate = DeliverDate;
-        //    or.InvoiceNo = InvoiceNo;
-        //    or.InvoiceDate = InvoiceDate;
-        //    or.Thord_NeedStep = NeedStep;
-        //    or.AidOid = AidOid;
-        //    or.PartOid = PartOid;
-        //    or.CreatedInThord = CreatedInThord;
-        //    or.FirstTimePatient = FirstTimePatient;
-        //    or.EA_ProductGroup = ProductGroup;
-        //    or.ProductionTitle = ProductionTitle;
-        //    or.Urgent = Urgent;
-        //    or.PromisedDeliverDate = PromisedDeliverDate;
-        //    or.Holder = Holder;
-        //}
-
-        //private void fillOrderRowFields(ref OrderRowDefinitions.OrderRow or)
-        //{
-
-        //    ANR = or.Artikel;
-        //    ORA = or.Antal;
-        //    PRI = or.APris;
-        //    try
-        //    {
-        //        if (!or.LevTid.Equals(""))
-        //            LDT = or.LevTid;
-        //    }
-        //    catch { }
-        //    AidDate = or.AidDate;
-        //    RES = oProdStat.getIdByTX1(or.Prodstatus);
-        //    BNX = or.SelectedHandler;
-        //    INK = or.InkStat;
-        //    ViewStat = or.ViewInList;
-        //    Warranty = or.Warrenty;
-        //    Beloppsrad = or.Beloppsrad;
-        //    NeedStep = or.Thord_NeedStep;
-        //    AidOid = or.AidOid;
-        //    PartOid = or.PartOid;
-        //    ProductGroup = or.EA_ProductGroup;
-        //    Urgent = or.Urgent;
-        //    ProductionTitle = or.ProductionTitle;
-        //    PromisedDeliverDate = or.PromisedDeliverDate;
-        //}
-
-        //private void fillCommonOrderRowFields(ref OrderRowDefinitions.OrderRow or)
-        //{
-        //    LDT = or.LevTid;
-        //    AidDate = or.AidDate;
-        //    RES = oProdStat.getIdByTX1(or.Prodstatus);
-        //    BNX = or.SelectedHandler;
-        //    DeliverMode = or.DeliverMode;
-        //    Warranty = or.Warrenty;
-        //    NeedStep = or.Thord_NeedStep;
-        //    FirstTimePatient = or.FirstTimePatient;
-        //    orText.saveAidsText(or.OrderNo, or.Rad, or.AidsText);
-        //}
-
         public new void updateOid(string onr, string row, string aidoid, string partoid)
         {
             mOR.updateOid(onr, row, aidoid, partoid);
@@ -768,13 +702,6 @@ namespace Ortoped.GarpFunctions
             pr.ProductName = oProduct.BEN;
             pr.Apris = GCF.noNULL(oProduct.PRI) == "" ? "0" : oProduct.PRI;
         }
-
-        //private OrderRowDefinitions.OrderRow fillOrderRow()
-        //{
-        //    OrderRowDefinitions.OrderRow or = new OrderRowDefinitions.OrderRow();
-        //    fillOrderRow(ref or);
-        //    return or;
-        //}
 
         /// <summary>
         /// Kontrollerar om ordern är fryst. Är ordern fryst kan
@@ -807,101 +734,11 @@ namespace Ortoped.GarpFunctions
         {
             
         }
+
+        public void openMatPlan()
+        {
+            mOR.selectMenuItem(530);
+        }
     }
 }
 
-
-
-
-        //public OrderRowDefinitions.OrderRow[] getAllAid(string onr)
-        //{
-        //    ArrayList s = new ArrayList();
-        //    ArrayList sAidList = new ArrayList();
-
-        //    Hashtable hs = new Hashtable(), hsAidPrice = new Hashtable();
-
-        //    if (findFirstRow(onr))
-        //    {
-        //        do
-        //        {
-        //            // Bygg upp lista med alla hjälpmedel, används sedan för att kontrollera viewstat på dessa
-        //            if ((sAidList.IndexOf(AidID) == -1) && !isEgenAvgift)
-        //                sAidList.Add(AidID);
-
-        //            if (ViewStat && !isEgenAvgift)
-        //                s.Add(fillOrderRow());
-
-        //            if (!isEgenAvgift)
-        //            {
-        //                // Bygg upp en lista med summerade priser per hjälpmedel
-        //                if (hsAidPrice.ContainsKey(AidID))
-        //                    try
-        //                    {
-        //                        if (double.Parse(ORA.Replace(".", ",")) >= 0)
-        //                            hsAidPrice[AidID] = Convert.ToString(Math.Round(double.Parse(hsAidPrice[AidID].ToString().Replace(".", ",")) + (double.Parse(ORA.Replace(".", ",")) * double.Parse(PRI.Replace(".", ","))), 3));
-        //                        else
-        //                            hsAidPrice[AidID] = Convert.ToString(Math.Round(double.Parse(hsAidPrice[AidID].ToString().Replace(".", ",")) + (double.Parse(ORA.Replace(".", ",")) * double.Parse(PRI.Replace(".", ","))), 3));
-        //                    }
-        //                    catch { }
-        //                else
-        //                {
-        //                    if (double.Parse(ORA.Replace(".", ",")) >= 0)
-        //                        hsAidPrice.Add(AidID, (Math.Round(double.Parse(ORA.Replace(".", ",")) * double.Parse(PRI.Replace(".", ",")), 3)));
-        //                    else
-        //                        hsAidPrice.Add(AidID, (Math.Round(double.Parse(ORA.Replace(".", ",")) * double.Parse(PRI.Replace(".", ",")), 3)));
-
-        //                }
-        //            }
-
-        //            // Kontrollera om det är en egenavgiftsrad
-        //            if (isEgenAvgift)
-        //            {
-        //                if (hs.ContainsKey(AidID))
-        //                    try
-        //                    {
-        //                        hs[AidID] = Convert.ToString(double.Parse(hs[AidID].ToString().Replace(".", ",")) + double.Parse(PRI.Replace(".", ",")));
-        //                    }
-        //                    catch { }
-        //                else
-        //                    hs.Add(AidID, PRI);
-        //            }
-        //        }
-        //        while (!nextRow());
-
-        //        // Om det finns hjälpmedel som inte har viewstat, uppdatera dessa
-        //        if (s.Count != sAidList.Count)
-        //        {
-        //            for (int i = 0; i < sAidList.Count; i++)
-        //            {
-        //                // Om hjälpmedlet har uppdaterat med viewstat så lägg till den i "s" listan
-        //                if (!checkViewStatOnAid(onr, (String)sAidList[i]))
-        //                {
-        //                    if (ViewStat && !isEgenAvgift)
-        //                        s.Add(fillOrderRow());
-        //                }
-        //            }
-        //        }
-
-        //        // Uppdatera summerade priser på varje hjälpmedel
-        //        for (int i = 0; i < s.Count; i++)
-        //        {
-        //            if (hsAidPrice.ContainsKey(((OrderRowDefinitions.OrderRow)s[i]).AidNr))
-        //            {
-        //                OrderRowDefinitions.OrderRow o = ((OrderRowDefinitions.OrderRow)s[i]);
-        //                o.APris = hsAidPrice[((OrderRowDefinitions.OrderRow)s[i]).AidNr].ToString();
-        //                s[i] = o;
-        //            }
-        //        }
-        //    }
-
-        //    OrderRowDefinitions.OrderRow[] or = OrderRowDefinitions.OrderRow.convertFromArray(s);
-
-        //    // Uppdatera alla aidrader med denn summerade egenavgiften (om det finns någon)
-        //    for (int i = 0; i < or.Length; i++)
-        //    {
-        //        if (hs.ContainsKey(or[i].AidNr))
-        //            or[i].Egenavgift = hs[or[i].AidNr].ToString();
-        //    }
-
-        //    return or;
-        //}

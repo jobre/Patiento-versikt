@@ -56,7 +56,7 @@ namespace Ortoped.Thord
                     this.Text = Application.ProductName + " - " + Application.ProductVersion.Substring(0, 3);
                 else
                     this.Text = Application.ProductName + " - " + Application.ProductVersion.Substring(0, 5);
-
+                
                 labUser.Text = Config.ThordUserId;
                 labPassword.Text = Config.ThordPassword;
             }
@@ -224,6 +224,11 @@ namespace Ortoped.Thord
         {
             listBox1.Items.Clear();
             listBox1.Items.AddRange(tf.getAllISOCodeAndNames());
+
+        }
+
+        private void grpTest_Enter(object sender, EventArgs e)
+        {
 
         }
 

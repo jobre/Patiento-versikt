@@ -40,7 +40,7 @@ namespace Ortoped.Definitions
             public string AidDate;					// Datum då orderraden skapades
             public string Prodstatus;				// Produktionsstatus
             public string Levstatus;				// Leveransstatus
-            public string DeliverMode;			    // Leveranssätt
+           // public string DeliverMode;			    // Leveranssätt
             public string SelectedHandler;
             public string AccountNo;				// Kontonummer
             public string Text;
@@ -52,8 +52,11 @@ namespace Ortoped.Definitions
             public string Thord_NeedStep;		    // Behovstrappa
             public string ProductionTitle;          // Produktion
             public string Holder;                   // Nuvarande handläggare
+            public string Priority;                 // Produktion Prioritet
+            public string AidPriority;              // Hjälpmedel Prioritet
             public bool Urgent;                     // Akut
-            public DateTime PromisedDeliverDate;    // Production
+            public DateTime? PromisedDeliverDate;    // Production
+            public DateTime? ConditionDate;          // Production (provningsdatum)
             public int AidOid;                      // Unik identitet i Thord (hjälpmedel)
             public int PartOid;                     // Unik identitet i Thord (position)
             public bool CreatedInThord;             // Flagga för om den är skapad i Thord (X2F = 1 innebär att den är skapad i Thord)

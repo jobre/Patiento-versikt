@@ -431,9 +431,9 @@
     <CopDoc Path="C:\Program Files (x86)\Copdoc\Upps\CoPDoc.exe" Arguments="/docpath=\\asan01\copdoc$\Upps\Documents /filepath=\\asan01\copdoc$\Upps\Files /formpath=\\asan01\copdoc$\Upps\Forms /nounicodeprefix /start=3 /patientsearchpersonalno={KA;NAM}" ButtonText="Patient" />
 
     <Anvandare>
-      <AnvKod ID="M" Kst="3370"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="N">
+      <AnvKod ID="M" Kst="3370"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="J">
         <Thord>
-          <User Id="test" Password="test"/>
+          <User Id="test" Password="qweQWE123"/>
         </Thord>
         <PatientKod ID="M"/>
         <PatientKod ID="1"/>
@@ -527,8 +527,11 @@
 
   <Bolag ID="140" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
     <Anvandare>
-      <AnvKod ID="U" Kst="3440"  BetVillkEaKont="B" BetVillkEaFakt="01">
-        <PatientKod ID="U"/>
+      <AnvKod ID="U" Kst="3440"  BetVillkEaKont="B" BetVillkEaFakt="01" Thord="J">
+        <Thord>
+          <User Id="test" Password="qweQWE123"/>
+        </Thord>
+        <PatientKod ID="S"/>
         <PatientKod ID="1"/>
         <Serie ID="B"/>
         <Dokument>
@@ -558,6 +561,38 @@
     </Anvandare>
   </Bolag>
 
+ <Bolag ID="400" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
+    <Anvandare>
+      <AnvKod ID="S" Kst="3440"  BetVillkEaKont="B" BetVillkEaFakt="01">
+        <PatientKod ID="U"/>
+        <PatientKod ID="1"/>
+        <Serie ID="B"/>
+        <Dokument>
+          <Kallelse DokumentId="265-ZZ" Namn="Arbetsorder m ID"/>
+          <Kallelse DokumentId="265-UA" Namn="Giltig remiss"/>
+          <Kallelse DokumentId="265-UB" Namn="Omgående leverans"/>
+          <Kallelse DokumentId="265-UC" Namn="Missad tid"/>
+          <Kallelse DokumentId="265-UD" Namn="Påminnelse nr 1"/>
+          <Kallelse DokumentId="265-UE" Namn="Påminnelse nr 2"/>
+          <Kallelse DokumentId="265-UF" Namn="Rekvisition olika"/>
+          <Kallelse DokumentId="265-UG" Namn="Rekvisition"/>
+          <Kontantkvitto DokumentId="295-08" Namn="Kontantkvitto"/>
+          <Faktura DokumentId="295-01" Namn="Plusgirofaktura"/>
+        </Dokument>
+        <Kundmall>
+          <PatientKod ID="U"/>
+          <BetVillk ID="B"/>
+          <Kategori ID="07"/>
+          <MomsKod ID="4"/>
+          <Räntefaktura ID="J"/>
+          <Betalningspåminnelse ID="J"/>
+        </Kundmall>
+
+      </AnvKod>
+
+
+    </Anvandare>
+  </Bolag>
   <Bolag ID="200" DiagnosFil="" VisaDetaljer="J" AlltidVersaler="J" VisaProduktGrupper="J">
     <Anvandare>
       <AnvKod ID="V" Kst="3270"  BetVillkEaKont="B" BetVillkEaFakt="01">

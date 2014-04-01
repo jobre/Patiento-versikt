@@ -21,13 +21,16 @@
       <xs:element minOccurs="0" name="ArtNo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Box" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CompanyId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConditionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Price" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProductionState" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PromisedDeliverDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PromisedDeliverDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Row" type="xs:int" />
+      <xs:element minOccurs="0" name="SSN" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Urgent" type="xs:boolean" />
     </xs:sequence>

@@ -10,13 +10,14 @@ namespace Ortoped.HelpClasses
 	public class DeliveryMode : GarpGEM.GarpCOM
 	{
 		private Garp.ITable TA03;
-		private Garp.ITabField  TX1;
+		private Garp.ITabField  TX1, KEY;
 
 		public DeliveryMode()
 		{
 			TA03 = app.Tables.Item("TA03");
-			TX1 = TA03.Fields.Item("TX1");
-		}
+			KEY = TA03.Fields.Item("KEY");
+            TX1 = TA03.Fields.Item("TX1");
+        }
 
 		public string getNameByKey(string key)
 		{
@@ -54,7 +55,7 @@ namespace Ortoped.HelpClasses
 			TA03.First();
 			while(!TA03.Eof)
 			{
-				if(TX1.Value != null)
+				if(TX1.Value != null && KEY.Value.StartsWith("P"))
 					ar.Add(TX1.Value);
 				TA03.Next();
 			}

@@ -297,18 +297,18 @@ namespace Ortoped.GarpGEM
                 return double.Parse(date.Substring(1)).ToString().PadLeft(6, '0');
         }
 
-        public string getDeliverMode(string onr)
-        {
-            if (mOGA.find(onr))
-            {
-                if (GCF.noNULL(mOGA.getValue("LSE")).Equals(""))
-                    return oDelM.getNameByKey(GCF.noNULL(mOGA.getValue("LSE")));
-                else
-                    return "";
-            }
-            else
-                return "";
-        }
+        //public string getDeliverMode(string onr)
+        //{
+        //    if (mOGA.find(onr))
+        //    {
+        //        if (GCF.noNULL(mOGA.getValue("LSE")).Equals(""))
+        //            return oDelM.getNameByKey(GCF.noNULL(mOGA.getValue("LSE")));
+        //        else
+        //            return "";
+        //    }
+        //    else
+        //        return "";
+        //}
 
         public bool isClosed(string onr)
         {
@@ -466,47 +466,7 @@ namespace Ortoped.GarpGEM
                 return new OrderRowDefinitions.OrderRow();
         }
 
-        ///// <summary>
-        ///// Hämtar nästa rad. Returnerar en typ av EOF:
-        ///// "true" Om det inte finns fler rader
-        ///// "false" Om det finns fler rader
-        ///// </summary>
-        ///// <returns></returns>
-        //private bool nextRow()
-        //{
-        //    string s = ONR;
-
-        //    mOGR.next();
-        //    if ((mOGR.EOF) || (s.Trim() != ONR.Trim()))
-        //        return true;
-        //    else
-        //    {
-        //        // Om OGR2 inte finns, skapa posten
-        //        if (!mOGR2.find(mOGR.getValue("ONR").PadRight(6) + mOGR.getValue("RDC").PadLeft(3)))
-        //            createOGR2Row(mOGR.getValue("ONR"), mOGR.getValue("RDC"));
-
-        //        return false;
-        //    }
-        //}
-
-        //public OrderRowDefinitions.OrderRow getNextRow()
-        //{
-        //    string s = ONR;
-
-        //    mOGR.next();
-        //    if ((mOGR.EOF) || (s.Trim() != ONR.Trim()))
-        //        return new OrderRowDefinitions.OrderRow();
-        //    else
-        //    {
-        //        // Om OGR2 inte finns, skapa posten
-        //        if (!mOGR2.find(mOGR.getValue("ONR").PadRight(6) + mOGR.getValue("RDC").PadLeft(3)))
-        //            createOGR2Row(mOGR.getValue("ONR"), mOGR.getValue("RDC"));
-
-        //        return fillOrderRow();
-        //    }
-        //}
-
-        public bool findOH(string onr)
+         public bool findOH(string onr)
         {
             return mOGA.find(onr);
         }
@@ -785,7 +745,7 @@ namespace Ortoped.GarpGEM
             or.Prodstatus = oProdStat.getTable(data.getValue("RES")).TX1;
             or.SelectedHandler = data.getValue("BNX");
             or.Levstatus = data.getValue("LVF");
-            or.DeliverMode = getDeliverMode(or.OrderNo);
+            //or.DeliverMode = getDeliverMode(or.OrderNo);
             or.Text = orText.getTexts(or.OrderNo, or.Rad);
             or.AidsText = orText.getAidsText(or.OrderNo, or.Rad);
             or.ViewInList = mOGR.getValue("X1F").Equals("x") ? true : false;
@@ -795,6 +755,7 @@ namespace Ortoped.GarpGEM
             or.InvoiceNo = GCF.noNULL(mInvoiceNo);;
             or.InvoiceDate = GCF.noNULL(mInvoiceDate);;
             or.Thord_NeedStep = mOGR2.getValue("C2A");
+            or.AidPriority = mOGR2.getValue("C2B");
 
             try
             {   
@@ -819,10 +780,36 @@ namespace Ortoped.GarpGEM
             or.CreatedInThord = data.getValue("X2F").Equals("1") ? true : false;
             or.FirstTimePatient = mOGR2.getValue("C1A").Equals("1") ? true : false;
             or.EA_ProductGroup = mOGR.getValue("EXT");
-            //or.ProductionTitle = mOGR2.getValue("C20") + mOGR2.getValue("C10");
-            //or.Urgent = mOGR2.getValue("C1B").Equals("1") ? true : false;
-            //or.PromisedDeliverDate = PromisedDeliverDate;
-            //or.Holder = Holder;
+            or.ProductionTitle = mOGR2.getValue("C20") + mOGR2.getValue("C10");
+            or.Urgent = mOGR2.getValue("C1B").Equals("1") ? true : false;
+            or.Priority = mOGR2.getValue("C1C");
+
+            string[] s = { "yyMMdd", "yyyyMMdd", "yyyy-MM-dd" };
+            try
+            {
+                DateTime dt;
+                DateTime.TryParseExact(mOGR2.getValue("C06"), s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt);
+
+                if (dt.AddYears(50) < DateTime.Now)
+                    or.PromisedDeliverDate = DateTime.Now;
+                else
+                    or.PromisedDeliverDate = dt;
+            }
+            catch { or.PromisedDeliverDate = DateTime.Now; }
+
+            try
+            {
+                DateTime dt;
+                DateTime.TryParseExact(mOGR2.getValue("C07").Trim(), s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt);
+
+                if (dt.AddYears(50) < DateTime.Now)
+                    or.ConditionDate = DateTime.Now;
+                else
+                    or.ConditionDate = dt;
+            }
+            catch { or.ConditionDate = DateTime.Now; }
+
+            or.Holder = mOGR2.getValue("C05") == "" ? null : mOGR2.getValue("C05");
             return or;
         }
 
@@ -899,11 +886,44 @@ namespace Ortoped.GarpGEM
 
             data.setValue("EXT", or.EA_ProductGroup);
 
+            mOGR2.setValue("C1C", or.Priority);
+            mOGR2.setValue("C2B", or.AidPriority);
 
             // ********* Producktions, vet inte ens om dett blir aktuellt ************
-            //Urgent = or.Urgent;
-            //ProductionTitle = or.ProductionTitle;
-            //PromisedDeliverDate = or.PromisedDeliverDate;
+            if (GCF.noNULL(or.ProductionTitle).Length > 20)
+            {
+                mOGR2.setValue("C20", or.ProductionTitle.Substring(0, 20));
+                mOGR2.setValue("C10", or.ProductionTitle.Substring(20));
+            }
+            else
+            {
+                mOGR2.setValue("C20", or.ProductionTitle);
+                mOGR2.setValue("C10", "");
+            }
+
+            try
+            {
+                if (or.Urgent)
+                    mOGR2.setValue("C1B", "1");
+                else
+                    mOGR2.setValue("C1B", "0");
+            }
+            catch { mOGR2.setValue("C1B", "0"); }
+
+
+            string[] s = { "yyMMdd", "yyyyMMdd", "yyyy-MM-dd" };
+            try
+            {
+                mOGR2.setValue("C06", or.PromisedDeliverDate.HasValue ? or.PromisedDeliverDate.Value.ToString("yyMMdd") : "");
+            }
+            catch { mOGR2.setValue("C06", DateTime.Today.ToString("yyMMdd")); }
+
+            try
+            {
+                mOGR2.setValue("C07", or.ConditionDate.HasValue ? or.ConditionDate.Value.ToString("yyMMdd") : "");
+            }
+            catch { mOGR2.setValue("C07", DateTime.Today.ToString("yyMMdd")); }
+
         }
 
         private void fillCommonOrderRowFields(OrderRowDefinitions.OrderRow or, GarpGenericDB data)
@@ -912,7 +932,7 @@ namespace Ortoped.GarpGEM
             mOGR.setValue("DIM", !GCF.noNULL(or.AidDate).Equals("") ? "1" + or.AidDate : or.AidDate);
             mOGR.setValue("RES",oProdStat.getIdByTX1(GCF.noNULL(or.Prodstatus)));
             mOGR.setValue("BNX", or.SelectedHandler);
-            mOGA.setValue("LSE", !GCF.noNULL(GCF.noNULL(or.DeliverMode)).Equals("") ? oDelM.getKeyByName(or.DeliverMode) : "");
+            //mOGA.setValue("LSE", !GCF.noNULL(GCF.noNULL(or.DeliverMode)).Equals("") ? oDelM.getKeyByName(or.DeliverMode) : "");
 
             if (or.Warrenty)
             {
@@ -933,623 +953,11 @@ namespace Ortoped.GarpGEM
 
             orText.saveAidsText(or.OrderNo, or.Rad, or.AidsText);
         }
+
+        public void selectMenuItem(int id)
+        {
+            app.SelectMenuItem(id);
+        }
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//private bool findFirstRow(string onr)
-//{
-//    mOGR.find(onr);
-//    mOGR.next();
-
-//    if (ONR.Trim() == onr.Trim())
-//    {
-//        // Om OGR2 inte finns, skapa posten
-//        if (!mOGR2.find(mOGR.getValue("ONR").PadRight(6) + mOGR.getValue("RDC").PadLeft(3)))
-//            createOGR2Row(mOGR.getValue("ONR"), mOGR.getValue("RDC"));
-
-//        return true;
-//    }
-//    else
-//        return false;
-//}
-
-///// <summary>
-///// Hitta sista raden på ordern
-///// </summary>
-///// <param name="onr"></param>
-///// <returns></returns>
-//private bool findLastRow(string onr)
-//{
-//    mOGR.find(onr.PadRight(6) + "254");
-//    mOGR.prev();
-
-
-//    if (ONR.Trim() == onr.Trim())
-//    {
-//        // Om OGR2 inte finns, skapa posten
-//        if (!mOGR2.find(mOGR.getValue("ONR").PadRight(6) + mOGR.getValue("RDC").PadLeft(3)))
-//            createOGR2Row(mOGR.getValue("ONR"), mOGR.getValue("RDC"));
-
-//        return true;
-//    }
-//    else
-//        return false;
-//}
-
-
-//public string PaymentTerms
-//{
-//    get
-//    {
-//        return mOGA.getValue("BVK");
-//    }
-//}
-
-//public string InvoiceDate
-//{
-//    get { return GCF.noNULL(mInvoiceDate); }
-//}
-
-//public string InvoiceNo
-//{
-//    get { return GCF.noNULL(mInvoiceNo); }
-//}
-
-////public string DeliverDate
-//{
-//    get { return GCF.noNULL(mDeliverDate); }
-//}
-
-//public double getSumInternalProduct(string onr, string aidid)
-//{
-//    GarpGenericDB o = new GarpGenericDB("OGR");
-//    double sum = 0;
-
-//    o.find(onr);
-//    o.next();
-
-//    while (o.getValue("ONR").Equals(onr) && !o.EOF)
-//    {
-//        if (isInternalProduct(o.getValue("ANR")) && aidid.Equals(getFormatedAidId(o.getValue("NX1"))))
-//        {
-//            try
-//            {
-//                sum += Convert.ToDouble(o.getValue("LVP").Replace('.', ',')) * Convert.ToDouble(o.getValue("ORA").Replace('.', ','));
-//            }
-//            catch { }
-//        }
-//        o.next();
-//    }
-
-//    return sum;
-//}
-
-//public double getSumExternalProduct(string onr, string aidid)
-//{
-//    GarpGenericDB o = new GarpGenericDB("OGR");
-//    double sum = 0;
-
-//    o.find(onr);
-//    o.next();
-
-//    while (o.getValue("ONR").Equals(onr) && !o.EOF)
-//    {
-//        if (!isInternalProduct(o.getValue("ANR")) && aidid.Equals(getFormatedAidId(o.getValue("NX1"))))
-//        {
-//            try
-//            {
-//                sum += Convert.ToDouble(o.getValue("PRI").Replace('.', ',')) * Convert.ToDouble(o.getValue("ORA").Replace('.', ','));
-//            }
-//            catch { }
-//        }
-//        o.next();
-//    }
-
-//    return sum;
-//}
-
-///// <summary>
-///// Är artikeln på orderraden en egenavgift?
-///// </summary>
-//public bool isEgenAvgift
-//{
-//    get
-//    {
-//        if (mAGA.find(ANR))
-//        {
-//            if (mAGA.getValue("KD1").Equals("E"))
-//                return true;
-//            else
-//                return false;
-//        }
-//        else return false;
-//    }
-//}
-
-
-
-//public string ONR
-//{
-//    get
-//    {
-//        return (mOGR.getValue("ONR") == null ? "" : mOGR.getValue("ONR"));
-//    }
-//    set
-//    {
-//        mOGR.setValue("ONR",value);
-//    }
-//}
-
-//public string RDC
-//{
-//    get
-//    {
-//        return (mOGR.getValue("RDC") == null ? "" : mOGR.getValue("RDC"));
-//    }
-//    set
-//    {
-//        mOGR.setValue("RDC",value);
-//    }
-//}
-
-/// <summary>
-/// Hjälpmedel
-/// 
-/// </summary>
-//public string AidID
-//{
-//    get
-//    {
-//        string s = mOGR.getValue("NX1") == null ? "1" : mOGR.getValue("NX1").Trim().Replace(".", ",");
-
-//        // Om det är ett decimaltal måste vi formatera detta för att få fram rätt AidID
-//        if (s.IndexOf(",") > -1)
-//        {
-//            // Det finns två varianter.
-//            // 1. Talet större än 0. Dett är alla tal från konverterad data. Numer är även patientöversikten
-//            //		anpassad till detta format. 
-//            //
-//            // 2. Talet är mindre än noll, AidID sparas då i decimaldelan av talet. Detta var standard i 
-//            //		begynnelsen av Patientöversikten, detta har nu ändrats på grund av att konverteringen
-//            //		inte var gjord på detta vis .
-//            //
-//            // 3. Talet är större än noll men är ändå en variant två. Detta kan ske när man har fyllt 
-//            //		decimaldelen med variant två tal (t ex 100 om ant.dec. är två).
-//            if (double.Parse(s) > 0)
-//            {
-//                // Splitta strängen
-//                string[] s2 = s.Split(',');
-
-//                // Är det en variant tre tal
-//                if (int.Parse(s2[1]) > 0)
-//                    s = s2[0] + s2[1];
-//                else
-//                    s = s2[0];
-//            }
-//            else
-//            {
-//                s = s.Split(',')[1];
-//            }
-//        }
-//        return (s.Trim().PadLeft(3, '0'));
-//    }
-//    set
-//    {
-//        if (ADE > 0)
-//            mOGR.setValue("NX1",value.TrimStart('0') + ".".PadRight(ADE + 1, '0'));
-//        else
-//            mOGR.setValue("NX1",value);
-//    }
-//}
-
-//public string AidDate
-//{
-//    get
-//    {
-//        string s = mOGR.getValue("DIM") == null ? "0" : mOGR.getValue("DIM").Trim();
-//        if (s.IndexOf(".") > 0)
-//        {
-//            s = s.Split('.')[0];
-//        }
-//        if (double.Parse(s) == 0)
-//            return DateTime.Now.ToString("yyMMdd");
-//        else
-//            return double.Parse(s.Substring(1)).ToString().PadLeft(6, '0');
-//    }
-//    set
-//    {
-//        if (value == null)
-//            value = "";
-
-//        if (value.Trim() != "")
-//            mOGR.setValue("DIM","1" + value);
-//        else
-//            mOGR.setValue("DIM",value);
-//    }
-//}
-
-//public string ANR
-//{
-//    get
-//    {
-//        return GCF.noNULL(mOGR.getValue("ANR"));
-//    }
-//    set
-//    {
-//        mOGR.setValue("ANR",value);
-//    }
-//}
-
-//public int ADE
-//{
-//    get
-//    {
-//        return GCF.noNULL(mOGR.getValue("ADE")) == "" ? 0 : int.Parse(GCF.noNULL(mOGR.getValue("ADE")));
-//    }
-//}
-
-///// <summary>
-///// Antal
-///// </summary>
-//public string ORA
-//{
-//    get
-//    {
-//        return GCF.noNULL(mOGR.getValue("ORA"));
-//    }
-//    set
-//    {
-//        mOGR.setValue("ORA",value.Replace(",", "."));
-//    }
-//}
-
-///// <summary>
-///// Apris
-///// </summary>
-//public string PRI
-//{
-//    get
-//    {
-//        if(isInternalProduct(ANR))
-//            return mOGR.getValue("LVP");
-//        else
-//            return mOGR.getValue("PRI");
-//    }
-//    set
-//    {
-//        if (isInternalProduct(ANR))
-//        {
-//            if (GCF.noNULL(value).Equals(""))
-//                mOGR.setValue("LVP", "0");
-//            else
-//                mOGR.setValue("LVP", value.Replace(",", "."));
-
-//            mOGR.setValue("LPF", "F");
-
-//            // PRI is always zero on internal products
-//            mOGR.setValue("PRI", "0");
-//        }
-//        else
-//        {
-//            if (GCF.noNULL(value).Equals(""))
-//                mOGR.setValue("PRI", "0");
-//            else
-//                mOGR.setValue("PRI", value.Replace(",", "."));
-//        }
-//    }
-//}
-
-//public string LDT
-//{
-//    get
-//    {
-//        return mOGR.getValue("LDT");
-//    }
-//    set
-//    {
-//        mOGR.setValue("LDT",value);
-//    }
-//}
-
-//public string RES
-//{
-//    get
-//    {
-//        return mOGR.getValue("RES");
-//    }
-//    set
-//    {
-//        mOGR.setValue("RES",value);
-//    }
-//}
-
-//public string BNX
-//{
-//    get
-//    {
-//        return mOGR.getValue("BNX").Trim();
-//    }
-//    set
-//    {
-//        mOGR.setValue("BNX",value);
-//    }
-//}
-
-//public string LVF
-//{
-//    get
-//    {
-//        return mOGR.getValue("LVF");
-//    }
-//    set
-//    {
-//        mOGR.setValue("LVF",value);
-//    }
-//}
-
-/// <summary>
-/// Inköpsflagga
-/// </summary>
-//public string INK
-//{
-//    get
-//    {
-//        return mOGR.getValue("INK");
-//    }
-//    set
-//    {
-//        mOGR.setValue("INK",value);
-//    }
-//}
-
-//public string ENH
-//{
-//    get
-//    {
-//        return mOGR.getValue("ENH");
-//    }
-//    set
-//    {
-//        mOGR.setValue("ENH",value);
-//    }
-//}
-
-/// <summary>
-/// Leveranssätt
-/// 
-/// </summary>
-//public string DeliverMode
-//{
-//    get
-//    {
-//        if (GCF.noNULL(mOGA.getValue("LSE")).Equals(""))
-//            return oDelM.getNameByKey(GCF.noNULL(mOGA.getValue("LSE")));
-//        else
-//            return "";
-//    }
-//    set
-//    {
-//        if (value != null)
-//            mOGA.setValue("LSE",oDelM.getKeyByName(value));
-//        else
-//            mOGA.setValue("LSE","");
-//    }
-//}
-
-
-//public bool CreatedInThord
-//{
-//    get
-//    {
-//        if (mOGR.getValue("X2F").Equals("1"))
-//            return true;
-//        else
-//            return false;
-//    }
-//    set
-//    {
-//        if (value)
-//            mOGR.setValue("X2F","1");
-//        else
-//            mOGR.setValue("X2F","0");
-//    }
-//}
-
-
-
-//public bool Beloppsrad
-//{
-//    get
-//    {
-//        if (mOGR.getValue("BRA").Equals("*"))
-//            return true;
-//        else
-//            return false;
-//    }
-//    set
-//    {
-//        if (value)
-//            mOGR.setValue("BRA","*");
-//        else
-//            mOGR.setValue("BRA","");
-//    }
-//}
-
-//public string NeedStep
-//{
-//    get
-//    {
-//        return mOGR2.getValue("C2A");
-//    }
-//    set
-//    {
-//        mOGR2.setValue("C2A",value);
-//    }
-//}
-
-//public string ProductGroup
-//{
-//    get
-//    {
-//        return mOGR.getValue("EXT");
-//    }
-//    set
-//    {
-//        mOGR.setValue("EXT",GCF.noNULL(value));
-//    }
-//}
-
-//public bool FirstTimePatient
-//{
-//    get
-//    {
-//        if (mOGR2.getValue("C1A").Equals("1"))
-//            return true;
-//        else
-//            return false;
-//    }
-//    set
-//    {
-//        if (value)
-//            mOGR2.setValue("C1A","1");
-//        else
-//            mOGR2.setValue("C1A","0");
-//    }
-//}
-
-//public int AidOid
-//{
-//    get
-//    {
-//        return int.Parse(mOGR2.getValue("NU5"));
-//    }
-//    set
-//    {
-//        mOGR2.setValue("NU5",value.ToString());
-//    }
-//}
-
-//public int PartOid
-//{
-//    get
-//    {
-//        return int.Parse(mOGR2.getValue("NU6"));
-//    }
-//    set
-//    {
-//        mOGR2.setValue("NU6",value.ToString());
-//    }
-//}
-
-//public bool Urgent
-//{
-//    get
-//    {
-//        try
-//        {
-//            if (mOGR2.getValue("C1B").Equals("1"))
-//                return true;
-//            else 
-//                return false;
-//        }
-//        catch { return false; }
-//    }
-//    set
-//    {
-//        try
-//        {
-//            if(value)
-//                mOGR2.setValue("C1B", "1");
-//            else
-//                mOGR2.setValue("C1B", "0");
-//        }
-//        catch { mOGR2.setValue("C1B", "0"); }
-
-//    }
-//}
-
-//public string ProductionTitle
-//{
-//    get
-//    {
-//        return mOGR2.getValue("C20") + mOGR2.getValue("C10");
-//    }
-//    set
-//    {
-//        try
-//        {
-//            if (value.Length > 30)
-//            {
-//                mOGR2.setValue("C20", value.Substring(0, 20));
-//                mOGR2.setValue("C10", value.Substring(20));
-//            }
-//            else
-//            {
-//                mOGR2.setValue("C20", value);
-//                mOGR2.setValue("C10", "");
-//            }
-//        }
-//        catch (Exception e)
-//        { 
-//            mOGR2.setValue("C20", "");
-//            mOGR2.setValue("C10", "");
-//            Logger.loggError(e, "Error while setting ProductionTitle", Config.User, "OrderRowCOM.ProductionTitle");
-//        }
-
-//    }
-//}
-
-//public string Holder
-//{
-//    get
-//    {
-//        return mOGR2.getValue("C05");
-//    }
-//}
-
-//public DateTime PromisedDeliverDate
-//{
-//    get
-//    {
-//        string[] s = { "yyMMdd", "yyyyMMdd", "yyyy-MM-dd" }; 
-
-//        try
-//        {
-//            DateTime dt;
-//            DateTime.TryParseExact(mOGR2.getValue("C06"), s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt);
-
-//            if (dt.AddYears(50) < DateTime.Now)
-//                return DateTime.Now;
-//            else
-//                return dt;
-//        }
-//        catch { return DateTime.Now; }
-//    }
-//    set
-//    {
-//        try
-//        {
-//            mOGR2.setValue("C06", value.ToString("yyMMdd"));
-//        }
-//        catch { mOGR2.setValue("C06", DateTime.Today.ToString("yyMMdd")); }
-
-//    }
-//}

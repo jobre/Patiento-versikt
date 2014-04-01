@@ -225,6 +225,7 @@ namespace Ortoped.Definitions
             return lw;
         }
 
+
         /// <summary>
         /// Konvertera en ArrayList till Patient object.
         /// </summary>

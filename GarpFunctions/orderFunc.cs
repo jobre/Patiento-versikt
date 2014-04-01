@@ -155,6 +155,7 @@ namespace Ortoped.GarpFunctions
                     Prislista = o.Pricelist;
                     KombikaCode = o.KombikaCode;
                     ReferralNr = o.ReferralNo;
+                    ReferralDate = o.ReferralDate;
                     AidType = o.AidType;
                     FRY = o.isClosed;
                     Priority = o.Priority;
@@ -378,6 +379,7 @@ namespace Ortoped.GarpFunctions
             o.RekvNo = RekvNr;
             o.KombikaCode = KombikaCode;
             o.ReferralNo = ReferralNr;
+            o.ReferralDate = ReferralDate;
             o.AidType = AidType;
             o.Priority = Priority;
             o.isClosed = FRY;
@@ -416,6 +418,7 @@ namespace Ortoped.GarpFunctions
             o.AidType = "";
             o.Priority = "";
             o.isClosed = false;
+            o.ReferralDate = DateTime.Now;
         }
 
         public void printNotice(string dokgen, string dok, string onr, string aidid, string errandid)

@@ -30,15 +30,16 @@ namespace Ortoped.Definitions
         private string mNotation;
         private string mOHtext;
         private DateTime mValidFrom;
-        private int mValidYearsCount;			// Antal år
-        private string mAidCount;			// Antal hjälpmedel
+        private int mValidYearsCount;	// Antal år
+        private string mAidCount;		// Antal hjälpmedel
         private string mYourReference;
         private string mSignature;
         private string mPricelist;
-        private string mRekvNo;				// Rekvisitionsnummer
-        private string mKombikaCode;   // THORD: Kombikakod (klinik)
+        private DateTime mReferralDate;   // Datum som remiss anländer till OTA
+        private string mRekvNo;			// Rekvisitionsnummer
+        private string mKombikaCode;    // THORD: Kombikakod (klinik)
         private string mReferralNo;     // THORD: Remissnummer
-        private string mPriority;    // THORD: Prioritet (0=NORMAL, 1=SUBAKUT, 2=AKUT)
+        private string mPriority;       // THORD: Prioritet (0=NORMAL, 1=SUBAKUT, 2=AKUT)
         private bool misClosed;
         private string mDeliverStatus;
         private bool mCanChangeInvoiceCustomer;
@@ -220,6 +221,12 @@ namespace Ortoped.Definitions
         {
             get { return ECS.noNULL(mKombikaCode); }
             set { mKombikaCode = value; }
+        }
+
+        public DateTime ReferralDate
+        {
+            get { return mReferralDate; }
+            set { mReferralDate = value; }
         }
 
         public string ReferralNo

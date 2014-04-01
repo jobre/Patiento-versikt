@@ -25,6 +25,7 @@ namespace Ortoped.Dialogs
 
 		private System.ComponentModel.Container components = null;
 		public int selidx = -1;
+        public string SSN = "";
 
         //public frmDiagPatient()
         //{
@@ -170,7 +171,9 @@ namespace Ortoped.Dialogs
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
 			selidx = lwPatient.SelectedItems[0].Index;
-			this.Close();
+            SSN = lwPatient.SelectedItems[0].Text;
+ 			this.Close();
+            
 		}
 
 		private void frmDiagPatient_Load(object sender, System.EventArgs e)
@@ -190,6 +193,8 @@ namespace Ortoped.Dialogs
 
         private void lwPatient_ColumnClick(object sender, ColumnClickEventArgs e)
         {
+            ListView temp = new ListView();
+
             if (e.Column == mListViewSorter.SortColumn)
             {
                 // Reverse the current sort direction for this column.
@@ -211,7 +216,7 @@ namespace Ortoped.Dialogs
 
             // Perform the sort with these new sort options.
             this.lwPatient.Sort();
-
+          
         }
 
 	}

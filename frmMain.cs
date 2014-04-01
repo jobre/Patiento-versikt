@@ -10,12 +10,7 @@ using Ortoped.GarpFunctions;
 using Ortoped.HelpClasses;
 using Ortoped.Dialogs;
 using Ortoped.Definitions;
-//using System.Xml;
-//using Microsoft.Win32;
-//using Excido;
-//using System.IO;
 using Ortoped.Thord;
-//using MessageHelper;
 using Log4Net;
 using GCS;
 using System.Threading;
@@ -63,6 +58,7 @@ namespace Ortoped
 					  bSaveInProgress = false, btxtONR_Leave_Event = false, bORChanged = false, ignoreCheckSignature = false;
 		private string mSendMessage = "";
 		private KeyboardSpy keyboardSpy;
+        private int mSavedHeight, mSavedWidht;
 
 		[STAThread]
 		static void Main(string[] args)
@@ -188,7 +184,22 @@ namespace Ortoped
 		private void frmMain_Load(object sender, System.EventArgs e)
 		{
 			Log4Net.Logger.loggInfo("Starting application", Config.User, "frmMain_Load");
-            tabctrlRow.TabPages.Remove(tabpProduction);
+            //tabctrlRow.TabPages.Remove(tabpProduction);
+
+            mSavedHeight = this.Height;
+            mSavedWidht = this.Width;
+
+            try
+            {
+                if (bool.Parse(ConfigurationManager.AppSettings["SMS_Enabled"].ToString()))
+                    btnSMS.Enabled = true;
+                else
+                    btnSMS.Enabled = false;
+            }
+            catch 
+            {
+                btnSMS.Enabled = false;
+            }
 
 			// Check if we should we should use ALWAYS UPPERCASE
 			if (Config.AlwaysUpperCase)
@@ -325,8 +336,8 @@ namespace Ortoped
 
 			try
 			{
-				cboLevsatt.Items.Add("");
-				cboLevsatt.Items.AddRange(oDelM.getListOfNames());
+				cboAidPriority.Items.Add("");
+				cboAidPriority.Items.AddRange(oDelM.getListOfNames());
 			}
 			catch { }
 
@@ -429,15 +440,26 @@ namespace Ortoped
 				Ortoped.Dialogs.frmDiagPatient oDiaPat = new Ortoped.Dialogs.frmDiagPatient(PatientDefenition.convertToPatient(p));
 				oDiaPat.ShowDialog();
 				int idx = oDiaPat.selidx;
+                string snn = oDiaPat.SSN;
+                PatientDefenition selectedPatient = null;
 				oDiaPat.Dispose();
 
-				// Kontrollera om användaren valde Cancel (idx == -1)
+                // Kontrollera om användaren valde Cancel (idx == -1)
 				if (idx != -1)
 				{
-					// Check if it's a valid patient 
-					if (p[oDiaPat.selidx].IsValid)
+                    foreach (PatientDefenition p1 in p)
+                    {
+                        if (p1.SSN.Equals(snn))
+                        {
+                            selectedPatient = p1;
+                            break;
+                        }
+                    }
+
+                    // Check if it's a valid patient 
+					if (selectedPatient.IsValid)
 					{
-						if (updateForm(p[oDiaPat.selidx]))
+						if (updateForm(selectedPatient))
 							return true;
 						else
 							return false;
@@ -618,6 +640,7 @@ namespace Ortoped
 			o.InvoiceCustomer = txtFKN.Text;
 			o.Clinik = txtKlinik.Text;
 			o.ClinikName = txtKlinikNamn.Text;
+            o.ReferralDate = dtOTADate.Value;
 			if (cboOrdinator.Text.Contains("("))
 				o.SelOrdinator = cboOrdinator.Text.Substring(0, cboOrdinator.Text.IndexOf("("));
 			else
@@ -688,7 +711,7 @@ namespace Ortoped
 				or.SelectedHandler = cboHandler.Text;
 			or.Prodstatus = cboProdStatus.Text;
 			or.LevTid = txtLevDate.Text;
-			or.DeliverMode = cboLevsatt.Text;
+			or.AidPriority = oDelM.getKeyByName(cboAidPriority.Text);
 			or.Artikel = txtANR.Text;
 			or.Antal = txtORA.Text == "" ? "0" : txtORA.Text;
 			//if (fillprice)
@@ -703,6 +726,7 @@ namespace Ortoped
 			or.ProductionTitle = txtProductionTitle.Text;
 			or.Urgent = chkUrgent.Checked;
 			or.PromisedDeliverDate = dtpPromisedDeliverDate.Value;
+            or.ConditionDate = dtpConditionDate.Value;
 
 			try
 			{
@@ -730,6 +754,8 @@ namespace Ortoped
 			ignoreSave = true;
 			tabctrlRow.SelectedIndex = 0;
 			txtONR.Text = "";
+            dtOTADate.Value = DateTime.Now;
+            txtOTADate.Text = "";
 			txtODT.Text = "";
 			txtFKN.Text = "";
 			txtFKN_NAM.Text = "";
@@ -758,6 +784,8 @@ namespace Ortoped
 			grbOH.Enabled = false;
 			txtFKN.Enabled = true;
 			txtKlinik.Enabled = true;
+
+ 
 
 			ignoreSave = false;
 
@@ -807,7 +835,7 @@ namespace Ortoped
             cboHandler.Text = "";
 			txtHandler.Text = "";
 			cboProdStatus.Text = "";
-			cboLevsatt.Text = "";
+			cboAidPriority.Text = "";
 			cboNeedStep.Text = "";
 			dtpLevtid.Value = DateTime.ParseExact(DateTime.Today.ToString("yyMMdd"), "yyMMdd", new CultureInfo("sv-SE"));
             txtLevDate.Text = "";
@@ -822,6 +850,7 @@ namespace Ortoped
 			txtProductionTitle.Text = "";
 			chkUrgent.Checked = false;
 			dtpPromisedDeliverDate.Value = DateTime.Now;
+            dtpConditionDate.Value = DateTime.Now;
             labSumExternal.Text = "0:-";
             labSumInternal.Text = "0:-";
 
@@ -972,6 +1001,17 @@ namespace Ortoped
                     cboOrdinator.Items.Clear();
                     cboOrdinator.Text = "";
                     cboSignature.Text = "";
+
+
+                    // ReferralDate (arrived at OTA)
+                    try
+                    {
+                        dtOTADate.Value = o.ReferralDate;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log4Net.Logger.loggError(ex, "Error while handling datetime ReferralDate", Config.User, "frmMain.updateForm");
+                    }
 
                     // Hide combobox if signature is not found (and signature is not "")
                     //2009-05-06:JB if ((cboSignature.FindStringExact(o.Signature.Trim()) == -1) && !o.Signature.Trim().Equals(""))
@@ -1660,7 +1700,7 @@ namespace Ortoped
 				cboHandler.SelectedIndex = 0;
 				cboHandler.Text = or.SelectedHandler;
 				cboProdStatus.SelectedIndex = 0;
-				cboLevsatt.SelectedIndex = 0;
+				cboAidPriority.SelectedIndex = 0;
 				cboNeedStep.SelectedIndex = 0;
 				chkGaranti.Checked = false;
 				chkFirstTimePatient.Checked = false;
@@ -1796,27 +1836,27 @@ namespace Ortoped
                         tabctrlRow.Refresh();
 						break;
 
-                    //case 3:	// Production
-                    //    if (lwOr.SelectedItems.Count > 0)
-                    //    {
-                    //        ignoreItemCheckEvent = false;
+                    case 3:	// Production
+                        if (lwOr.SelectedItems.Count > 0)
+                        {
+                            ignoreItemCheckEvent = false;
 
-                    //        if (iCurrentTab == 0)
-                    //            updateOrderRowDetailPane(oOR.getRow(frmControler.CurrentOH.OrderNo, lwOr.SelectedItems[0].Tag.ToString()), true);
-                    //        else
-                    //            updateOrderRowDetailPane(oOR.getRow(frmControler.CurrentOH.OrderNo, txtRDC.Text), true);
+                            if (iCurrentTab == 0)
+                                updateOrderRowDetailPane(oOR.getAid(frmControler.CurrentOH.OrderNo, lwOr.SelectedItems[0].SubItems[AIDNR].Text, false), true);
+                            else
+                                updateOrderRowDetailPane(oOR.getAid(frmControler.CurrentOH.OrderNo, txtAidId.Text, false), true);
 
-                    //        ignoreItemCheckEvent = true;
-                    //    }
-                    //    else
-                    //    {
-                    //        clearOrderrowDetailPane(false);
-                    //    };
-                    //    iCurrentTab = 3;
+                            ignoreItemCheckEvent = true;
+                        }
+                        else
+                        {
+                            clearOrderrowDetailPane(false);
+                        };
+                        iCurrentTab = 3;
 
-                    //    bORChanged = false;
-                    //    pnlORSaved.Text = "Orderrad ändrad: NEJ";
-                    //    break;
+                        bORChanged = false;
+                        pnlORSaved.Text = "Orderrad ändrad: NEJ";
+                        break;
 					default:
 						break;
 				}
@@ -2096,6 +2136,21 @@ namespace Ortoped
 					showStatusBar(true);
 			}
 
+            if (e.Control && e.Alt && e.Shift && e.KeyValue.Equals((int)Keys.S))
+            {
+                if (this.Width == mSavedWidht)
+                {
+                    this.Width = 1024;
+                    this.Height = 768;
+                }
+                else
+                {
+                    this.Width = mSavedWidht;
+                    this.Height = mSavedHeight;
+                }
+                e.SuppressKeyPress = true;
+            }
+
 			if (e.Control && e.Alt && e.Shift && e.KeyValue.Equals((int)Keys.H))
 			{
 				if (txtRDC.Visible)
@@ -2221,12 +2276,6 @@ namespace Ortoped
 			// To solve problem with unsaved AidTexts 
 			if (txtONR.CanFocus)
 				txtONR.Focus();
-		}
-
-		private void chkDeceased_CheckedChanged(object sender, EventArgs e)
-		{
-			if (chkDeceased.Focused && chkDeceased.Enabled)
-				oCust.setDeceased(txtKNR.Text, chkDeceased.Checked);
 		}
 
 		private void cboOrdinator_SelectionChangeCommitted(object sender, EventArgs e)
@@ -2386,6 +2435,9 @@ namespace Ortoped
 
 		private void btnSwitchPatient_Click(object sender, EventArgs e)
 		{
+            if (!saveOrder(false))
+                return;
+
 			if (!checkSignature())
 				return;
 
@@ -2721,7 +2773,7 @@ namespace Ortoped
 
 		private void cboLevsatt_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cboLevsatt.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+			if (cboAidPriority.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
 			{
 				if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
 					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -2940,12 +2992,13 @@ namespace Ortoped
 			setBestallSelektion(or.InkStat);
 			chkViewState.Checked = or.ViewInList;
 			chkGaranti.Checked = or.Warrenty;
-			cboLevsatt.Text = or.DeliverMode;
+			cboAidPriority.Text = oDelM.getNameByKey(or.AidPriority);
 			cboNeedStep.SelectedIndex = cboNeedStep.FindString(or.Thord_NeedStep);
 			chkUpdatedInThord.Checked = or.CreatedInThord;
 			txtProductionTitle.Text = or.ProductionTitle;
 			chkUrgent.Checked = or.Urgent;
-			//dtpPromisedDeliverDate.Value = or.PromisedDeliverDate;
+			dtpPromisedDeliverDate.Value = or.PromisedDeliverDate.Value;
+            dtpConditionDate.Value = or.ConditionDate.Value;
 			txtHolder.Text = or.Holder;
 
 			grbArtList.Enabled = true;
@@ -3460,6 +3513,16 @@ namespace Ortoped
 			}
 		}
 
+        private void dtpConditionDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpConditionDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+            {
+                valueChangedOR(sender, e);
+                if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
+                    MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void btnStartProdView_Click(object sender, EventArgs e)
         {
             try
@@ -3486,121 +3549,64 @@ namespace Ortoped
             catch { }
         }
 
+        private void chkDeceased_MouseUp(object sender, MouseEventArgs e)
+        {
+            oCust.setDeceased(txtKNR.Text, chkDeceased.Checked);
+        }
+
+        private void btnSMS_Click(object sender, EventArgs e)
+        {
+            frmSendSms sms = new frmSendSms(frmControler.CurrentPatient, Config.CompanyId);
+            sms.ShowDialog();
+        }
+
+        private void pnlBottom_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void visaMaterialplaneringenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setFormatClipBoardInfo(txtKNR.Text + ";" + frmControler.CurrentOH.OrderNo + ";" + txtPNR.Text);
+            oOR.openMatPlan();
+        }
+
+        private void dtOTADate_ValueChanged(object sender, EventArgs e)
+        {
+            if (!GCF.noNULL(dtOTADate.Tag).ToString().Equals("-1"))
+            {
+                txtOTADate.Text = dtOTADate.Value.ToString("yyMMdd");
+                checkIfOrderHeadIsChanged(null, null);
+            }
+            dtOTADate.Tag = "";
+
+        }
+
+        private void txtOTADate_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                dtOTADate.Tag = "-1";
+                dtOTADate.Value = DateTime.ParseExact(txtOTADate.Text, "yyMMdd", new CultureInfo("sv-SE"));
+
+                checkIfOrderHeadIsChanged(null, null);
+            }
+            catch
+            {
+                txtOTADate.Text = dtOTADate.Value.ToString("yyMMdd");
+                MessageBox.Show("Fel format på datum, måste vara ÅÅMMDD");
+            }
+        }
+
+        private void dtOTADate_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!GCF.noNULL(dtOTADate.Tag).ToString().Equals("-1"))
+                txtOTADate.Text = dtOTADate.Value.ToString("yyMMdd");
+            dtOTADate.Tag = "";
+
+        }
+
 	}
 }
 
 
-
-
-
-
-
-
-
-
-
-        //private void updateOrderRowDetailPane(OrderRowDefinitions.OrderRow or, bool updatelistview)
-        //{
-        //    if (updatelistview)
-        //        clearOrderrowDetailPane(false);
-
-        //    // Abort if no orderrow was found
-        //    if (or.OrderNo == null)
-        //        return;
-
-        //    AidDefinitions.Aid = 
-        //    cboHandler.Text = or.SelectedHandler;
-
-        //    // Hide combobox if selected handler is not found (and selected handler is not "")
-        //    if ((cboHandler.FindStringExact(or.SelectedHandler.Trim()) == -1) && !or.SelectedHandler.Trim().Equals(""))
-        //    {
-        //        cboHandler.Visible = false;
-        //        txtHandler.Visible = true;
-        //        cboHandler.SelectedIndex = 0; // clear text
-        //        txtHandler.Text = or.SelectedHandler;
-        //    }
-        //    else
-        //    {
-        //        cboHandler.Visible = true;
-        //        txtHandler.Visible = false;
-        //        txtHandler.Text = ""; // clear text
-        //        cboHandler.SelectedIndex = cboHandler.FindStringExact(or.SelectedHandler);
-        //    }
-
-        //    txtAidId.Text = or.AidNr;
-        //    txtOR_ONR.Text = or.OrderNo;
-        //    txtRDC.Text = or.Rad;
-        //    cboProdStatus.Text = "";
-        //    cboProdStatus.Text = or.Prodstatus;
-        //    txtOrDatum.Text = or.AidDate;
-        //    txtLevDate.Text = or.LevTid;
-        //    txtAidOid.Text = or.AidOid.ToString();
-        //    txtPartOid.Text = or.PartOid.ToString();
-        //    chkFirstTimePatient.Checked = or.FirstTimePatient;
-
-        //    if (or.Levstatus.Equals("5"))
-        //        txtLevDate.Enabled = false;
-        //    else
-        //        txtLevDate.Enabled = true;
-
-        //    txtANR.Text = or.Artikel;
-        //    txtBEN.Text = or.ProductName;
-        //    txtORA.Text = or.Antal;
-        //    txtPRI.Text = or.APris;
-        //    labORA.Text = "Antal ( " + or.Enhet.Trim() + " )";
-        //    //			cboHandler.Text = or.SelectedHandler;
-        //    txtOrText.Text = or.Text;
-        //    setBestallSelektion(or.InkStat);
-        //    chkViewState.Checked = or.ViewInList;
-        //    chkGaranti.Checked = or.Warrenty;
-        //    cboLevsatt.Text = or.DeliverMode;
-        //    cboNeedStep.SelectedIndex = cboNeedStep.FindString(or.Thord_NeedStep);
-        //    chkUpdatedInThord.Checked = or.CreatedInThord;
-        //    txtProductionTitle.Text = or.ProductionTitle;
-        //    chkUrgent.Checked = or.Urgent;
-        //    dtpPromisedDeliverDate.Value = or.PromisedDeliverDate;
-        //    txtHolder.Text = or.Holder;
-        //    labSumInternal.Text = or.SumInternlaProducts.ToString() + ":-";
-        //    labSumExternal.Text = or.SumExternalProducts.ToString() + ":-";
-
-        //    grbArtList.Enabled = true;
-
-        //    if (or.Levstatus.Equals("0"))
-        //    {
-        //        grbAid.Enabled = true;
-        //        grbArt.Enabled = true;
-        //    }
-        //    else
-        //    {
-        //        grbAid.Enabled = false;
-        //        grbArt.Enabled = false;
-        //    }
-
-        //    if (updatelistview)
-        //    {
-        //        //ignoreItemCheckEvent = true;
-        //        lwAidRows.Items.Clear();
-        //        lwAidRows.Items.AddRange(OrderRowDefinitions.OrderRow.convertToSmallListView(oOR.getAid(or.OrderNo, or.AidNr).OrderRows.ToArray()));
-        //        this.lwAidRows.ListViewItemSorter = new ListViewItemComparer(3);
-        //        //ignoreItemCheckEvent = false;
-        //        try
-        //        {
-        //            ListViewItem[] slw = lwAidRows.Items.Find(or.Rad, true);
-        //            int i = slw[0].Index;
-        //            lwAidRows.Items[i].Selected = true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Log4Net.Logger.loggError(e, "", Config.User, "");
-        //        }
-        //    }
-
-        //    // If row is not createded inThord, but should be, set it as changed to trigg saving pricedure
-        //    if (!or.CreatedInThord && !GCF.noNULL(or.RemissNo).Equals(""))
-        //    {
-        //        valueNotChangedOR(null, null);
-        //    }
-
-        //    //bORChanged = false;
-        //    //pnlORSaved.Text = "Orderrad ändrad: NEJ";
-        //}
