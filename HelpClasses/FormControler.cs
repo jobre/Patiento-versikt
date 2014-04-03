@@ -85,6 +85,9 @@ namespace Ortoped.HelpClasses
         if (oCurrent.ValidFrom.CompareTo(oNew.ValidFrom) != 0)
           isOrderChanged = true;
 
+        if (oCurrent.ReferralDate.CompareTo(oNew.ReferralDate) != 0)
+            isOrderChanged = true;
+
         if (oCurrent.ValidYearsCount.CompareTo(oNew.ValidYearsCount) != 0)
           isOrderChanged = true;
 

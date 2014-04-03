@@ -725,8 +725,24 @@ namespace Ortoped
 			or.FirstTimePatient = chkFirstTimePatient.Checked;
 			or.ProductionTitle = txtProductionTitle.Text;
 			or.Urgent = chkUrgent.Checked;
-			or.PromisedDeliverDate = dtpPromisedDeliverDate.Value;
-            or.ConditionDate = dtpConditionDate.Value;
+
+            try
+            {
+                or.PromisedDeliverDate =  DateTime.ParseExact(txtPromisedDeliverDate.Text, "yyMMdd", new CultureInfo("sv-SE"));
+            }
+            catch
+            {
+                or.PromisedDeliverDate = null;
+            }
+
+            try
+            {
+                or.ConditionDate =  DateTime.ParseExact(txtConditionDate.Text, "yyMMdd", new CultureInfo("sv-SE"));
+            }
+            catch
+            {
+                or.ConditionDate = null;
+            }
 
 			try
 			{
@@ -784,7 +800,7 @@ namespace Ortoped
 			grbOH.Enabled = false;
 			txtFKN.Enabled = true;
 			txtKlinik.Enabled = true;
-
+            
  
 
 			ignoreSave = false;
@@ -851,6 +867,8 @@ namespace Ortoped
 			chkUrgent.Checked = false;
 			dtpPromisedDeliverDate.Value = DateTime.Now;
             dtpConditionDate.Value = DateTime.Now;
+            txtPromisedDeliverDate.Text = "";
+            txtConditionDate.Text = "";
             labSumExternal.Text = "0:-";
             labSumInternal.Text = "0:-";
 
@@ -2997,9 +3015,11 @@ namespace Ortoped
 			chkUpdatedInThord.Checked = or.CreatedInThord;
 			txtProductionTitle.Text = or.ProductionTitle;
 			chkUrgent.Checked = or.Urgent;
-			dtpPromisedDeliverDate.Value = or.PromisedDeliverDate.Value;
-            dtpConditionDate.Value = or.ConditionDate.Value;
-			txtHolder.Text = or.Holder;
+            //dtpPromisedDeliverDate.Value = or.PromisedDeliverDate.Value;
+            //dtpConditionDate.Value = or.ConditionDate.Value;
+            txtConditionDate.Text = or.ConditionDate.HasValue ? or.ConditionDate.Value.ToString("yyMMdd") : "";
+            txtPromisedDeliverDate.Text = or.PromisedDeliverDate.HasValue ? or.PromisedDeliverDate.Value.ToString("yyMMdd") : "";
+            txtHolder.Text = or.Holder;
 
 			grbArtList.Enabled = true;
 
@@ -3507,6 +3527,7 @@ namespace Ortoped
 		{
 			if (dtpPromisedDeliverDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
 			{
+                txtPromisedDeliverDate.Text = dtpPromisedDeliverDate.Value.ToString("yyMMdd");
 				valueChangedOR(sender, e);
 				if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
 					MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3517,6 +3538,7 @@ namespace Ortoped
         {
             if (dtpConditionDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
             {
+                txtConditionDate.Text = dtpConditionDate.Value.ToString("yyMMdd");
                 valueChangedOR(sender, e);
                 if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
                     MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3604,6 +3626,27 @@ namespace Ortoped
                 txtOTADate.Text = dtOTADate.Value.ToString("yyMMdd");
             dtOTADate.Tag = "";
 
+        }
+
+        private void txtConditionDate_Leave(object sender, EventArgs e)
+        {
+            if (txtConditionDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+            {
+                valueChangedOR(sender, e);
+                if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
+                    MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void txtPromisedDeliverDate_Leave(object sender, EventArgs e)
+        {
+            if (txtPromisedDeliverDate.Focused && !txtANR.Text.Trim().Equals("") && !ignoreDetailEvents)
+            {
+                valueChangedOR(sender, e);
+                if (!oOR.saveOrderRow(fillOrderRow(sender, false), true, false))
+                    MessageBox.Show(this, oOR.getErrorMsg(), "Uppdatering är inte tillåtet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+ 
         }
 
 	}

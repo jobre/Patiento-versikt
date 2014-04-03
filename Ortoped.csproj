@@ -115,6 +115,14 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ErrandsEntity, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SMS_Avvisering\ErrandsEntity\bin\Debug\ErrandsEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="KeyboardSpyDll, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KeyboardSpyDll\bin\Debug\KeyboardSpyDll.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\Microsoft WSE\v3.0\Microsoft.Web.Services3.dll</HintPath>
@@ -685,24 +693,6 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_BaseFunctions\GCS_BaseFunctions.csproj">
-      <Project>{ae8c795f-d34d-4d7d-a8dc-2386ebc17a15}</Project>
-      <Name>GCS_BaseFunctions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\GCS_internt\Projekt\GCS_Component\FW_4\GCS_GarpFunctions\GCS_GarpFunctions.csproj">
-      <Project>{F98D5E2B-D376-42BC-B561-74CF8F37B8C6}</Project>
-      <Name>GCS_GarpFunctions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KeyboardSpyDll\KeyboardSpyDll.csproj">
-      <Project>{D82FCD01-11A7-4AFF-9623-DA451803A35A}</Project>
-      <Name>KeyboardSpyDll</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMS_Avvisering\ErrandsEntity\ErrandsEntity.csproj">
-      <Project>{fe6dc6f7-2abb-48a2-8fcc-2d6d255260f5}</Project>
-      <Name>ErrandsEntity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WebReferenceUrl Include="https://www.thord.sll.se/thordwebservice/Thordintegration2.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\se.sll.thord.www\</RelPath>
@@ -721,6 +711,16 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ProductionService\" />
     <WCFMetadataStorage Include="Service References\ThordService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GCS\GCS_Component\FW_4\GCS_BaseFunctions\GCS_BaseFunctions.csproj">
+      <Project>{ae8c795f-d34d-4d7d-a8dc-2386ebc17a15}</Project>
+      <Name>GCS_BaseFunctions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GCS\GCS_Component\FW_4\GCS_GarpFunctions\GCS_GarpFunctions.csproj">
+      <Project>{f98d5e2b-d376-42bc-b561-74cf8f37b8c6}</Project>
+      <Name>GCS_GarpFunctions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

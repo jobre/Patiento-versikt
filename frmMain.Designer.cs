@@ -475,6 +475,8 @@ namespace Ortoped
             this.bwGarp = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtConditionDate = new System.Windows.Forms.TextBox();
+            this.txtPromisedDeliverDate = new System.Windows.Forms.TextBox();
             this.pnlBottom.SuspendLayout();
             this.grbOr.SuspendLayout();
             this.tabctrlRow.SuspendLayout();
@@ -1541,6 +1543,8 @@ namespace Ortoped
             // tabpProduction
             // 
             this.tabpProduction.BackColor = System.Drawing.SystemColors.Control;
+            this.tabpProduction.Controls.Add(this.txtPromisedDeliverDate);
+            this.tabpProduction.Controls.Add(this.txtConditionDate);
             this.tabpProduction.Controls.Add(this.dtpConditionDate);
             this.tabpProduction.Controls.Add(this.label36);
             this.tabpProduction.Controls.Add(this.chkUrgent);
@@ -1560,7 +1564,7 @@ namespace Ortoped
             this.dtpConditionDate.CustomFormat = "yyMMdd";
             this.dtpConditionDate.Location = new System.Drawing.Point(15, 107);
             this.dtpConditionDate.Name = "dtpConditionDate";
-            this.dtpConditionDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpConditionDate.Size = new System.Drawing.Size(116, 20);
             this.dtpConditionDate.TabIndex = 9;
             this.dtpConditionDate.ValueChanged += new System.EventHandler(this.dtpConditionDate_ValueChanged);
             // 
@@ -1589,7 +1593,7 @@ namespace Ortoped
             this.dtpPromisedDeliverDate.CustomFormat = "yyMMdd";
             this.dtpPromisedDeliverDate.Location = new System.Drawing.Point(14, 152);
             this.dtpPromisedDeliverDate.Name = "dtpPromisedDeliverDate";
-            this.dtpPromisedDeliverDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpPromisedDeliverDate.Size = new System.Drawing.Size(117, 20);
             this.dtpPromisedDeliverDate.TabIndex = 6;
             this.dtpPromisedDeliverDate.ValueChanged += new System.EventHandler(this.dtpPromisedDeliverDate_ValueChanged);
             // 
@@ -2960,6 +2964,22 @@ namespace Ortoped
             // 
             this.toolTip2.IsBalloon = true;
             // 
+            // txtConditionDate
+            // 
+            this.txtConditionDate.Location = new System.Drawing.Point(15, 107);
+            this.txtConditionDate.Name = "txtConditionDate";
+            this.txtConditionDate.Size = new System.Drawing.Size(100, 20);
+            this.txtConditionDate.TabIndex = 10;
+            this.txtConditionDate.Leave += new System.EventHandler(this.txtConditionDate_Leave);
+            // 
+            // txtPromisedDeliverDate
+            // 
+            this.txtPromisedDeliverDate.Location = new System.Drawing.Point(15, 152);
+            this.txtPromisedDeliverDate.Name = "txtPromisedDeliverDate";
+            this.txtPromisedDeliverDate.Size = new System.Drawing.Size(100, 20);
+            this.txtPromisedDeliverDate.TabIndex = 11;
+            this.txtPromisedDeliverDate.Leave += new System.EventHandler(this.txtPromisedDeliverDate_Leave);
+            // 
             // frmMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -3117,6 +3137,8 @@ namespace Ortoped
         private ToolStripMenuItem visaMaterialplaneringenToolStripMenuItem;
         private TextBox txtOTADate;
         private DateTimePicker dtOTADate;
+        private TextBox txtPromisedDeliverDate;
+        private TextBox txtConditionDate;
     }
 }
 

@@ -791,11 +791,11 @@ namespace Ortoped.GarpGEM
                 DateTime.TryParseExact(mOGR2.getValue("C06"), s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt);
 
                 if (dt.AddYears(50) < DateTime.Now)
-                    or.PromisedDeliverDate = DateTime.Now;
+                    or.PromisedDeliverDate = null;
                 else
                     or.PromisedDeliverDate = dt;
             }
-            catch { or.PromisedDeliverDate = DateTime.Now; }
+            catch { or.PromisedDeliverDate = null; }
 
             try
             {
@@ -803,11 +803,11 @@ namespace Ortoped.GarpGEM
                 DateTime.TryParseExact(mOGR2.getValue("C07").Trim(), s, new CultureInfo("sv-SE"), DateTimeStyles.AssumeLocal, out dt);
 
                 if (dt.AddYears(50) < DateTime.Now)
-                    or.ConditionDate = DateTime.Now;
+                    or.ConditionDate = null;
                 else
                     or.ConditionDate = dt;
             }
-            catch { or.ConditionDate = DateTime.Now; }
+            catch { or.ConditionDate = null; }
 
             or.Holder = mOGR2.getValue("C05") == "" ? null : mOGR2.getValue("C05");
             return or;
